@@ -1,0 +1,23 @@
+{
+  "name": "001_drinks_api",
+  "version": "1.0.0",
+  "description": "Drinks API homework for 2024 NodeJS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BookOfKnives/2024_fullstack_nodejs.git"
+  },
+  "author": "HVMW",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BookOfKnives/2024_fullstack_nodejs/issues"
+  },
+  "homepage": "https://github.com/BookOfKnives/2024_fullstack_nodejs#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
