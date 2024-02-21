@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const drinks_router = require("./router_drinks_API");
+const drinks_router = require("./router_drinks_API.js");
 
 app.use("/api", drinks_router); 
 
