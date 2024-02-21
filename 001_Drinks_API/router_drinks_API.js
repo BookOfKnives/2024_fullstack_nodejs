@@ -10,8 +10,6 @@ data.drinks.map((drink) => {
     }
 });
 
-// console.log("001 drink api says, this is my newIdNumber:::", newDataEntryIdNumber.newIdNumber);
-
 console.log("001 router drinks API online.");
 
 router.get("/drinks", (req, res) => {
