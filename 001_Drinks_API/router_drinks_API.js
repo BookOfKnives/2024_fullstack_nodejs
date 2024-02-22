@@ -106,4 +106,6 @@ router.delete("/drinks/:idnumber", (req, res) => {
     }
 })
 
+console.log("001 Drinks API router online.");
+
 module.exports = router;
