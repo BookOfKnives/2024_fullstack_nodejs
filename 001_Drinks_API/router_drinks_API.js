@@ -10,7 +10,7 @@ data.drinks.map((drink) => {
     }
 });
 
-console.log("001 router drinks API online.");
+console.log("001 router drinks API online, number of drink types in database:", newDataEntryIdNumber.newIdNumber);
 
 router.get("/drinks", (req, res) => {
     res.send(data.drinks);
@@ -41,6 +41,24 @@ router.post("/drinks", (req, res) => {
     } else {
         data.drinks.push(newDrink);
         res.json(newDrink);    
+    }
+});
+
+router.put("/drinks/:idnumber", (req, res) => {
+    const drinkIdNumberParameter = Number(req.params.idnumber);
+    const foundDrink = data.drinks.find((drink => drink.id === drinkIdNumberParameter));
+    if (!foundDrink) {
+        res.status(404).send({data: "Sober-4: Drink not found."});
+    } else {
+    const newDrink = {
+        id: foundDrink.id,
+        name: req.body.name,
+        price: req.body.price, 
+        color: req.body.color, 
+        percentage: req.body.percentage,
+    }
+    data.drinks[--foundDrink.id] = newDrink;
+    res.send(newDrink);
     }
 })
 
