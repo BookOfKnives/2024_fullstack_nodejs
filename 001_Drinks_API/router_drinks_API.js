@@ -21,6 +21,14 @@ function findDrink(id) {
     return data.drinks.find((drink => drink.id === id))
 }
 
+function isDrinkInputBad(req) {
+    return (!req.name ||
+            !req.price ||
+            !req.color ||
+            !req.percentage
+    );
+}
+
 router.get("/drinks", (req, res) => {
     res.send(data.drinks);
 });
@@ -35,13 +43,9 @@ router.get("/drinks/:idnumber", (req, res) => {
 });
 
 router.post("/drinks", (req, res) => {
-    if (!req.body.name ||
-        !req.body.price ||
-        !req.body.color ||
-        !req.body.percentage
-    ) {
+    if (isDrinkInputBad(req.body)) { 
         res.status(400).send(`Invalid POST format, please submit name (string), 
-        price (number), color (string) and percentage (number).`)
+        price (number), color (string) and percentage (number).`);
     } else {
         const newDrink = {
             id: idNumberCounter(),
@@ -56,21 +60,26 @@ router.post("/drinks", (req, res) => {
 });
 
 router.put("/drinks/:idnumber", (req, res) => {
-    const foundDrink = findDrink(Number(req.params.idnumber));
-    if (!foundDrink) {
-        res.status(404).send({data: "Sober-4: Drink not found."});
+    if (isDrinkInputBad(req.body)) {
+        res.status(400).send(`Invalid PUT format, please submit name (string), 
+        price (number), color (string) and percentage (number).`);
     } else {
-    const newDrink = {
-        id: foundDrink.id,
-        name: req.body.name,
-        price: req.body.price, 
-        color: req.body.color, 
-        percentage: req.body.percentage,
+        const foundDrink = findDrink(Number(req.params.idnumber));
+        if (!foundDrink) {
+            res.status(404).send({data: "Sober-4: Drink not found."});
+        } else {
+        const newDrink = {
+            id: foundDrink.id,
+            name: req.body.name,
+            price: req.body.price, 
+            color: req.body.color, 
+            percentage: req.body.percentage,
+        }
+        data.drinks[--foundDrink.id] = newDrink;
+        res.send(newDrink);
+        }
     }
-    data.drinks[--foundDrink.id] = newDrink;
-    res.send(newDrink);
-    }
-});
+}); 
 
 router.patch("/drinks/:idnumber", (req, res) => {
     const foundDrink = findDrink(Number(req.params.idnumber));
