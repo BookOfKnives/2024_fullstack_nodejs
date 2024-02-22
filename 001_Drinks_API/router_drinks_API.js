@@ -17,13 +17,16 @@ function idNumberCounter() {
     return ++newDataEntryIdNumber.newIdNumber;
 }
 
+function findDrink(id) {
+    return data.drinks.find((drink => drink.id === id))
+}
+
 router.get("/drinks", (req, res) => {
     res.send(data.drinks);
 });
 
 router.get("/drinks/:idnumber", (req, res) => {
-    const drinkIdNumberParameter = Number(req.params.idnumber);
-    const foundDrink = data.drinks.find((drink => drink.id === drinkIdNumberParameter));
+    const foundDrink = findDrink(Number(req.params.idnumber));
     if (!foundDrink) {
         res.status(404).send({data: "Sober-4: Drink not found."});
     } else {
@@ -53,8 +56,7 @@ router.post("/drinks", (req, res) => {
 });
 
 router.put("/drinks/:idnumber", (req, res) => {
-    const drinkIdNumberParameter = Number(req.params.idnumber);
-    const foundDrink = data.drinks.find((drink => drink.id === drinkIdNumberParameter));
+    const foundDrink = findDrink(Number(req.params.idnumber));
     if (!foundDrink) {
         res.status(404).send({data: "Sober-4: Drink not found."});
     } else {
@@ -71,8 +73,7 @@ router.put("/drinks/:idnumber", (req, res) => {
 });
 
 router.patch("/drinks/:idnumber", (req, res) => {
-    const drinkIdNumberParameter = Number(req.params.idnumber);
-    const foundDrink = data.drinks.find((drink => drink.id === drinkIdNumberParameter));
+    const foundDrink = findDrink(Number(req.params.idnumber));
     if (!foundDrink) {
         res.status(404).send({data: "Sober-4: Drink not found."});
     } else {
@@ -89,8 +90,7 @@ router.patch("/drinks/:idnumber", (req, res) => {
 });
 
 router.delete("/drinks/:idnumber", (req, res) => {
-    const drinkIdNumberParameter = Number(req.params.idnumber);
-    const foundDrink = data.drinks.find((drink => drink.id === drinkIdNumberParameter));
+    const foundDrink = findDrink(Number(req.params.idnumber));
     if (!foundDrink) {
         res.status(404).send({data: "Sober-4: Drink not found."});
     } else {
@@ -101,7 +101,7 @@ router.delete("/drinks/:idnumber", (req, res) => {
             color: null,
             percentage: null,
         }
-    data.drinks[--foundDrink.id] = deletedDrink;
+    data.drinks[1 - foundDrink.id] = deletedDrink;
     res.send({data: "Deleted this drink:", foundDrink})
     }
 })
