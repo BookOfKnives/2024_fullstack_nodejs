@@ -8,3 +8,5 @@ app.get("/", (req, res) => {
 })
 
 app.listen(PORT, () => {console.log("002 time vercel server listening on port:", PORT)});
+
+module.exports = app;
