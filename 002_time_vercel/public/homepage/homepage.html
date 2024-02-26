@@ -8,6 +8,9 @@
 </head>
 <body>
     Time to deploy!
+
+    <h1 id="color-h1">I'm some text.</h1>
+
     <script>
 const dateOptions = {
     hour: "numeric",
@@ -15,11 +18,15 @@ const dateOptions = {
     second: "numeric",
 }
 
+const colorElement = document.getElementById("color-h1");
+
 function main() {
     dateObject.timeDoer();
     dateObject.timeValues.red = dateObject.hourMath(dateObject.timeDoer().split(".")[0])
     dateObject.timeValues.green = dateObject.minuteMath(dateObject.timeDoer().split(".")[1])
     dateObject.timeValues.blue = dateObject.minuteMath(dateObject.timeDoer().split(".")[2])
+    let colorStringForStyle = dateObject.colorStringMaker(dateObject.timeValues.red, dateObject.timeValues.green, dateObject.timeValues.blue);
+    colorElement.style.color = colorStringForStyle;
     console.log(dateObject.timeValues.red, dateObject.timeValues.green, dateObject.timeValues.blue);
 }
 
@@ -38,6 +45,9 @@ const dateObject = {
     minuteMath: function timeChanger (time) {
         return time * 4.25;
     },
+    colorStringMaker: function colorMaker(red, green, blue) {
+        return "rgb(" + red + ", " + green + ", " + blue + ")";
+    }
 } 
 
 setInterval(main, 1000);
