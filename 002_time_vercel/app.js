@@ -1,4 +1,6 @@
 const express = require("express");
+const fs = require("node:fs/promises");
+
 const app = express();
 
 const PORT = 8080;
@@ -11,6 +13,10 @@ app.get("/1", (req, res) => {
     res.send({ data: "welcome to 002, time. "})
 });
 
+
+
+
+
 app.listen(PORT, () => {console.log("002 time vercel server listening on port:", PORT)});
 
-module.exports = app;
+module.exports = app;   

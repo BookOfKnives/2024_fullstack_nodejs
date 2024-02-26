@@ -4,12 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to homepage for App Vercel!</title>
+    
 </head>
 <body>
     Time to deploy!
-
     <script>
-        console.log("002 homepage html consolelogging ... time to deploy!");
+const dateOptions = {
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+}
+
+function main() {
+    dateObject.timeDoer();
+    dateObject.timeValues.red = dateObject.hourMath(dateObject.timeDoer().split(".")[0])
+    dateObject.timeValues.green = dateObject.minuteMath(dateObject.timeDoer().split(".")[1])
+    dateObject.timeValues.blue = dateObject.minuteMath(dateObject.timeDoer().split(".")[2])
+    console.log(dateObject.timeValues.red, dateObject.timeValues.green, dateObject.timeValues.blue);
+}
+
+const dateObject = {
+    timeDoer: function timeTaker() {
+        return Intl.DateTimeFormat(undefined, dateOptions).format(new Date());
+    },
+    timeValues: {
+        red: 0,
+        blue: 0,
+        green: 0,
+    },
+    hourMath: function timeChanger (time) {
+        return time * 10.625;
+    },
+    minuteMath: function timeChanger (time) {
+        return time * 4.25;
+    },
+} 
+
+setInterval(main, 1000);
     </script>
+    <style>
+        body {
+            background-color: grey;
+        }
+    </style>
 </body>
 </html>
