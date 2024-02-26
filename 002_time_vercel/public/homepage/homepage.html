@@ -27,7 +27,6 @@ function main() {
     dateObject.timeValues.blue = dateObject.minuteMath(dateObject.timeDoer().split(".")[2])
     let colorStringForStyle = dateObject.colorStringMaker(dateObject.timeValues.red, dateObject.timeValues.green, dateObject.timeValues.blue);
     colorElement.style.color = colorStringForStyle;
-    console.log(dateObject.timeValues.red, dateObject.timeValues.green, dateObject.timeValues.blue);
 }
 
 const dateObject = {
