@@ -41,43 +41,34 @@
             let timeColorArray = (time.split("."));
             let secondMillisecond = timeColorArray.pop();
             timeColorArray.push(...secondMillisecond.split(","));
-            let nextTimeArray = timeColorArray.map((time, index) => {
-                if (index === 0) return hourMath(time);
-                else if (index === 3) return millisecondMath(time);
-                else return minuteMath(time);
-            });
-            documentElements[0][0].style[timerColorOptions.styleElements[0]] = hslValCalculator(timeColorArray[0]);
-            documentElements[0][0].style[timerColorOptions.styleElements[1]] = hslValCalculator(timeColorArray[1]);
-            documentElements[1][0].style[timerColorOptions.styleElements[0]] = hslValCalculator(timeColorArray[2]);
-            documentElements[1][0].style[timerColorOptions.styleElements[1]] = hslValCalculator(timeColorArray[3]);          
+            documentElements[0][0].style[timerColorOptions.styleElements[0]] = hslValCalculator(timeColorArray[0], 0);
+            documentElements[0][0].style[timerColorOptions.styleElements[1]] = hslValCalculator(timeColorArray[1], 1);
+            documentElements[1][0].style[timerColorOptions.styleElements[0]] = hslValCalculator(timeColorArray[2], 1);
+            documentElements[1][0].style[timerColorOptions.styleElements[1]] = hslValCalculator(timeColorArray[3], 2);          
         }
 
-        const colorElement = document.getElementById("color-h1");
-
-        function main() {
-            let timeArray = timeDoer().split(".");
-            let nextTimeArray = timeArray.map((time, index) => {
-                if (index === 0) return hourMath(time);
-                else return minuteMath(time);
-            });
-            let colorStringForStyle = colorStringMaker(nextTimeArray);
-            colorElement.style.color = colorStringForStyle;
-            colorElement.style.borderColor = colorStringForStyle;
-        };
         const timeDoer = () => Intl.DateTimeFormat(undefined, dateOptions).format(new Date());
-        const hourMath =  (time) => time * 10.625;
-        const minuteMath = (time) => time * 4.25;
-        const millisecondMath = (time) => time * 2.55;
-        const colorStringMaker = (nextTimeArray) => "rgb(" + nextTimeArray[0] + ", " + nextTimeArray[1] + ", " + nextTimeArray[2] + ")";
-        const singleColorStringMaker = (timeValue) => "rgb(" + timeValue + ", 0, 0)" 
-        const hslValCalculator = (timeValue) => {           
-            let val = ((timeValue/24) * 100);
-            return "hsl(30, " + val + "%, 50%";
+        const hslValCalculator = (timeValue, timeUnit) => {  
+            let val;
+            switch (timeUnit) {
+                case 0:
+                    val = ((timeValue/24) * 100);
+                    return "hsl(30, " + val + "%, 50%";
+                    break;
+                case 1:
+                    val = ((timeValue/6) * 100);
+                    return "hsl(30, " + val + "%, 50%";
+                    break;
+                case 2:
+                    val = ((timeValue/100) * 100);
+                    return "hsl(30, " + val + "%, 50%";
+                    break;
             }
+        }
+
         setInterval(() => {timerColoring(timerColorOptions, documentElements)}, 2);
     </script>
     <style>
-
 
 .b-1-span {
   display: flex;
