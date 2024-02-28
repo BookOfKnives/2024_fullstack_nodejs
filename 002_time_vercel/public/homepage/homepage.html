@@ -36,7 +36,6 @@
 
         const documentElements = domElementGetter(timerColorOptions.domElementsClasses);
 
-        console.log("002 elem:", documentElements)
         function timerColoring(timerColorOptions, documentElements) {
             let time = timeDoer();
             let timeColorArray = (time.split("."));
@@ -47,14 +46,10 @@
                 else if (index === 3) return millisecondMath(time);
                 else return minuteMath(time);
             });
-            // documentElements[0][0].style[timerColorOptions.styleElements[0]] = "rgb(180, 180, " + nextTimeArray[0] + ")";
             documentElements[0][0].style[timerColorOptions.styleElements[0]] = hslValCalculator(timeColorArray[0]);
             documentElements[0][0].style[timerColorOptions.styleElements[1]] = hslValCalculator(timeColorArray[1]);
             documentElements[1][0].style[timerColorOptions.styleElements[0]] = hslValCalculator(timeColorArray[2]);
-            documentElements[1][0].style[timerColorOptions.styleElements[1]] = hslValCalculator(timeColorArray[3]);
-            // domElementArray[0].style[timerColorOptions.styleElements[1]] = "rgb(" + nextTimeArray[0] + "0, 0)";
-            
-
+            documentElements[1][0].style[timerColorOptions.styleElements[1]] = hslValCalculator(timeColorArray[3]);          
         }
 
         const colorElement = document.getElementById("color-h1");
@@ -77,10 +72,8 @@
         const singleColorStringMaker = (timeValue) => "rgb(" + timeValue + ", 0, 0)" 
         const hslValCalculator = (timeValue) => {           
             let val = ((timeValue/24) * 100);
-            
             return "hsl(30, " + val + "%, 50%";
             }
-        // setInterval(main, 1000);
         setInterval(() => {timerColoring(timerColorOptions, documentElements)}, 2);
     </script>
     <style>
