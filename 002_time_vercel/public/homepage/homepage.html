@@ -7,19 +7,58 @@
     
 </head>
 <body>
-    Time to deploy!
-
-    <h1 id="color-h1">I'm some text.</h1>
+   <section id="view-section">
+    
+    <span class="b-1-span">
+        <span class="b-2-span">
+        </span>
+    </span>
+   </section>
 
     <script>
-        const dateOptions = {
+        const dateOptions = { 
             hour: "numeric",
             minute: "numeric",
             second: "numeric",
+            fractionalSecondDigits: "2",
+        };
+        const timerColorOptions = {
+            styleElements: ["borderColor", "background-color"],
+            domElementsClasses: ["b-1-span", "b-2-span"],
+        };
+        
+        const domElementGetter = (domElementsClasses) => {
+        let domElementArray = domElementsClasses.map((element) => {
+            return document.getElementsByClassName(element);
+        });
+        return domElementArray;
+        };
+
+        const documentElements = domElementGetter(timerColorOptions.domElementsClasses);
+
+        console.log("002 elem:", documentElements)
+        function timerColoring(timerColorOptions, documentElements) {
+            let time = timeDoer();
+            let timeColorArray = (time.split("."));
+            let secondMillisecond = timeColorArray.pop();
+            timeColorArray.push(...secondMillisecond.split(","));
+            let nextTimeArray = timeColorArray.map((time, index) => {
+                if (index === 0) return hourMath(time);
+                else if (index === 3) return millisecondMath(time);
+                else return minuteMath(time);
+            });
+            // documentElements[0][0].style[timerColorOptions.styleElements[0]] = "rgb(180, 180, " + nextTimeArray[0] + ")";
+            documentElements[0][0].style[timerColorOptions.styleElements[0]] = hslValCalculator(timeColorArray[0]);
+            documentElements[0][0].style[timerColorOptions.styleElements[1]] = hslValCalculator(timeColorArray[1]);
+            documentElements[1][0].style[timerColorOptions.styleElements[0]] = hslValCalculator(timeColorArray[2]);
+            documentElements[1][0].style[timerColorOptions.styleElements[1]] = hslValCalculator(timeColorArray[3]);
+            // domElementArray[0].style[timerColorOptions.styleElements[1]] = "rgb(" + nextTimeArray[0] + "0, 0)";
+            
+
         }
-        
+
         const colorElement = document.getElementById("color-h1");
-        
+
         function main() {
             let timeArray = timeDoer().split(".");
             let nextTimeArray = timeArray.map((time, index) => {
@@ -28,18 +67,54 @@
             });
             let colorStringForStyle = colorStringMaker(nextTimeArray);
             colorElement.style.color = colorStringForStyle;
+            colorElement.style.borderColor = colorStringForStyle;
         };
         const timeDoer = () => Intl.DateTimeFormat(undefined, dateOptions).format(new Date());
         const hourMath =  (time) => time * 10.625;
         const minuteMath = (time) => time * 4.25;
+        const millisecondMath = (time) => time * 2.55;
         const colorStringMaker = (nextTimeArray) => "rgb(" + nextTimeArray[0] + ", " + nextTimeArray[1] + ", " + nextTimeArray[2] + ")";
-        
-        setInterval(main, 1000);
+        const singleColorStringMaker = (timeValue) => "rgb(" + timeValue + ", 0, 0)" 
+        const hslValCalculator = (timeValue) => {           
+            let val = ((timeValue/24) * 100);
+            
+            return "hsl(30, " + val + "%, 50%";
+            }
+        // setInterval(main, 1000);
+        setInterval(() => {timerColoring(timerColorOptions, documentElements)}, 2);
     </script>
     <style>
-        body {
-            background-color: grey;
-        }
+
+
+.b-1-span {
+  display: flex;
+  border-color: darkgreen;
+  background-color: lightseagreen;
+  border-style: solid;
+  border-radius: 900px;
+  border-width: 80px;
+  margin: auto;
+  height: 150px; /* Or whatever */
+  width: 150px;
+  overflow: hidden;
+
+}
+
+body {
+    background-color: rgb(30, 30, 10);
+}
+
+.b-2-span {
+    justify-self:auto;
+    border-color: darkorange;
+    background-color: darkorchid;
+    border-style: solid;
+    border-radius: 900px;;
+    border-width: 50px;
+  width: 50px;  /* Or whatever */
+  height: 50px; /* Or whatever */
+  margin: auto;  /* Magic! */
+}
     </style>
 </body>
 </html>
