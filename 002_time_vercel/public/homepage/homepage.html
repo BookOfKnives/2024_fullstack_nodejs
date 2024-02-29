@@ -23,50 +23,58 @@
             fractionalSecondDigits: "2",
         };
         const timerColorOptions = {
-            styleElements: ["borderColor", "background-color"],
+            styleElements: ["borderColor", "background-color", "rotate"],
             domElementsClasses: ["b-1-span", "b-2-span"],
         };
-        
         const domElementGetter = (domElementsClasses) => {
         let domElementArray = domElementsClasses.map((element) => {
             return document.getElementsByClassName(element);
         });
         return domElementArray;
         };
-
         const documentElements = domElementGetter(timerColorOptions.domElementsClasses);
 
-        function timerColoring(timerColorOptions, documentElements) {
+        function main(timerColorOptions, documentElements) {
             let time = timeDoer();
             let timeColorArray = (time.split("."));
             let secondMillisecond = timeColorArray.pop();
             timeColorArray.push(...secondMillisecond.split(","));
-            documentElements[0][0].style[timerColorOptions.styleElements[0]] = hslValCalculator(timeColorArray[0], 0);
-            documentElements[0][0].style[timerColorOptions.styleElements[1]] = hslValCalculator(timeColorArray[1], 1);
-            documentElements[1][0].style[timerColorOptions.styleElements[0]] = hslValCalculator(timeColorArray[2], 1);
-            documentElements[1][0].style[timerColorOptions.styleElements[1]] = hslValCalculator(timeColorArray[3], 2);          
+            documentElements[0][0].style.borderColor = hslValCalculator(timeColorArray[0], 0);
+            documentElements[0][0].style.backgroundColor = hslValCalculator(timeColorArray[1], 1);
+            documentElements[0][0].style.transform = rotateCalc(timeColorArray[0]);
+            documentElements[1][0].style.borderColor = hslValCalculator(timeColorArray[2], 2);
+            documentElements[1][0].style.backgroundColor = hslValCalculator(timeColorArray[3], 3);
         }
 
         const timeDoer = () => Intl.DateTimeFormat(undefined, dateOptions).format(new Date());
-        const hslValCalculator = (timeValue, timeUnit) => {  
+        const hslValCalculator = (timeValue, timeUnit) => {        
             let val;
             switch (timeUnit) {
                 case 0:
                     val = ((timeValue/24) * 100);
-                    return "hsl(30, " + val + "%, 50%";
+                    return "hsl(30, " + val + "%, 46%";
                     break;
                 case 1:
-                    val = ((timeValue/6) * 100);
-                    return "hsl(30, " + val + "%, 50%";
+                    val = ((timeValue/60) * 10);
+                    return "hsl(35, " + val + "%, 50%";
                     break;
                 case 2:
-                    val = ((timeValue/100) * 100);
-                    return "hsl(30, " + val + "%, 50%";
+                    val = ((timeValue/6) * 10);
+                    return "hsl(40, " + val + "%, 56%";
                     break;
-            }
-        }
+                case 3:
+                    val = timeValue;
+                    return "hsl(30, " + val + "%, 62%";
+                    break;
+            };
+        };
+        const rotateCalc = (timeValue) => {
+            let val;
+            val = ((timeValue/24) * 360) - 45;
+            return "rotate(" + val + "deg)";
+        };
 
-        setInterval(() => {timerColoring(timerColorOptions, documentElements)}, 2);
+        setInterval(() => {main(timerColorOptions, documentElements)}, 2);
     </script>
     <style>
 
@@ -74,9 +82,9 @@
   display: flex;
   border-color: darkgreen;
   background-color: lightseagreen;
-  border-style: solid;
-  border-radius: 900px;
-  border-width: 80px;
+  border-style: dashed solid solid solid;
+  border-radius: 50%;
+  border-width: 70px;
   margin: auto;
   height: 150px; /* Or whatever */
   width: 150px;
@@ -93,7 +101,7 @@ body {
     border-color: darkorange;
     background-color: darkorchid;
     border-style: solid;
-    border-radius: 900px;;
+    border-radius: 50%;
     border-width: 50px;
   width: 50px;  /* Or whatever */
   height: 50px; /* Or whatever */
