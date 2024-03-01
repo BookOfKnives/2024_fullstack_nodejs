@@ -1,0 +1,19 @@
+{
+  "name": "003_doginder",
+  "version": "1.0.0",
+  "type":"module",
+  "description": "Dog Tinder!",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Dogs",
+    "Tinder"
+  ],
+  "author": "HVMW",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.3"
+  }
+}
