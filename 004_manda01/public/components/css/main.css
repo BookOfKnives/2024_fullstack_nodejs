@@ -1,0 +1,13 @@
+#logo {
+    max-width: 5em;
+}
+
+body {
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}

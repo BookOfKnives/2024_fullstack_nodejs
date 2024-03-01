@@ -10,6 +10,7 @@ import templateEngine from "./util/templateEngine.js";
 const homepage = templateEngine.readPage("./public/pages/homepage/homepage.html");
 const homepageRender = templateEngine.renderPage(homepage, {
     tabTitle: "Hans' Free Will Demo",
+    cssLink: `<link rel="stylesheet" href="/components/css/main.css">`,
 });
 
 
