@@ -107,7 +107,7 @@ router.delete("/drinks/:idnumber", (req, res) => {
             id: foundDrink.id,
             name: null,
             price: null,
-            color: null,
+            color: null, //delete skal fjerne det helt -- hard delete
             percentage: null,
         }
     data.drinks[1 - foundDrink.id] = deletedDrink;
