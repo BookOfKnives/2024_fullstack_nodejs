@@ -6,10 +6,10 @@ app.use(express.static("public"));
 
 import path from "path";
 
-import getMatches from "./public/matches/matches.js";
+import getMatches from "./public/pages/matches/matches.js";
 
 app.get("/", (req, res) => {
-    res.sendFile(path.resolve("public/homepage/homepage.html"));
+    res.sendFile(path.resolve("public/pages/homepage/homepage.html"));
 });
 app.get("/proxy", (req, res) => {
     fetch("https://www.google.com")
@@ -18,7 +18,11 @@ app.get("/proxy", (req, res) => {
 });
 
 app.get("/matches", (req, res) => {
-    res.sendFile(path.resolve("public/matches/matches.html"));
+    res.sendFile(path.resolve("public/pages/matches/matches.html"));
+})
+
+app.get("/contact", (req, res) => {
+    res.sendFile(path.resolve("public/pages/contact/contact.html"));
 })
 
 //=======API
