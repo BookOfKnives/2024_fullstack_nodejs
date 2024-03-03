@@ -5,7 +5,8 @@ function renderPage(page, config={}) {
                     .replace("$TAB_TITLE", config.tabTitle || "Hans' Demo of Free Will!")
                     .replace("$CSS_LINK", config.cssLink || `<link rel="stylesheet" href="/components/css/main.css">`);
     const footer = fs.readFileSync("./public/components/footer.html").toString()
-                    .replace("$FOOTER_YEAR", `© ${new Date().getFullYear()}`);
+                    .replace("$FOOTER_YEAR", `© ${new Date().getFullYear()}`)
+                    .replace("$JS_LINK", config.jsLink || `<script src="/pages/homepage/homepage.js"></script>`);
 
     return navbar + page + footer;
 }
