@@ -6,7 +6,7 @@ import path from "path";
 import fs from "fs";
 
 function renderPage(pageURI, config={}) {
-    const page = readPage(pageURI);
+    const page = fs.readFileSync(pageURI).toString();
     const navbar = fs.readFileSync("./public/components/nav.html").toString()
                     .replace("$TAB_TITLE", config.tabTitle || "Hans' Demo of Free Will!")
                     .replace("$CSS_LINK", config.cssLink || `<link rel="stylesheet" href="/components/css/main.css">`);
@@ -17,12 +17,9 @@ function renderPage(pageURI, config={}) {
     return navbar + page + footer;
 };
 
-function readPage(pageURI) {
-    return fs.readFileSync(pageURI).toString();
-};
-
 const pageMap = new Map();
 pageMap.set("homepage", "./public/pages/homepage/homepage.html");
+pageMap.set("contact", "./public/pages/contact/contact.html"); //sklal lige finde ud af hvordan jeg får contact.js ind i den.
 
 
 const homepageRender = renderPage("./public/pages/homepage/homepage.html", {
@@ -40,10 +37,6 @@ router.get("/:pageChoice", (req, res) => {
     const page = renderPage(pageMap.get(pageChoice))
     res.send(page);
 });
-
-function pageRender(page) {
-
-}
 
 console.log("004 Page Router online.");
 
