@@ -15,28 +15,30 @@ function renderPage(pageURI, config={}) {
                     .replace("$JS_LINK", config.jsLink || `<script src="/pages/homepage/homepage.js"></script>`);
 
     return navbar + page + footer;
-}
+};
 
 function readPage(pageURI) {
     return fs.readFileSync(pageURI).toString();
-}
+};
+
+const pageMap = new Map();
+pageMap.set("homepage", "./public/pages/homepage/homepage.html");
 
 
 const homepageRender = renderPage("./public/pages/homepage/homepage.html", {
     tabTitle: "Hans' Free Will Demo",
-    cssLink: `<link rel="stylesheet" href="/components/css/main.css">`,
-    jsLink: `<script src="/pages/homepage/homepage.js"></script>`,
+    // cssLink: `<link rel="stylesheet" href="/components/css/main.css">`,
+    // jsLink: `<script src="/pages/homepage/homepage.js"></script>`,
 });
-console.log("004 homepagRender is:", homepageRender);
 
-router.get("/home", (req, res) => {
-    res.send(homepageRender)
-});
+// router.get("/home", (req, res) => {
+//     res.send(homepageRender)
+// });
 
 router.get("/:pageChoice", (req, res) => {
-    const data = req.params.pageChoice
-    
-    res.send({ data });
+    const pageChoice = req.params.pageChoice;
+    const page = renderPage(pageMap.get(pageChoice))
+    res.send(page);
 });
 
 function pageRender(page) {
