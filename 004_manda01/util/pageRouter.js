@@ -1,8 +1,6 @@
-//i want this to handle all the page stuff, same way I want the api.js to handle the api stuff.
 import express from "express";
 const router = express.Router();
 
-import path from "path";
 import fs from "fs";
 
 function renderPage(pageURI, config={}) {
@@ -18,27 +16,16 @@ function renderPage(pageURI, config={}) {
 };
 
 const pageMap = new Map();
-pageMap.set("homepage", "./public/pages/homepage/homepage.html");
-pageMap.set("contact", "./public/pages/contact/contact.html"); //sklal lige finde ud af hvordan jeg får contact.js ind i den.
-
-
-const homepageRender = renderPage("./public/pages/homepage/homepage.html", {
-    tabTitle: "Hans' Free Will Demo",
-    // cssLink: `<link rel="stylesheet" href="/components/css/main.css">`,
-    // jsLink: `<script src="/pages/homepage/homepage.js"></script>`,
-});
-
-// router.get("/home", (req, res) => {
-//     res.send(homepageRender)
-// });
+pageMap.set("homepage", { page: "./public/pages/homepage/homepage.html", });
+pageMap.set("contact", { page: "./public/pages/contact/contact.html", });
 
 router.get("/:pageChoice", (req, res) => {
     const pageChoice = req.params.pageChoice;
-    const page = renderPage(pageMap.get(pageChoice))
+    if ( !pageMap.has(pageChoice) ) res.status(404).send("Error: page not found!");
+    const page = renderPage( pageMap.get(pageChoice).page, pageMap.get(pageChoice).config, )
     res.send(page);
 });
 
 console.log("004 Page Router online.");
 
 export default router;
-
