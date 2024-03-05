@@ -15,13 +15,19 @@ function renderPage(pageURI, config={}) {
     return navbar + page + footer;
 };
 
+const pagesPublicString = "./public/pages/";
 const pageMap = new Map();
-pageMap.set("homepage", { page: "./public/pages/homepage/homepage.html", });
-pageMap.set("contact", { page: "./public/pages/contact/contact.html", });
+pageMap.set("homepage", { page: pagesPublicString + "/homepage/homepage.html", });
+pageMap.set("contact", { page: pagesPublicString + "/contact/contact.html", });
+pageMap.set("error_404", { page: pagesPublicString + "/notfound/notfound.html", });
 
 router.get("/:pageChoice", (req, res) => {
     const pageChoice = req.params.pageChoice;
-    if ( !pageMap.has(pageChoice) ) res.status(404).send("Error: page not found!");
+    if ( !pageMap.has(pageChoice) ) {
+        const page = renderPage( pageMap.get("error_404").page, pageMap.get("error_404").config, )
+        res.status(404).send(page);
+        return 0;
+    }
     const page = renderPage( pageMap.get(pageChoice).page, pageMap.get(pageChoice).config, )
     res.send(page);
 });
