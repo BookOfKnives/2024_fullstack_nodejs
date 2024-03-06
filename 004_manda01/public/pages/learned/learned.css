@@ -1,12 +1,13 @@
-body {
-    background-color: teal;
-}
-
-q {
+#quote-block-div q {
+    white-space: nowrap;
     font-family: "Lucida Console", "Courier New", monospace;
     font-size: large;
 }
-
-p {
+#quote-block-div p {
     font-size: small;
-}
+    padding:0%;
+    margin: 0;
+    margin-left: 25px;
+    white-space: nowrap;
+
+};

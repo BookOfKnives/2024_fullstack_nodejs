@@ -6,8 +6,33 @@ body {
     min-height: 95vh;
     display: flex;
     flex-direction: column;
+    background-color: rgb(110, 150, 110);
 }
 
 main {
     flex: 1;
+}
+
+
+
+a:link {
+ comment: a normal, unvisited link;
+ color: rgb(0, 37, 91);
+}
+a:visited {
+    comment: - a link the user has visited;
+    color: rgb(54, 2, 70);
+} 
+
+a:hover {
+    color: rgb(123, 170, 211);
+}
+
+a:active {
+    color: green;
+}
+
+stuff {
+
+    comment: a:active - a link the moment it is clicked;
 }
