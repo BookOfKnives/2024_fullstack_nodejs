@@ -25,6 +25,7 @@ pageMap.set("error_404", { page: pageURI + "/notfound/notfound.html", config: { 
 pageMap.set("learned", { page: pageURI + "/learned/learned.html", config: { tabTitle: "Learned Things", cssLink: pageCSS + `learned/learned.css">`, jsLink: pageJS + `learned/learned.js"></script>` } });
 pageMap.set("jsvalues", { page: pageURI + "/jsvalues/jsvalues.html", config: { tabTitle: "JavaScript Values", } });
 pageMap.set("npm", { page: pageURI + "/npm/npm.html", config: { tabTitle: "Node Package Manager", cssLink: pageCSS + `npm/npm.css">` } });
+pageMap.set("api", { page: pageURI + "/api/api.html", config: { tabTitle: "Express API server", }});
 
 router.get("/:pageChoice", (req, res) => {
     const pageChoice = req.params.pageChoice;
