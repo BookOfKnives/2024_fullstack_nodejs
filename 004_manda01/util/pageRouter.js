@@ -19,8 +19,9 @@ const pagesPublicString = "./public/pages/";
 const pageMap = new Map();
 pageMap.set("homepage", { page: pagesPublicString + "/homepage/homepage.html", config: { tabTitle: "Home Page", } });
 pageMap.set("contact", { page: pagesPublicString + "/contact/contact.html", config: { tabTitle: "Contact", } });
-pageMap.set("error_404", { page: pagesPublicString + "/notfound/notfound.html", config: { tabTitle: "Page not found", }});
+pageMap.set("error_404", { page: pagesPublicString + "/notfound/notfound.html", config: { tabTitle: "Page not found", } });
 pageMap.set("learned", { page: pagesPublicString + "/learned/learned.html", config: { tabTitle: "Learned Things", cssLink: `<link rel="stylesheet" href="/pages/learned/learned.css">`, jsLink: `<script src="/pages/learned/learned.js"></script>` } });
+pageMap.set("jsvalues", { page: pagesPublicString + "/jsvalues/jsvalues.html", config: { tabTitle: "JavaScript Values", } })
 
 router.get("/:pageChoice", (req, res) => {
     const pageChoice = req.params.pageChoice;
