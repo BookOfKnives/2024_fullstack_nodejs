@@ -9,7 +9,7 @@ import pageRouter from "./util/pageRouter.js";
 app.use("/pages", pageRouter);
 
 app.get("/", (req, res) => {
-    res.redirect("/pages/homepage");
+    res.status(301).redirect("/pages/homepage");
 })
 
 const statsData = {
