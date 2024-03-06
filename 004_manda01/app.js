@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
 import pageRouter from "./util/pageRouter.js";
-import commentsApiRouter from "./api/comments/commentsApiRouter.js";
+import commentsApiRouter from "./api/comments/commentsapirouter.js"
 
 const PORT = 8080;
 const app = express();
