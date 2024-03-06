@@ -9,7 +9,7 @@ const app = express();
 app.use(express.static("public"))
 app.use("/pages", pageRouter);
 
-app.use("/api/comments/", commentsApiRouter);
+app.use("/api", commentsApiRouter);
 
 app.get("/", (req, res) => {
     res.status(301).redirect("/pages/homepage");

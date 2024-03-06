@@ -2,12 +2,20 @@ import express from "express";
 const router = express.Router();
 router.use(express.json());
 
+const ITEM = "/comments";
+
 const data = [
     {
         id: 1,
         name: "Lars",
         date: new Date(),
         commentText: "Det her er den første kommentar på siden!! Spændendenen!",
+    },
+    {
+        id: 2,
+        name: "Sanne",
+        date: new Date(),
+        commentText: "Jeg synes simpelthen Lars er SÅ lækker!!",
     },
 ];
 
@@ -21,26 +29,16 @@ function idNumberInitialisor() {
 }
 idNumberInitialisor();
 
+function idNumberCounter() { return ++newDataEntryIdNumber.newIdNumber; };
+function find(id) { return data.find((item => item.id === id)) };
+function isItemsInputBad(req) { return ( !req.name || !req.commentText ); };
 
-function idNumberCounter() {
-    return ++newDataEntryIdNumber.newIdNumber;
-}
 
-function find(id) {
-    return data.find((item => item.id === id))
-}
-
-function isItemsInputBad(req) {
-    return (!req.name ||
-            !req.commentText
-    );
-}
-
-router.get("/items", (req, res) => {
+router.get(ITEM, (req, res) => {
     res.send({ data });
 });
 
-router.get("/items/:idnumber", (req, res) => {
+router.get(ITEM + "/:idnumber", (req, res) => {
     const foundItems = find(Number(req.params.idnumber));
     if ( !foundItems ) {
         res.status(404).send({ data: "404: No items found."});
@@ -49,8 +47,8 @@ router.get("/items/:idnumber", (req, res) => {
     }
 });
 
-router.post("/items", (req, res) => {
-    if (isItemsInputBad(req.body)) {  //update this w new format
+router.post(ITEM, (req, res) => {
+    if (isItemsInputBad(req.body)) { 
         res.status(400).send(`Invalid POST format, please submit name (string),  
         and comment text (string).`);
     } else {
@@ -65,7 +63,7 @@ router.post("/items", (req, res) => {
     }
 });
 
-router.put("/items/:idnumber", (req, res) => {
+router.put(ITEM + "/:idnumber", (req, res) => {
     if (isItemsInputBad(req.body)) {
         res.status(400).send(`Invalid POST format, please submit name (string),  
         and comment text (string).`);
@@ -86,7 +84,7 @@ router.put("/items/:idnumber", (req, res) => {
     }
 }); 
 
-router.patch("/items/:idnumber", (req, res) => {
+router.patch(ITEM + "/:idnumber", (req, res) => {
     const foundItem = find(Number(req.params.idnumber));
     if ( !foundItem ) {
         res.status(404).send({ data: "404: Item not found."});
@@ -102,7 +100,7 @@ router.patch("/items/:idnumber", (req, res) => {
     }
 });
 
-router.delete("/items/:idnumber", (req, res) => {
+router.delete(ITEM + "/:idnumber", (req, res) => {
     const foundItem = find(Number(req.params.idnumber));
     if ( !foundItem ) {
         res.status(404).send({ data: "404: Item not found."});
