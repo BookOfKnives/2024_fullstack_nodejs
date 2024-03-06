@@ -1,0 +1,12 @@
+body {
+    background-color: teal;
+}
+
+q {
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: large;
+}
+
+p {
+    font-size: small;
+}

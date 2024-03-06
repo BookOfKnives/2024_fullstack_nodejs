@@ -7,7 +7,7 @@ function renderPage(pageURI, config={}) {
     const page = fs.readFileSync(pageURI).toString();
     const navbar = fs.readFileSync("./public/components/nav.html").toString()
                     .replace("$TAB_TITLE", config.tabTitle || "Hans' Demo of Free Will!")
-                    .replace("$CSS_LINK", config.cssLink || `<link rel="stylesheet" href="/components/css/main.css">`);
+                    .replace("$CSS_LINK", config.cssLink || `<link rel="stylesheet" href="/components/css/main.css">`); //bør jo egentlig hjave begge dele -- både original og den nye
     const footer = fs.readFileSync("./public/components/footer.html").toString()
                     .replace("$FOOTER_YEAR", `© ${new Date().getFullYear()}`)
                     .replace("$JS_LINK", config.jsLink || `<script src="/pages/homepage/homepage.js"></script>`);
@@ -20,6 +20,7 @@ const pageMap = new Map();
 pageMap.set("homepage", { page: pagesPublicString + "/homepage/homepage.html", });
 pageMap.set("contact", { page: pagesPublicString + "/contact/contact.html", });
 pageMap.set("error_404", { page: pagesPublicString + "/notfound/notfound.html", });
+pageMap.set("learned", { page: pagesPublicString + "/learned/learned.html", config: { tabTitle: "Learned Things", cssLink: `<link rel="stylesheet" href="/pages/learned/learned.css">`, jsLink: `<script src="/pages/learned/learned.js"></script>` } });
 
 router.get("/:pageChoice", (req, res) => {
     const pageChoice = req.params.pageChoice;
