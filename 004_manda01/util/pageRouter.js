@@ -25,12 +25,13 @@ pageMap.set("jsvalues", { page: pagesPublicString + "/jsvalues/jsvalues.html", c
 
 router.get("/:pageChoice", (req, res) => {
     const pageChoice = req.params.pageChoice;
+    let page;
     if ( !pageMap.has(pageChoice) ) {
-        const page = renderPage( pageMap.get("error_404").page, pageMap.get("error_404").config, )
-        res.status(404).send(page);
-        return 0;
-    };
-    const page = renderPage( pageMap.get(pageChoice).page, pageMap.get(pageChoice).config, )
+        page = renderPage( pageMap.get("error_404").page, pageMap.get("error_404").config, )
+        res.status(404);
+    } else {
+        page = renderPage( pageMap.get(pageChoice).page, pageMap.get(pageChoice).config, )
+    }
     res.send(page);
 });
 
