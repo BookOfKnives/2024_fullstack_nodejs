@@ -15,13 +15,16 @@ function renderPage(pageURI, config={}) {
     return navbar + page + footer;
 };
 
-const pagesPublicString = "./public/pages/";
+const pageURI = "./public/pages/";
+const pageCSS = `<link rel="stylesheet" href="/pages/`;
+const pageJS = `<script src="/pages/`;
 const pageMap = new Map();
-pageMap.set("homepage", { page: pagesPublicString + "/homepage/homepage.html", config: { tabTitle: "Home Page", } });
-pageMap.set("contact", { page: pagesPublicString + "/contact/contact.html", config: { tabTitle: "Contact", } });
-pageMap.set("error_404", { page: pagesPublicString + "/notfound/notfound.html", config: { tabTitle: "Page not found", } });
-pageMap.set("learned", { page: pagesPublicString + "/learned/learned.html", config: { tabTitle: "Learned Things", cssLink: `<link rel="stylesheet" href="/pages/learned/learned.css">`, jsLink: `<script src="/pages/learned/learned.js"></script>` } });
-pageMap.set("jsvalues", { page: pagesPublicString + "/jsvalues/jsvalues.html", config: { tabTitle: "JavaScript Values", } })
+pageMap.set("homepage", { page: pageURI + "/homepage/homepage.html", config: { tabTitle: "Home Page", } });
+pageMap.set("contact", { page: pageURI + "/contact/contact.html", config: { tabTitle: "Contact", } });
+pageMap.set("error_404", { page: pageURI + "/notfound/notfound.html", config: { tabTitle: "Page not found", } });
+pageMap.set("learned", { page: pageURI + "/learned/learned.html", config: { tabTitle: "Learned Things", cssLink: pageCSS + `learned/learned.css">`, jsLink: pageJS + `learned/learned.js"></script>` } });
+pageMap.set("jsvalues", { page: pageURI + "/jsvalues/jsvalues.html", config: { tabTitle: "JavaScript Values", } });
+pageMap.set("npm", { page: pageURI + "/npm/npm.html", config: { tabTitle: "Node Package Manager", cssLink: pageCSS + `npm/npm.css">` } });
 
 router.get("/:pageChoice", (req, res) => {
     const pageChoice = req.params.pageChoice;
