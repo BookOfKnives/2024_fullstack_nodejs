@@ -2,7 +2,10 @@ import express from "express";
 const router = express.Router();
 router.use(express.json());
 
-const ITEM = "/comments";
+const ITEM_URL = "/comments";
+const itemName = "Comment";
+const notFoundMessage = "404: " + itemName + " not found.";
+const invalidInputMessage = " format, please submit name (string) and comment text (string)";
 
 const data = [
     {
@@ -33,24 +36,22 @@ function idNumberCounter() { return ++newDataEntryIdNumber.newIdNumber; };
 function find(id) { return data.find((item => item.id === id)) };
 function isItemsInputBad(req) { return ( !req.name || !req.commentText ); };
 
-
-router.get(ITEM, (req, res) => {
+router.get(ITEM_URL, (req, res) => {
     res.send({ data });
 });
 
-router.get(ITEM + "/:idnumber", (req, res) => {
+router.get(ITEM_URL + "/:idnumber", (req, res) => {
     const foundItems = find(Number(req.params.idnumber));
     if ( !foundItems ) {
-        res.status(404).send({ data: "404: No items found."});
+        res.status(404).send({ data: notFoundMessage });
     } else {
         res.send({ data: foundItems });
     }
 });
 
-router.post(ITEM, (req, res) => {
+router.post(ITEM_URL, (req, res) => {
     if (isItemsInputBad(req.body)) { 
-        res.status(400).send(`Invalid POST format, please submit name (string),  
-        and comment text (string).`);
+        res.status(400).send("Invalid POST " + invalidInputMessage);
     } else {
         const newItem = {
             id: idNumberCounter(),
@@ -63,14 +64,13 @@ router.post(ITEM, (req, res) => {
     }
 });
 
-router.put(ITEM + "/:idnumber", (req, res) => {
+router.put(ITEM_URL + "/:idnumber", (req, res) => {
     if (isItemsInputBad(req.body)) {
-        res.status(400).send(`Invalid POST format, please submit name (string),  
-        and comment text (string).`);
+        res.status(400).send("Invalid PUT " + invalidInputMessage);
     } else {
         const foundItem = find(Number(req.params.idnumber));
         if ( !foundItem ) {
-            res.status(404).send({ data: "404: Item not found."});
+            res.status(404).send({ data: notFoundMessage });
         } else {
         const newItem = {
             id: foundItem.id,
@@ -84,10 +84,10 @@ router.put(ITEM + "/:idnumber", (req, res) => {
     }
 }); 
 
-router.patch(ITEM + "/:idnumber", (req, res) => {
+router.patch(ITEM_URL + "/:idnumber", (req, res) => {
     const foundItem = find(Number(req.params.idnumber));
     if ( !foundItem ) {
-        res.status(404).send({ data: "404: Item not found."});
+        res.status(404).send({ data: notFoundMessage });
     } else {
     const newItem = {
         id: foundItem.id,
@@ -100,10 +100,10 @@ router.patch(ITEM + "/:idnumber", (req, res) => {
     }
 });
 
-router.delete(ITEM + "/:idnumber", (req, res) => {
+router.delete(ITEM_URL + "/:idnumber", (req, res) => {
     const foundItem = find(Number(req.params.idnumber));
     if ( !foundItem ) {
-        res.status(404).send({ data: "404: Item not found."});
+        res.status(404).send({ data: notFoundMessage });
     } else {
         let deletedItem = {
             id: foundItem.id,
@@ -111,10 +111,10 @@ router.delete(ITEM + "/:idnumber", (req, res) => {
             commentText: null,
         }
     data[1 - foundItem.id] = deletedItem;
-    res.send({ data: "Deleted this item:", foundItem })
+    res.send({ data: foundItem })
     }
 });
 
-console.log("004 Items (Comments) API router online.");
+console.log("004 Items (" + itemName + ") API router online.");
 
 export default router;
