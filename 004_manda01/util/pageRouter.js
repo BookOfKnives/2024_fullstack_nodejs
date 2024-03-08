@@ -7,11 +7,9 @@ function renderPage(pageURI, config={}) {
     const page = fs.readFileSync(pageURI).toString();
     const navbar = fs.readFileSync("./public/components/nav.html").toString()
                     .replace("$TAB_TITLE", config.tabTitle || "Hans' Demo of Free Will!")
-                    .replace("$CSS_LINK", config.cssLink || `<link rel="stylesheet" href="../../components/css/main.css">`); 
+                    .replace("$CSS_LINK", config.cssLink || ""); 
     const footer = fs.readFileSync("./public/components/footer.html").toString()
-                    .replace("$FOOTER_YEAR", `© ${new Date().getFullYear()}`)
                     .replace("$JS_LINK", config.jsLink || `<script src="/pages/homepage/homepage.js"></script>`);
-
     return navbar + page + footer;
 };
 
