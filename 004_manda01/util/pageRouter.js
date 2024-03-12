@@ -24,6 +24,7 @@ pageMap.set("learned", { page: pageURI + "/learned/learned.html", config: { tabT
 pageMap.set("jsvalues", { page: pageURI + "/jsvalues/jsvalues.html", config: { tabTitle: "JavaScript Values", } });
 pageMap.set("npm", { page: pageURI + "/npm/npm.html", config: { tabTitle: "Node Package Manager", cssLink: pageCSS + `npm/npm.css">` } });
 pageMap.set("api", { page: pageURI + "/api/api.html", config: { tabTitle: "Express API server", }});
+pageMap.set("promises", { page: pageURI + "/promises/promises.html", config: { tabTitle: "Promises", }});
 
 router.get("/:pageChoice", (req, res) => {
     const pageChoice = req.params.pageChoice;

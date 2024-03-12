@@ -1,0 +1,59 @@
+<h1>I learned</h1>
+<p><u>Promises</u> is a way to make a section of code wait for another section of code to finish, <i>without blocking overall code execution.</i> This means you can have a function which <u>fetches</u> (goes to a distant web resource) some data, which is then processed before that particular block of code resumes or returns the result.</p>
+<p>Computers process data rapidly and sequentially. Meanwhile, web operations usually take more than instantaneous time. This means that if a web request is part of the computer code, the code will keep running even before the request has returned.</p>
+
+<p>Here, in the code block below, I have a simple Express app. It has one function, <code>fetcherTest()</code>, which fetches google's front page. You might think the code at line 12 will return the content of the fetch --but truthfully, it returns an error: <code>ReferenceError: result is not defined</code>. This is because the fetch (line 9) has not had time to complete by the time the console.log (line 12) runs. Thus, when the consolelog runs, it tries to print an empty variable (since result is empty at that time).</p>
+<pre>
+    <code>
+1 import express from "express";
+2
+3 const app = express();
+4
+5 const PORT = 8080;
+6
+7 function fetcherTest() {
+8    let data;
+9    fetch("http://www.google.com")
+10    .then(result => result.text())
+11    .then(result => data = result);
+12    console.log("this is result", result);
+13 }
+14
+15 app.get("/", (req, res) => {
+16    fetcherTest();
+17 })
+18
+19 app.listen(PORT, () => {
+20    console.log("000_002 test server promises listening on ", PORT);
+21 })
+    </code>
+</pre>
+
+<p>In the code below, I've changed line 11 so that the fetch waits for the data to return before console.logging it.</p>
+
+<pre>
+    <code>
+1 import express from "express";
+2
+3 const app = express();
+4
+5 const PORT = 8080;
+6
+7 function fetcherTest() {
+8    let data;
+9    fetch("http://www.google.com")
+10    .then(result => result.text())
+11    .then(result => console.log(result));
+12    
+13 }
+14
+15 app.get("/", (req, res) => {
+16    fetcherTest();
+17 })
+18
+19 app.listen(PORT, () => {
+20    console.log("000_002 test server promises listening on ", PORT);
+21 })
+    </code>
+</pre>
+
