@@ -1,3 +1,18 @@
 <h1>I learned</h1>
 
 <p>How to make an API server in Express.</p>
+
+<p>Currently I have this API: <a href="/api/comments">Comments API</a></p>
+
+<p><u>Application Programming Interfaces</u> is a way to standardise how applications communicate. The above link to my Comments API follows the conventions for API databases. The noun being "Comments", these being (in order) </p>
+<ul>
+    <li>GET ("<i>GET</i>" being the <u>HTTP method verb</u>) /comments ("<i>/comments</i>" being the API endpoint, ie., the URL), which returns all the items in the database,</li>
+    <li>GET /comments/:id (which returns one specific database item via the ":id" parameter),</li>
+    <li>POST /comments (which inserts a new user-defined item into the database, "<i>POST</i>" being the verb responsible for that),</li>
+    <li>PUT /comments/:id (which replaces a specific item with a new one),</li>
+    <li>PATCH /comments/:id (which replaces part of an item),</li>
+    <li>and DELETE /comments/:id (which deletes a specified item). </li>
+</ul>
+<p>For example, if you wished to access the comment at the second position in the database, you'd enter the following URL: <code>http://www.mywebsite.com/api/comments/1</code>. Note that you cannot access anything but the two GET verbs via ordinary browser activity -- the other verbs (POST, PUT, etc) require specialised tools to access, such as Postman, or a specially-programmed website interface.</p>
+<p>By following the API conventions, along with using the JSON data format, it becomes significantly easier to have databases exchange information, since the "language" is agreed-upon beforehand.</p>
+<p>Truly, we stand upon the shoulders of giants.</p>

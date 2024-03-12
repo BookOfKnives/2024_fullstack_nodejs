@@ -5,7 +5,7 @@ router.use(express.json());
 const ITEM_URL = "/comments";
 const itemName = "Comment";
 const notFoundMessage = "404: " + itemName + " not found.";
-const invalidInputMessage = " format, please submit name (string) and comment text (string)";
+const invalidInputMessage = "format, please submit name (string) and comment text (string)";
 
 const data = [
     {
@@ -37,7 +37,7 @@ function find(id) { return data.find((item => item.id === id)) };
 function isItemsInputBad(req) { return ( !req.name || !req.commentText ); };
 
 router.get(ITEM_URL, (req, res) => {
-    res.send({ data });
+    res.send({ data: data });
 });
 
 router.get(ITEM_URL + "/:idnumber", (req, res) => {
@@ -60,7 +60,7 @@ router.post(ITEM_URL, (req, res) => {
             commentText: req.body.commentText, 
         };
         data.push(newItem);
-        res.json(newItem);    
+        res.json({ data: newItem });    
     }
 });
 
@@ -79,7 +79,7 @@ router.put(ITEM_URL + "/:idnumber", (req, res) => {
             commentText: req.body.commentText, 
         }
         data[--foundItem.id] = newItem;
-        res.send(newItem);
+        res.send({ data: newItem });
         }
     }
 }); 
@@ -96,7 +96,7 @@ router.patch(ITEM_URL + "/:idnumber", (req, res) => {
         commentText: req.body.commentText ? req.body.commentText : foundItem.commentText, 
     }
     data[--foundItem.id] = newItem;
-    res.send(newItem);
+    res.send({ data: newItem });
     }
 });
 
