@@ -28,6 +28,7 @@ pageMap.set("jsvalues", { page: pageURI + "/jsvalues/jsvalues.html", config: { t
 pageMap.set("npm", { page: pageURI + "/npm/npm.html", config: { tabTitle: "Node Package Manager", cssLink: pageCSS + `npm/npm.css">` } });
 pageMap.set("api", { page: pageURI + "/api/api.html", config: { tabTitle: "Express API server", } });
 pageMap.set("promises", { page: pageURI + "/promises/promises.html", config: { tabTitle: "Promises", } });
+pageMap.set("spreadoperator", { page: pageURI + "/spreadoperator/spreadoperator.html", config: { tabTitle: "Spread Operator", } });
 
 router.get("/:pageChoice", (req, res) => {
     const pageChoice = req.params.pageChoice;
