@@ -5,7 +5,10 @@ const commentText_elem = document.getElementById("commentText-input")
 let name, commentText;
 
 guestbookForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+  event.preventDefault();
+  if ( name_elem.value === "" )  { return -1; }
+  else if ( commentText_elem.value === "" ) { return -1; }
+  else {  
     name = name_elem.value;
     commentText = commentText_elem.value;
     let data = {
@@ -19,4 +22,7 @@ guestbookForm.addEventListener("submit", (event) => {
       },
     body: JSON.stringify(data)
   });
+  name_elem.value = "";
+  commentText_elem.value = "";
+}
 });
