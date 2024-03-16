@@ -1,3 +1,5 @@
+//1403 2024: NB: This version of my drinks router is superceded by the Comments API router in 004/manda01 -- use that instead.
+
 const express = require("express");
 const router = express.Router();
 const data = require("./drinks_data.js");
