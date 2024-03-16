@@ -1,9 +1,8 @@
 import { Router } from "express";
 import { pageMap } from "./pageReader.js";
-
 const router = Router(); 
 
-router.get("/:pageChoice", (req, res) => {
+router.get( "/pages/:pageChoice", (req, res) => {
     const pageChoice = req.params.pageChoice;
     let page;
     if ( !pageMap.has(pageChoice) ) {
