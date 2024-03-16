@@ -1,43 +1,16 @@
-import express from "express";
-const router = express.Router();
+import { Router } from "express";
+import { pageMap } from "./pageReader.js";
 
-import fs from "fs";
-
-function renderPage(pageURI, config={}) {
-    const page = fs.readFileSync(pageURI).toString();
-    const navbar = fs.readFileSync("./public/components/nav.html").toString()
-                    .replace("$TAB_TITLE", config.tabTitle || "Hans' Demo of Free Will!")
-                    .replace("$CSS_LINK", config.cssLink || ""); 
-    const footer = fs.readFileSync("./public/components/footer.html").toString()
-                    .replace("$JS_LINK", config.jsLink || `<script src="/pages/homepage/homepage.js"></script>`);
-    return navbar + page + footer;
-};
-
-const pageURI = "./public/pages/";
-const pageCSS = `<link rel="stylesheet" href="/pages/`;
-const pageJS = `<script src="/pages/`;
-const pageMap = new Map();
-pageMap.set("homepage", { page: pageURI + "/homepage/homepage.html", config: { tabTitle: "Home Page", } });
-pageMap.set("contact", { page: pageURI + "/contact/contact.html", config: { tabTitle: "Contact", } });
-pageMap.set("error_404", { page: pageURI + "/notfound/notfound.html", config: { tabTitle: "Page not found", } });
-pageMap.set("guestbook", { page: pageURI + "/guestbook/guestbook.html", config: { tabTitle: "Guest Book", jsLink: pageJS + `guestbook/guestbook.js"></script>` } });
-
-//LEARNING pageroutes
-pageMap.set("learned", { page: pageURI + "/learned/learned.html", config: { tabTitle: "Learned Things", cssLink: pageCSS + `learned/learned.css">`, jsLink: pageJS + `learned/learned.js"></script>` } });
-pageMap.set("jsvalues", { page: pageURI + "/jsvalues/jsvalues.html", config: { tabTitle: "JavaScript Values", } });
-pageMap.set("npm", { page: pageURI + "/npm/npm.html", config: { tabTitle: "Node Package Manager", cssLink: pageCSS + `npm/npm.css">` } });
-pageMap.set("api", { page: pageURI + "/api/api.html", config: { tabTitle: "Express API server", } });
-pageMap.set("promises", { page: pageURI + "/promises/promises.html", config: { tabTitle: "Promises", } });
-pageMap.set("spreadoperator", { page: pageURI + "/spreadoperator/spreadoperator.html", config: { tabTitle: "Spread Operator", } });
+const router = Router(); 
 
 router.get("/:pageChoice", (req, res) => {
     const pageChoice = req.params.pageChoice;
     let page;
     if ( !pageMap.has(pageChoice) ) {
-        page = renderPage( pageMap.get("error_404").page, pageMap.get("error_404").config, )
+       page = pageMap.get("error_404");
         res.status(404);
     } else {
-        page = renderPage( pageMap.get(pageChoice).page, pageMap.get(pageChoice).config, )
+        page = pageMap.get(pageChoice)
     }
     res.send(page);
 });
