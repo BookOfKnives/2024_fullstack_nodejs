@@ -1,15 +1,31 @@
 import express from "express";
 import path from "path";
-import pageRouter from "./util/pageRouter.js";
-import commentsApiRouter from "./api/comments/commentsapirouter.js"
 
 const PORT = 8080;
 const app = express();
 
 app.use(express.static("public"))
-app.use("/pages", pageRouter);
 
-app.use("/api", commentsApiRouter);
+import pageRouter from "./util/pageRouter.js";
+app.use(pageRouter);
+import commentsApiRouter from "./api/comments/commentsapirouter.js"
+app.use(commentsApiRouter);
+import { fakerRouter } from "./util/faker.js";
+app.use(fakerRouter);
+
+// let fakerConObj = {
+//     foo: "1",
+//     bar: 2,
+// }
+
+// fakerConfig(fakerConObj)
+
+
+
+// commentsApiRouter.getConfig(someshit={})
+
+
+
 
 app.get("/", (req, res) => {
     res.status(301).redirect("/pages/homepage");

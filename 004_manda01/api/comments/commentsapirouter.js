@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 router.use(express.json());
 
-const ITEM_URL = "/comments";
+const ITEM_URL = "/api/comments";
 const itemName = "Comment";
 const notFoundMessage = "404: " + itemName + " not found.";
 const invalidInputMessage = "format, please submit name (string) and comment text (string) as JSON.";
