@@ -1,0 +1,11 @@
+<h1>I learned</h1>
+<p>That web operations are often async, and that this means we must often wait for an operation to finish before proceeding. There are three models to handle this problem: the first was the callback -- that you pass a function (the callback function, the function being passed) to a function (the executing function), so that once the executing function has finished, it will call the callback function. </p>
+<p>As demonstrated under <a href="/pages/promises">Promises</a>, the problem is that we often have a data operation upon which we must wait for completion before the program can progress. Not waiting will result in improper data -- errors and such. Promises are the second solution proposed -- callbacks were the first.</p>
+<p>Consider this simple use case, from <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing">MDN</a>:</p>
+<img src="/pages/async/img/simplecallback.png">
+<p>Each of the function calls await the next tone -- thus, when one finishes, the next one is called by the main function (the one called "doOperation").</p>
+<p>Excessive use of this can lead to the Pyramid of Doom</p>
+<p>Now consider if we have to handle multiple paths or contingencies within the same execution.</p>
+<img src="/pages/async/img/pyramidofdoom.png">
+<p>As you can see, things quickly escalate to the pyramid of doom. This is when the nested callbacks stack in a triangular manner. For the machine it doesn't matter -- but for a human developer, the mental cost of understanding the code rises exponentially with each step.</p>
+<p>At the top of the pyramid, the <del>human sacrifice</del> <i>data payload</i> is executed <del>as sun-tribute</del> as "result 3".</p>
