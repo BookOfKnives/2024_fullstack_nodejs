@@ -27,6 +27,7 @@ const apiRender = renderPage( pageURI + "/api/api.html",  { tabTitle: "Express A
 const promisesRender = renderPage( pageURI + "/promises/promises.html", { tabTitle: "Promises", });
 const operatorRender = renderPage( pageURI + "/spreadoperator/spreadoperator.html", { tabTitle: "Spread Operator", });
 const fakerRender = renderPage( pageURI + "/faker/faker.html", { tabTitle: "Faker Node package", jsLink: pageJS + `faker/faker` + pageJSEnd, } );
+const asyncRender = renderPage( pageURI + "/async/async.html", { tabTitle: "Asynchronous Operations", } );
 
 const pageMap = new Map();
 pageMap.set("homepage", homepageRender );
@@ -41,5 +42,6 @@ pageMap.set("api", apiRender );
 pageMap.set("promises", promisesRender );
 pageMap.set("spreadoperator", operatorRender  );
 pageMap.set("faker", fakerRender );
+pageMap.set("async", asyncRender );
 
 export { pageMap }
