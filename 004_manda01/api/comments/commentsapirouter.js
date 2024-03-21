@@ -107,7 +107,7 @@ router.delete(ITEM_URL + "/:idnumber", (req, res) => {
     } else {
         let deletedItem = {
             id: foundItem.id,
-            name: "deleted item",
+            name: "deleted " + itemName,
             commentText: null,
         }
     data[1 - foundItem.id] = deletedItem;

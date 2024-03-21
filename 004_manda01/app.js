@@ -1,10 +1,9 @@
 import express from "express";
-import path from "path";
-
 const PORT = 8080;
 const app = express();
-
 app.use(express.static("public"))
+
+import path from "path";
 
 import pageRouter from "./util/pageRouter.js";
 app.use(pageRouter);
@@ -20,12 +19,7 @@ app.use(fakerRouter);
 
 // fakerConfig(fakerConObj)
 
-
-
 // commentsApiRouter.getConfig(someshit={})
-
-
-
 
 app.get("/", (req, res) => {
     res.status(301).redirect("/pages/homepage");
