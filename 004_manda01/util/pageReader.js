@@ -25,9 +25,12 @@ const jsValuesRender = renderPage( pageURI + "/jsvalues/jsvalues.html",  { tabTi
 const npmRender = renderPage( pageURI + "/npm/npm.html",  { tabTitle: "Node Package Manager", cssLink: pageCSS + `npm/npm.css">`, } );
 const apiRender = renderPage( pageURI + "/api/api.html",  { tabTitle: "Express API server", } );
 const promisesRender = renderPage( pageURI + "/promises/promises.html", { tabTitle: "Promises", });
-const operatorRender = renderPage( pageURI + "/spreadoperator/spreadoperator.html", { tabTitle: "Spread Operator", });
+const operatorRender = renderPage( pageURI + "/spreadoperator/spreadoperator.html", { tabTitle: "Spread Operator", cssLink: pageCSS + `spreadoperator/spreadoperator.css">`, });
 const fakerRender = renderPage( pageURI + "/faker/faker.html", { tabTitle: "Faker Node package", jsLink: pageJS + `faker/faker` + pageJSEnd, } );
 const asyncRender = renderPage( pageURI + "/async/async.html", { tabTitle: "Asynchronous Operations", } );
+const npmTermRender = renderPage( pageURI + "/npmTerm/npmTerm.html", { tabTitle: "NPM Terminal Commands", cssLink: pageCSS + `npmterm/npmterm.css">` } );
+//npm ls command learn
+
 
 const pageMap = new Map();
 pageMap.set("homepage", homepageRender );
@@ -43,5 +46,6 @@ pageMap.set("promises", promisesRender );
 pageMap.set("spreadoperator", operatorRender  );
 pageMap.set("faker", fakerRender );
 pageMap.set("async", asyncRender );
+pageMap.set("npmTerm", npmTermRender );
 
 export { pageMap }
