@@ -1,0 +1,9 @@
+
+main div {
+    display: block;
+}
+
+main img {
+    float: right;
+    margin-right: 1rem;
+}
