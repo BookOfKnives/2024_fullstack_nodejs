@@ -5,7 +5,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-dev": "cross-env PORT=9090 nodemon --ext html,js,json app.js",
+    "start-prod": "cross-env PORT=80 node app.js"
   },
   "keywords": [
     "mandatory",
@@ -15,6 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
+    "cross-env": "^7.0.3",
     "express": "^4.18.3",
     "nodemon": "^3.1.0"
   }

@@ -20,6 +20,7 @@ const contactRender = renderPage( pageURI + "/contact/contact.html", { tabTitle:
 const errorNotFoundRender = renderPage( pageURI + "/notfound/notfound.html", { tabTitle: "Page not found", } );
 const guestbookRender = renderPage( pageURI + "/guestbook/guestbook.html", { tabTitle: "Guest Book", jsLink: pageJS + `guestbook/guestbook` + pageJSEnd, } );
 const learnedThingsRender = renderPage( pageURI + "/learned/learned.html", { tabTitle: "Learned Things", cssLink: pageCSS + `learned/learned.css">`, jsLink: pageJS + `learned/learned` + pageJSEnd, } );
+const layoutTestRender = renderPage( pageURI + "/layoutTest/layoutTest.html", { tabTitle: "Testing Layouts in CSS", cssLink: pageCSS + `layoutTest/layoutTest.css">`, jsLink: pageJS + `layoutTest/layoutTest` + pageJSEnd, } );
 //learned pages render
 const jsValuesRender = renderPage( pageURI + "/jsvalues/jsvalues.html",  { tabTitle: "JavaScript Values", } );
 const npmRender = renderPage( pageURI + "/npm/npm.html",  { tabTitle: "Node Package Manager", cssLink: pageCSS + `npm/npm.css">`, } );
@@ -38,6 +39,8 @@ pageMap.set("contact", contactRender );
 pageMap.set("error_404", errorNotFoundRender );
 pageMap.set("guestbook", guestbookRender );
 pageMap.set("learned", learnedThingsRender );
+pageMap.set("layoutTest", layoutTestRender)
+
 //LEARNING pageroutes
 pageMap.set("jsvalues", jsValuesRender );
 pageMap.set("npm", npmRender );

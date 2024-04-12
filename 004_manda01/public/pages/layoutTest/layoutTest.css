@@ -1,0 +1,15 @@
+body, main, .center, .floatright, div {
+    border: 1px solid blue;
+  }
+  main {
+    margin: 0vh, 20vh, 0vh, 20vh,
+    border: 1px ridge red;
+  }
+
+  p {
+    width: 320px;
+  }
+
+  div>img {
+    float: right;
+  }

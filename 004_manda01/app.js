@@ -1,5 +1,5 @@
 import express from "express";
-const PORT = 8080;
+const PORT = process.env.PORT ?? 8080;
 const app = express();
 app.use(express.static("public"))
 
@@ -12,7 +12,7 @@ app.use(commentsApiRouter);
 import { fakerRouter } from "./util/faker.js";
 app.use(fakerRouter);
 
-// let fakerConObj = {
+// let fakerConObj = { gjer
 //     foo: "1",
 //     bar: 2,
 // }

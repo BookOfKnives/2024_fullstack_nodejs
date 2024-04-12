@@ -1,19 +1,23 @@
 #logo {
     max-width: 5em;
 }
-
 body {
-    min-height: 95vh;
-    display: flex;
-    flex-direction: column;
+    margin: 0px;
+  }
+body #comment {
+    
+    margin: 0;
+    border: 0;
+    padding: 0;
     background-color: rgb(110, 150, 110);
 }
+main #COMMENT {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-main {
-    flex: 1;
 }
-
-
 
 a:link {
  comment: a normal, unvisited link;
