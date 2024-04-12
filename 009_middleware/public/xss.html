@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>XSS html</h1>
+    <input id="message" placeholder="type message">
+
+    <div id="wrapper"></div>
+    <script>
+        const wrapperDiv = document.getElementById("wrapper");
+        const messageInput = document.getElementById("message");
+        function submitMessage() {
+            const messageBody = JSON.stringify({message: messageInput.value });
+            fetch("/messages", {
+                method: POST,
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: messageBody
+            });
+        }
+
+        async function showMessages() {
+            const response = await fetch("/messages");
+            const result = response.json();
+            const htmlString = result.data.map((message) => `<p>${message}</p>`.join(""));
+            wrapperDiv.innerHTML = htmlString;
+        }
+/*
+        wrapperDiv.innerHTML = `
+        <img src="x" onerror="alert('XSS')" />
+        `;
+
+        */
+    </script>
+</body>
+</html>

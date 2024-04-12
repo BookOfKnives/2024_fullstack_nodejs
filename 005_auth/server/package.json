@@ -1,0 +1,20 @@
+{
+  "name": "005_auth_server",
+  "version": "1.0.0",
+  "description": "Server for the 005 Authorisation mandatory handin for NodeJS fullstack",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "HVMW",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.3",
+    "nodemon": "^3.1.0",
+    "passport": "^0.7.0",
+    "passport-json": "^1.2.0"
+  },
+  "type": "module"
+}
