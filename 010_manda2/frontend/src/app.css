@@ -2,13 +2,20 @@
   margin: 0px;
 }
 
-html, body, #app {
-  height: 100%;
+html {
+  background-color: #113311;
 }
-
 #app {
- display: flex;
+  height: 100%;
+  display: flex;
  justify-content: center;
  align-items: center;
- background-color: #113311;
+}
+
+.front-grid-div {
+  border: 2px dotted blue;
+}
+
+#container-4-div {
+  visibility: hidden;
 }

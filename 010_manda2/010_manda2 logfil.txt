@@ -1,0 +1,52 @@
+1504 2024
+manda2 logfil
+
+2355
+Jeg havde problem med at CORS blokerede for at backenden kunne fetche sine egne API data. Con-log Origin  gav undefined -- det virker til at  når serveren spørger sig selv (sin egen API) så er origin undefined, altså !origin. Jeg kom efter mange timer i tanke om at CORS NPM dok'en nævnte at REST APIer sku' ha || !origin i sin funktion... jeg havde egentlig løst det ved at tilføje "undefined"-datatypen til arrayet af whitelist-URLer -- det virker bare som et hak! 
+
+Prøv i øvrigt at spørge ChatGPT om, hvor mange ord der vil være i dens svar på dette spørgsmål.
+
+1604 2024
+Min Post fra frontend med userdata til backend (for auth) var tom -- altså, body'en var tom. Det viste sig at være fordi jeg havde headers { Content:  ... og ikke headers: { "Content-Type": ...
+Lidt frustrerende!
+
+jeg skal lave en auth login funktion.
+
+Jeg laver en post i auth router -- det virker lidt kringlet for mig -- frontend har en tekst input, den laver et objekt, objektet JSON.stringify(), fetchpost til backend auth router, auth router pakker det ud via express.json() og pakker det ind igen, fetchposter det til backend user API.
+
+Jeg har lavet en søgerfunktion der finder navnet på brugeren -- og en if-else i auth router, der tager imod den. Jeg havde sat den til at  tjekke data.username -- men den buggede fordi jeg jo skal tjekke data.data.username.
+
+Jeg ville bruge debugeren i VScode men jeg kan ikke bruge sessions uden en secret -- og jeg forsøgte at ændre launch.json til at have env vars, men det døde debuggeren af (uncaught syntax error i json). Bah!
+
+Jeg skal lave bcrypt compare -- den buggede på at jeg har kaldt det "password" i frontenden og "passwordHash" i backenden. Altså, det havde jeg glemt! Var nøødt til at tjekke mine ord. Fuuuck. Men nu virker den (hvis man altså ikke giver den null, undefined, etc)
+
+Nu laver jeg Ny Bruger funktion.
+
+rm -rf
+remove -recursive force
+
+Jeg er igang med at lave newUserSignup. Og jeg vil have URL og salt tal lagt i en env eller i store -- men jeg byttede om på  frontend (som er svelte) og backend (som jo er node, og fik storen).
+
+Jeg har nu salt i min .env, men ... det er en STRING. 
+
+Hvorfor er det en string!???
+
+Nu fungerer det atlave en ny bruger ... tror jeg?
+
+Det fungerer ikke endnu fordi da jeg kopierede min items-API.js, så glemte jeg at opdatere NOGLE af felterne til username og passwordHash!
+
+Jeg er faret vild et eller andet sted imellem min frontends postfetch til backends auth-signup, og dens fetch til backend user api, og déns svar tilbage til backend.
+
+Det virker til (via console logs) at min api slet ikke blive ramt!
+
+Det burde IKKE være fordi min fetch URL er /api/users/ og ikke /api/users
+
+Jeg prøvede at sætte signup posten til at sende en hardocded user, og det kan den godt!
+
+Der er en await i frontenden, som ... hvis jeg fjerner den, så kan frontenden godt sende den første fetch -- men ikke nogen fetches derefter.
+
+Det er fordi den ikke awaiter. Den skal vente ... men den.... kører bare på.
+
+Chatgpt foreslår at det er fordi jeg ikke wawaiter oversætningen af response til strings. lad os prøve det.
+
+Det hjalp lidt men den hænger stadig efterførste post.
