@@ -40,12 +40,12 @@ async function hitSignup() {
 <input type=text bind:value={username} name="username" id="username" placeholder="Username">
 <label for="password">Password</label>
 <input type=text bind:value={password} name="password" id="password" placeholder="Password">
-<p>Data: {username}, {password}</p>
+<!-- <p>Data: {username}, {password}</p> -->
 
-<button on:click={hitAuthenticate}>Hit authoerise</button>
+<button on:click={hitAuthenticate}>Hit authenticate</button>
 
 <label for="newUserName">New User name</label>
 <input type=text bind:value={newUsername} name="newusername" id="newusername" placeholder="New User Name">
 <label for="newUserPassword">New User password</label>
 <input type=text bind:value={newPassword} name="newuserpassword" id="newuserpassword" placeholder="New password">
-<button on:click={hitSignup} autofocus>Hit signup</button>
+<button on:click={hitSignup}>Signup</button>

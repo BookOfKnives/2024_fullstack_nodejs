@@ -50,3 +50,14 @@ Det er fordi den ikke awaiter. Den skal vente ... men den.... kører bare på.
 Chatgpt foreslår at det er fordi jeg ikke wawaiter oversætningen af response til strings. lad os prøve det.
 
 Det hjalp lidt men den hænger stadig efterførste post.
+
+1704 2024
+OK, nu bliver den nye user postet til User APIen, men, det hashede PW er anderledes hver gang. Det kan da ikke være rigtigt?
+
+jeg kigggede på npm bcrypts doku og der er noget nyt nu -- et callback i bcrypt.hash() funktionen.
+
+Nope, stadig nye hashes hver gang.
+
+ah... det er åbenbart sådan det skal være. Grunden til at jeg trode at det ikke var i orden var fordi jeg testedet det med in egen login funktion -- som ikke er færidg.
+
+Right, nu virker det. Man kan lave nye brugere, og man kan logge ind. Fedt fedt fedt. Det skal vist have en toast!

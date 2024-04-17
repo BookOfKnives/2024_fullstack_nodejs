@@ -10,7 +10,6 @@ router.use(express.json());
 
 router.post("/authenticate", async (req, res) => {
     const loginData = req.body;
-    // console.log("auth router input:", input); //giver  { username: 'ab', password: '123' }
     const verifyUserPostOptions = {
         method: "POST",
         headers: {
@@ -18,42 +17,56 @@ router.post("/authenticate", async (req, res) => {
         },
         body: JSON.stringify(loginData),
     };
-    const result = await fetch(BASE_URL + "api/users/findoneusername", verifyUserPostOptions)
+    const result = await fetch(process.env.BASE_URL + "api/users/findoneusername", verifyUserPostOptions)
         .then((response) => (response.json()));
-    if ( result.data.username ) {
+    if ( !result.data.username ) {
+        res.send({ data: "User not authenticated. "})
+    } else {
         const verifyPassword = await bcrypt.compare( loginData.password, result.data.passwordHash );
-        //mangler at lave compare true  authentication
-        req.session.userAuthorized = true;
-        console.log("auth router req session:", req.session)
-        res.send({ data: "User authorized." })
-    }
-        else {
-        res.send({ data: "User not authorized." })
+        if ( !verifyPassword ) {
+            res.send({ data: "User not authenticated." });
+        } else {
+            req.session.userAuthorized = true;
+            req.session.userData = {
+                username: result.data.username,
+            };
+            res.send({ data: "User authenticated." });
+        }
     }
 });
 
 router.post("/signup", async (req, res) => {
     const newUser = req.body;
-    let passwordHash = await bcrypt.hash(newUser.newPassword, Number(process.env.SALT_ROUNDS));
-    const doneUser = {
-        username: newUser.newUsername,
-        passwordHash: passwordHash
-    };
-    console.log("doneUser: is username and passwordHash?", doneUser)
-    const signupApiFetchPostOptions = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(doneUser)
-    };
-    let result;
-    fetch(process.env.BASE_URL + "api/users",signupApiFetchPostOptions)
-        .then((response) => (response.json()))
-        .then((data) => (result = data))
-
-    console.log( "signu result:", result);
-    res.send({ data: result });
+    if ( !newUser.newUsername || !newUser.newPassword ) {
+        res.send({ data: "error, cannot create user." });
+    } else {
+        const salt = Number(process.env.SALT_ROUNDS);
+        bcrypt.hash(newUser.newPassword, salt, async function(err, hash) {
+            if (err) {
+                console.error("hashing failed in auth router signup", err);
+                //brug toast her
+                res.send({ data: "Cannot sign up, error", err});
+            }
+            else {
+                const doneUser = {
+                    username: newUser.newUsername,
+                    passwordHash: hash
+                };
+                const signupApiFetchPostOptions = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(doneUser),
+                };
+                let result = await fetch(process.env.BASE_URL + "api/users", signupApiFetchPostOptions)
+                    .then((response) => (response.json()))
+                    .catch((err) => ( res.send({ data: err }) ) );
+                // if ( err ) res.send({ data: "error in creating user, authrouter err: " + err })
+                /*else*/ res.send({ data: "New user created! Name: " + result.data.username });
+            } 
+        });
+    }
 });
 
 console.log("Auth Router online.");

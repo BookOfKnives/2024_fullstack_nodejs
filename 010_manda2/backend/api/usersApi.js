@@ -11,12 +11,12 @@ const data = [
     {
         id: 1,
         username: "ab",
-        passwordHash: "$2b$12$BNQlCD0M1z297Rwq/wTIPuwmoEqFYa65ou4q9TbTo.IMMWnGwJ4h2" // pw "123" salt 12
+        passwordHash: "$2b$12$tJzAxc0iNBcltoO23oLAeuECZX8qMeqVEx8FOw6KYjcvXsJ5KZdpu"
     },
     {
         id: 2,
-        username: "Erik",
-        passwordHash: "$2b$12$lJPewU2UO9P6YAsxKhBUa.lb7NVhknBEgq5yoQwXV81PaI3LsMWau" //pw "not very safe", salt 12
+        username: "Solid snake",
+        passwordHash: "$2b$12$GNbJkkoP.N8z7ndyg4WF/.89Dgjcxinz6qz.Iqf5X17PVAfam3.aO"
     },
 ];
 
@@ -55,7 +55,6 @@ router.post(ITEM_URL + "/findoneusername", (req, res) => {
 });
 
 router.post(ITEM_URL, (req, res) => {
-    console.log("inside ROUTER POST UserAPI, req body:", req.body)
     if (isItemsInputBad(req.body)) { 
         res.status(400).send("Invalid POST " + invalidInputMessage);
     } else {
