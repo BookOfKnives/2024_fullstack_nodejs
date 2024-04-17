@@ -61,3 +61,5 @@ Nope, stadig nye hashes hver gang.
 ah... det er åbenbart sådan det skal være. Grunden til at jeg trode at det ikke var i orden var fordi jeg testedet det med in egen login funktion -- som ikke er færidg.
 
 Right, nu virker det. Man kan lave nye brugere, og man kan logge ind. Fedt fedt fedt. Det skal vist have en toast!
+
+OK, jeg var nødt til at debugge en del for at have ordentlige if-else ruter igennem mine routers -- hvis tomt pw, navn, etc -- men jeg tror den er der nu.  Men det ser godt nok rodet ud inde i AuthRouter.js -- alle de if-else! eg var lige ved at glemme indentering.
