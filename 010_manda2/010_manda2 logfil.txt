@@ -63,3 +63,93 @@ ah... det er åbenbart sådan det skal være. Grunden til at jeg trode at det ik
 Right, nu virker det. Man kan lave nye brugere, og man kan logge ind. Fedt fedt fedt. Det skal vist have en toast!
 
 OK, jeg var nødt til at debugge en del for at have ordentlige if-else ruter igennem mine routers -- hvis tomt pw, navn, etc -- men jeg tror den er der nu.  Men det ser godt nok rodet ud inde i AuthRouter.js -- alle de if-else! eg var lige ved at glemme indentering.
+
+JEg har glemt at fjerne mine test navne fra loginsvelte.
+Jeg skal virkelig hjave lavet e nauto test thing.
+
+1804 2024
+funny thing -- if you search for express auto test ... you get ads for car mechanics.
+
+Den artikel på StackO sagde man burde block cipher sine pw hashes i db'en.
+
+Det ville give mening at lave et nyt test projekt til at prøve dét af.
+
+aesjs kan vist kun requires? Chat GPT foreslår jeg laver en slags fetch -- lad os prøve det.
+
+Det virker til at virke!
+
+2104 2024
+jeg læser på sessions. Jeg har egentlig allerede lavet det men jeg synes ikke jeg forstår det. Men det går bedre. Jeg finder ud af ting.
+
+jeg kan se jeg har sat cors() --- hvorfor gjorde jeg det?
+Jeg har sat den tilbage til options, jeg kan ikke se nogen failures.
+
+Jeg bør sku sætte en auto test suite ind asap.
+
+jeg har fundet mocha.
+vha 
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const moduleThatUsesRequire = require('module-that-uses-require');
+
+kan jeg bruge mocha. jeg kan få det grundlæggende test eksempel til at virke. jeg tror jeg også skal bruge superuser til at hive fat i mine Express endpoints.
+
+Jeg kom i øvrigt til at slette mit AES JS test dir! Lidt en skam. burde måske... gitte dem til et andet repo? Eller noget? lokalt repo? Hm.
+
+MOCHA -- instruks
+jeg har  lavet et nyt dir -- 000_007 mocha test -- og lavet en simpel express i den. Ved siden af appen har jeg lavet test/test.js, som har assert etc i sig. i package.json har jeg sat script test mocha. det kører jeg så med npm test.
+
+MOCHA TEST
+https://github.com/mochajs/mocha-examples/blob/master/packages/express-rest-api/test/index.test.js
+
+Jeg tror jeg kan bruge supertest til at teste mine endpoints. Lad o sprøæve det.
+
+-> mocha test kan ikke køres fordi man ikke kan require app.js -- ok, prøver med import.
+
+Mangler at default exporte min app
+
+det fuckin WORKS
+
+Godt nok fejler testen men det virker! 
+
+OK -- proces: 
+app skal default exportes i bunden af app.js (virker mærkeligt men OK)
+app skal importes i test.js
+
+2204 2024
+jeg vil lave en test suite. 
+jeg bør nok bruge noget tid på at have dev branch .... men jeg gider ikke.
+
+Jeg forsøger at finde ud af hvordan express session bruges. Eksemplet viser at man kan smide data ind i req.session, men når jeg gør det i min auth router, så sker der ikke noget. ER det fordi min auth router ikke har express-session importet? Jeg må prøvbe det i min main app.
+
+Har sat en tid ind i opstartskonsollen så jeg kan se hvornår den er startet. Det kan jeg godt lide.
+
+Og nu har jeg testet det med session. Jeg tror faktisk Anders viste os netop det? Jeg bliver bare ved med at tænke at imports er globale ... me ndet er de vel ikke?
+
+er det nok bare at importere session til auth router?
+nej ... men altså ... jeg ... jeg kan GODT lave en endpoint i min auth router der gør det -- altså, sætter en req.data ting. 
+Men hvorfor kan min auth endpoint så ikke gøre det?
+
+Altså så må svaret jo være at min If-else ikke virker
+-> nope, mine if-elses virker som de skal. Så hvorfor bliver req.session ikke sat derinde?
+
+Er det fordi det er en POST?
+-> ja, det virker til at være derfor. Hvis jeg har endpoint POST med req.session.name = hans så har det ingen effekt.
+Men det samme med en GET? Det virker.
+
+express-session NPM siger at man kan bruge noget der hedder session.regenerate efter sine POSTs? lad os prøve det.
+
+Det gjorde vist heller ingen forskel.
+
+... FUCKK jeg tester et post endpoint i min app.js (altså ikke router) via postman og DET virker. Det kan godt sætte whatever. ... eller dvs jeg får det ud igennem min console log (console.log req.session.name) men IKKE i min res.send({ data }).
+
+Så det virker til at jeg tilgår FORSKELLIGE stores? Forskellige værdier?
+
+hvis man sætter credentials header i fetch skal CORS osse have den til true acces  ontreol allow credentials
+credentials: true
+
+det var derfor. det er credentials. CORS options skal have credentials og fetchen (fra frontend til backend) skal have credentials include.
+
+Anders sagde det tilmed i fredags. Fuckkkkkk
+
+hvad er forskellen på at ... altså, jeg kan sætte data i req.session.username, mnen jeg kan jo osse sætte det i storen i baggrunden? det bør jeg jo nok.
