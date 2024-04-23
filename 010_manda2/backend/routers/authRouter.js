@@ -1,7 +1,5 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import session from "express-session";
-// import { BCRYPT_SALT, BASE_URL } from "../stores/generalStore.js";
 import "dotenv/config";
 
 const router = express.Router();
@@ -14,7 +12,7 @@ router.post("/authenticate", async (req, res) => {
     console.log("sess id authenticate:", req.session.id)
     const verifyUserPostOptions = {
         method: "POST",
-        credentials: "include", //til brug for at få session stil at virke?
+        credentials: "include", 
         headers: {
             "Content-Type":"application/json",
         },
@@ -30,8 +28,9 @@ router.post("/authenticate", async (req, res) => {
             res.send({ data: "User not authenticated." });
         } else {
             req.session.userData = {
-                name: result.data.username
-            }  //set the user name proper. 
+                name: result.data.username,
+
+            } 
         };
 
         res.send({ data: "User authenticated." });
@@ -71,42 +70,6 @@ router.post("/signup", async (req, res) => {
         });
     }
 });
-
-// session test
-/*
-router.get("/authSession", (req, res) => {
-    const data = req.session;
-    console.log("authsess name: authsession", req.session.name)
-    console.log("authsess id: authsession", req.session.id)
-    res.send({ data });
-});
-
-router.get("/authz", (req, res) => {
-    req.session.name = "hans" 
-    console.log("sess id authz:", req.session.id)
-    res.send({ data: "ok" })
-});
-
-router.post("/authz", (req, res) => {
-    req.session.name = "hans" 
-    res.send({ data: "ok" })
-});
-
-router.get('/authnum', function(req, res, next) {
-    if (req.session.views) {
-      req.session.views++
-      res.setHeader('Content-Type', 'text/html')
-      res.write('<p>views: ' + req.session.views + '</p>')
-      res.write('<p>views: ' + req.session.name + '</p>')
-      res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
-      res.end()
-    } else {
-      req.session.views = 1
-      res.end('welcome to the session demo. refresh!')
-    }
-  })
-*/
-// session test end
 
 console.log("Auth Router online.");
 export default router;
