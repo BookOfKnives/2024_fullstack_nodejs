@@ -1,0 +1,7 @@
+2304 2024
+jeg vil lave en SSR Svelte ting.
+
+jeg tror jeg har det kørende nu. localhost8080 serverer min svelte forside. Det er jeg ret glad for.
+
+
+jeg hader det virkelig når jeg kommer til at skrive noget i et  vindue jeg ikke er obs på. Det er ret irriterende.
