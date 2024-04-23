@@ -1,11 +1,31 @@
 <script>
 
 let isUserLoggedIn = false;
-let username = "ab";
-let password = "123";
+let username = "";
+let password = "";
 
-let newUsername = "tesint";
-let newPassword = "solid snake";
+let newUsername = "";
+let newPassword = "";
+
+  // Function to get a cookie value
+  function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.split('=');
+      if (cookieName.trim() === name) {
+        return cookieValue;
+      }
+    }
+    return "";
+  }
+
+  function getAllCookie() {
+    return  document.cookie;
+
+  }
+
+
+let cookieArray = getAllCookie()
 
 async function hitAuthenticate() {
     let loginData = {
@@ -14,6 +34,7 @@ async function hitAuthenticate() {
     }
     const data = await fetch("http://localhost:8080/authenticate/", {
         method: "POST",
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },
@@ -28,11 +49,14 @@ async function hitSignup() {
     }
     const response = await fetch("http://localhost:8080/signup/", {
         method: "POST",
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(signupData),
     });}
+
+
 
 </script>
 
@@ -49,3 +73,6 @@ async function hitSignup() {
 <label for="newUserPassword">New User password</label>
 <input type=text bind:value={newPassword} name="newuserpassword" id="newuserpassword" placeholder="New password">
 <button on:click={hitSignup}>Signup</button>
+
+
+{cookieArray}

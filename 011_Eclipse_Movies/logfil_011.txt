@@ -1,0 +1,52 @@
+1904 2024 skolearbejde
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
+
+denne kode fra css-tricks kan bruges til at have et emoji som et favicon.
+
+-
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+man kan sætte det selv. CORS. Men husk at lukke det.
+
+node
+require("crypto").randomBytes(22).toString("hex")
+
+man kan sætte
+app.use(cors({
+	origin: true,
+	credentials: true,
+});
+
+for at undgå cors shit på credentials.
+
+
+---
+
+
+import livereload from 'livereload';
+import connectLivereload from 'connect-livereload';
+
+const liveReloadServer = livereload.createServer();
+liveReloadServer.server.once("connection", () => {
+setTimeout(() => {
+    liveReloadServer.refresh("/");
+}, 100);
+});
+
+app.use(connectLivereload());
+
+for at lave live reload  på en server
+
+lav en ny run command:
+"build:watch": "vite build --watch" (se ANDERS 010)
+app use express public clint/build/dist
+app get ("*
+
+
+--
+det er et spørgsmål om tooling, tror jeg. bruge 
+....

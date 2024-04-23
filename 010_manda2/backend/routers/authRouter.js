@@ -10,12 +10,15 @@ router.use(express.json());
 
 router.post("/authenticate", async (req, res) => {
     const loginData = req.body;
+
+    console.log("sess id authenticate:", req.session.id)
     const verifyUserPostOptions = {
         method: "POST",
+        credentials: "include", //til brug for at få session stil at virke?
         headers: {
             "Content-Type":"application/json",
         },
-        body: JSON.stringify(loginData),
+        body: JSON.stringify(loginData), //sender hele brugeren her, ...?måske? skal jo bruge pass også
     };
     const result = await fetch(process.env.BASE_URL + "api/users/findoneusername", verifyUserPostOptions)
         .then((response) => (response.json()));
@@ -26,14 +29,15 @@ router.post("/authenticate", async (req, res) => {
         if ( !verifyPassword ) {
             res.send({ data: "User not authenticated." });
         } else {
-            req.session.userAuthorized = true;
             req.session.userData = {
-                username: result.data.username,
-            };
-            res.send({ data: "User authenticated." });
+                name: result.data.username
+            }  //set the user name proper. 
+        };
+
+        res.send({ data: "User authenticated." });
         }
     }
-});
+);
 
 router.post("/signup", async (req, res) => {
     const newUser = req.body;
@@ -62,12 +66,47 @@ router.post("/signup", async (req, res) => {
                 let result = await fetch(process.env.BASE_URL + "api/users", signupApiFetchPostOptions)
                     .then((response) => (response.json()))
                     .catch((err) => ( res.send({ data: err }) ) );
-                // if ( err ) res.send({ data: "error in creating user, authrouter err: " + err })
-                /*else*/ res.send({ data: "New user created! Name: " + result.data.username });
+                res.send({ data: "New user created! Name: " + result.data.username });
             } 
         });
     }
 });
+
+// session test
+/*
+router.get("/authSession", (req, res) => {
+    const data = req.session;
+    console.log("authsess name: authsession", req.session.name)
+    console.log("authsess id: authsession", req.session.id)
+    res.send({ data });
+});
+
+router.get("/authz", (req, res) => {
+    req.session.name = "hans" 
+    console.log("sess id authz:", req.session.id)
+    res.send({ data: "ok" })
+});
+
+router.post("/authz", (req, res) => {
+    req.session.name = "hans" 
+    res.send({ data: "ok" })
+});
+
+router.get('/authnum', function(req, res, next) {
+    if (req.session.views) {
+      req.session.views++
+      res.setHeader('Content-Type', 'text/html')
+      res.write('<p>views: ' + req.session.views + '</p>')
+      res.write('<p>views: ' + req.session.name + '</p>')
+      res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
+      res.end()
+    } else {
+      req.session.views = 1
+      res.end('welcome to the session demo. refresh!')
+    }
+  })
+*/
+// session test end
 
 console.log("Auth Router online.");
 export default router;
