@@ -5,3 +5,35 @@ jeg tror jeg har det kørende nu. localhost8080 serverer min svelte forside. Det
 
 
 jeg hader det virkelig når jeg kommer til at skrive noget i et  vindue jeg ikke er obs på. Det er ret irriterende.
+
+jeg har fået det meste af SSR til at virke men browser vinduet opdaterer ikke af sig selv. ... mhm ...
+
+npm run build:watch
+
+jeg tror nu jeg ved at finde ud af hvad fejlen er: min backend brokker sig over at en fil ikke eksisterer.
+-> nej det er ikke det.
+
+fucking connect. hvordan fungerer det??
+
+Det kunne være jeg skulle prve anders' ting first.
+ok, selv ikke anders' ting har det. hmmm ......
+
+anyway, så skal jeg vell ..... hvad er det næste jeg skal lave?
+
+routes
+email
+testing
+authe
+autho
+
+artware
+
+jeg skal sådan set stadig have login i frontenten -- altså, at man er logget ind. 
+
+lave en fetch metode som er importeret.
+
+Jeg skal have router kørende.
+
+npm i svelte-navigator
+
+har fikset router, nu kan jeg lave routes.
