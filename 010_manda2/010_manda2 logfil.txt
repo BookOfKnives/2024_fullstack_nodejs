@@ -153,3 +153,14 @@ det var derfor. det er credentials. CORS options skal have credentials og fetche
 Anders sagde det tilmed i fredags. Fuckkkkkk
 
 hvad er forskellen på at ... altså, jeg kan sætte data i req.session.username, mnen jeg kan jo osse sætte det i storen i baggrunden? det bør jeg jo nok.
+
+2304 2024
+OK, nu har jeg så username i req.session cookien. Jeg tror jeg har nogenlunde styr på session nu.
+
+hvorfor faen ville jeg egentlig have det?
+
+Nu hvor jeg skal bruge session til at se om min bruger er  logget ind, tænker jeg at det faktisk giver meget godt mening at have front og backend serveret samme sted -- det ville jo betyde at de har samme session, ikke?
+
+Da jeg gerne vil bruge server ssr bør jeg starte forfra, synes jeg.
+
+SE 012_manda2_logfil.txt
