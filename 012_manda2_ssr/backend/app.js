@@ -11,12 +11,13 @@ import livereload from "livereload";
 import connectLivereload from "connect-livereload";
 
 const liveReloadServer = livereload.createServer();
-liveReloadServer.watch("../frontend/dist") 
-liveReloadServer.server.once("connection", () => {
+liveReloadServer.watch(path.resolve("../frontend/dist/"));
+liveReloadServer.server.once("connection", () => { 
     setTimeout(() => {
         liveReloadServer.refresh("/");
     }, 500);
 });
+
 app.use(connectLivereload());
 
 import session from "express-session";
@@ -27,6 +28,11 @@ app.use(session({
     cookie: { secure: false },
 }));
 
+
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve('../client/dist/index.html'));
+});
+
 const dateOptions = { 
     hour: "numeric",
     minute: "numeric",
@@ -34,11 +40,7 @@ const dateOptions = {
 };
 const serverStartTime = Intl.DateTimeFormat(undefined, dateOptions).format(new Date());
 
-app.get("*", (req, res) => {
-    res.sendFile(path.resolve('../client/dist/index.html'));
-});
-
 const PORT = process.env.PORT ?? 8080;
 app.listen(PORT, () => {
     console.log(`App Server 012 Manda2 running on PORT: ${PORT}, started at TIME: ${serverStartTime}.`)
-});
+}); 
