@@ -1,27 +1,9 @@
 <script>
-    let newUsername = "";
-    let newPassword = "";
+    let newUsername = "re";
+    let newPassword = "re";
 
-    let username = "";
-    let password = "";
-    /*
-      // Function to get a cookie value
-      function getCookie(name) {
-        const cookies = document.cookie.split(';');
-        for (let cookie of cookies) {
-          const [cookieName, cookieValue] = cookie.split('=');
-          if (cookieName.trim() === name) {
-            return cookieValue;
-          }
-        }
-        return "";
-      }
-    
-      function getAllCookie() {
-        return  document.cookie;
-    
-      }
-    */
+    let username = "re";
+    let password = "re";
 
     async function hitAuthenticate() {
         let loginData = {

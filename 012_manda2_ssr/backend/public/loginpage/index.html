@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1618 Login Page</title>
+</head>
+<body>
+<main id="app">
+    <div id="front-container-div">
+        <div class="nav-bar-div">
+
+        </div>
+        <div class="page-header-div">            
+            <h1>1618 Design</h1>
+            <h2>Welcome!</h2>
+            <p>Please log in or register.</p>
+        </div>
+        <div class="auth-div">
+
+        </div>
+        <div class="left-sidebar-div">
+            <p>New User signup</p>
+        </div>
+
+        <div class="main-content-div">
+            <p>Login</p>
+            <label for="username"></label>
+            <input type="text" name="username" id="username" placeholder="username">
+            <br>
+            <label for="password"></label>
+            <input type="text" name="password" id="password" placeholder="password">
+            <br>
+            <button onclick="loginButton()">Log In</button>
+        </div>
+    </div>
+</main>
+</body>
+<script>
+    async function loginButton() {
+        let username_input = document.getElementById("username").value;
+        let userpassword_input = document.getElementById("password").value;
+        console.log("hiutting loginbutton")
+        const result = await fetch("http://localhost:8080/frontpage");
+        console.log("this is 012 index html with result of test:", result);
+        console.log("this is 012 index html with result of window:", window);
+        
+    }
+</script>
+<style>
+* {
+  margin: 0;
+}
+
+.main-content-div {
+    text-align: center;
+}
+.page-header-div {
+    text-indent: -39%;
+    padding-top: 33px; 
+    text-align: center;
+  }
+
+html {
+  background-color: #113311;
+}
+#app {
+  height: 100%;
+  display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+#front-container-div {
+  margin: 5px;
+  background-color: #676;
+  border: 2px solid #9a9;
+  display: grid;
+  grid-template-rows: 177px 228px 177px;
+  grid-template-columns: 185px 600px 185px;
+}
+
+div {
+  border: 2px dotted #441
+}
+
+ul, li {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}
+</style>
+</html>

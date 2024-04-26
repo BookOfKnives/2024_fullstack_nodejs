@@ -5,33 +5,45 @@ const app = express();
 app.use(express.json());
 
 import path from "path";
+app.use(express.static(path.resolve("./public/loginpage")));
 app.use(express.static(path.resolve("../frontend/dist")));
 
-import livereload from "livereload";
-import connectLivereload from "connect-livereload";
-
-const liveReloadServer = livereload.createServer();
-liveReloadServer.watch(path.resolve("../frontend/dist/"));
-liveReloadServer.server.once("connection", () => { 
-    setTimeout(() => {
-        liveReloadServer.refresh("/");
-    }, 500);
-});
-
-app.use(connectLivereload());
+import mongoStore from "connect-mongo";
 
 import session from "express-session";
 app.use(session({
     secret: process.env.SESSION_SECRET,
+    store: mongoStore.create({
+        mongoUrl: process.env.MONGO_URL,
+        dbName: process.env.MONGO_AUTH_DB,
+    }),
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false },
 }));
 
 
-app.get("*", (req, res) => {
-    res.sendFile(path.resolve('../client/dist/index.html'));
+// import test from "./database/connection.js";
+
+app.get("/frontpage", (req, res) => {
+    console.log("app 012 get *: req.session", req.session);
+    if (req.session.isUsedLoggedIn) { 
+        console.log("inside if")
+        return res.sendFile(path.resolve('../frontend/dist/index.html')); 
+    }
+    console.log("outside if")
+    return res.status(403).send({ data: "some shit" });
 });
+
+app.get("/authSessionTest", (req, res) => {
+    req.session.auth = true;
+    res.send({ data: "Auth set OK!" });
+})
+
+app.get("/authLoginTest", (req, res) =>{
+    if (req.session.auth === true) { return res.sendFile(path.resolve("../frontend/dist/index.html")); }
+    return res.status(403).send("illegal");
+})
 
 const dateOptions = { 
     hour: "numeric",

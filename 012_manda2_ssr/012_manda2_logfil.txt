@@ -1,3 +1,5 @@
+(this file technically continued from 010_manda2 logfil.txt)
+
 2304 2024
 jeg vil lave en SSR Svelte ting.
 
@@ -37,3 +39,101 @@ Jeg skal have router kørende.
 npm i svelte-navigator
 
 har fikset router, nu kan jeg lave routes.
+
+2404 2024
+på sin vis er det meget realistisk at jeg skal lave projektet nærmest forfra, hver gang jeg lærer noget nyt og gerne vil itnegrere det.
+
+jeg tror jeg bare bruger et browser plugin til at liverefresh?
+
+ller måske bare droppe d et.
+
+setup grid CSS ... auth.
+
+Skal have at auth ser om man er logget ind  eller ej.
+
+Havde en fejl med svelte navigator router: jeg havde glemt / i  link to="/ducks" ...
+
+Men nu virker det igen.
+
+stylede list til at have ingen margin og ingen dots.
+
+Havde en irriterende ting hvor min nodemon tjekkede for hurtiugt imens jeg ædnrede i svelte filer -- så nodemon crashede fordi vite build ikke var færdig. Så jeg satte delay i nodemon json i ms.
+--> eller det TROEDE jeg. faktisk var det ... hmm ... jeg er ikke helt sikker på hvorfor det sker?
+det virker til at være hvis jeg forsøger at tilgå filen direkte -- uden om svelte navigator? Så det er vist ret sikkert.
+
+2504 2024
+uf, min tekst ser grim ud. Jeg har faktisk aldrig fundet ud af hvordan man styler tekst.
+
+Id et hele taget har jeg ikke fundet ud af meget med CSS. jhmmmhmmmhmhmhmhmhmhmhmhm .
+
+læse læse læse
+
+Jeg har fundet text-align.
+
+Jeg har fundet padding-left
+margin-top
+padding-top
+
+Jeg har sat min tekst i en <h> inde i en <div>. Diven er styret og sat til textalign center, text-indent styrer så dens placering. Så kan jeg lave gylden ratio! Dejligt.
+
+Hvis jeg bruger Auth Routere ... så skal jeg vil i realiteten have en path til unsecured og en ... men jeg skal jo under alle omstændigheder ... hm...
+
+hav passwords i backend. Så frontend skal bare se om man er logget ind eller ej?
+
+Hvis session skal tjekkes skal jeg sætte mongodb op først. Right? Right.
+
+Installerer mongo db 7, sætter det med connect-mongo. Hmm ...
+
+den brokker sig stadig over et eller andet -- server select time out? 30 sekunder? irriterende at vente på.
+
+nu crasher den ikke længere, men, det virker til at jeg ikke kan tilgå mongodb med mongosh imens min app kører? det er ret irriterende. 
+
+har jeg glemt mongoClient?
+
+jeg har fået etableret db forbindelse og ka nskrive til den.
+
+men der er en irriterende fejl hvor ... jeg har jo både min app og min mongoshell -- hvis jeg forbinder med den ene, så skal jeg trykke enter på mongod-terminalen, før jeg kan lave noget med den anden.
+
+måske er det fortdi jeg har for mange forb åben? memory leak i forb m server genstart pga ændringer over nodemon?
+
+kan ikke lige reproducere fejlen. Hm.
+
+2604 2024
+tog et kig på gamle projekter, indså at jeg skal tjekke auth i backenden. Hvis personen ikke er logget ind (ikke har session) så skal de slet ikke have lov.
+
+det viser sig at fordi jeg har en index.html, så, hvis jeg tilgår /, så vil index altid blive ramt. det virker sku lidt som BS.
+
+Det viser sig at jeg HELE TIDEN ... dvs aldrig har ramt min frontend ordentligt, fordi jeg har kaldt mappen frontend og anders har kaldt sin "client".
+
+istedet for at det skal være et problem skal det være nyttigt-. jeg vender det om og laver index til min loginside.
+
+ok, nu har jeg  en slags login funk. Dvs ... man ka ntrykke på en boks og s åkommer ma nvidere? ikke særligt sikkert.
+
+jeg er ikke helt sikker på hvorfro (jeg tror måske det er fordi express.static ikke er rekursiv?? måske??)
+men nu rammer jeg min login html på serveren og ikke min build dist index html, når jeg går på 8080/
+
+nej .--.- jeg får stadig en fejl hvor server ikke kan finde loginpagen ...
+
+ah -- det er fordi jeg har omødbt loginpagehtml til index.html, og sat express static (den) ovenover express static frontend dist. Så loginen bliver ramt først.
+
+min kop flyder over med løsninger.
+
+been messing with session etc for a bit now. i think im starting to get it. sorta.
+
+i forget why but ive moved my login frontpage into a static html index. it sjust html css and java singlepage. login fetch to backend which sets req.session cookies
+
+i tested that req ses cook endpoint, it works. it sets the cookies.
+
+somehow ... im relieved.
+
+im taking a short nap every half hour. on the floor, like a cat. it helps. i can feel my brain rearranging itself. like a guy cleaning out his wardrobe. it hurts, a little. in a good way.
+
+ikeep thinking i have to do it the right way  but fuck that. thers the way which works, which walks
+
+"and things have learned to walk which ought to crawl"
+
+"where do you want to go"
+"i dont know"
+"then it doesnt matter"
+
+or more accurately, it feels like ten guys tryna bang a couch through a small door and they're in a hurry.
