@@ -137,3 +137,38 @@ ikeep thinking i have to do it the right way  but fuck that. thers the way which
 "then it doesnt matter"
 
 or more accurately, it feels like ten guys tryna bang a couch through a small door and they're in a hurry.
+
+2704 2024
+ok, den kan se sessions. hvoprdan får jeg min index frontpage til at se det også? hvis session ... så redirect?
+
+chatgpt gør mig opmærkmsom på at jeg jo retn faktisk ikke bruger express auth, når jeg serverer en static page.
+
+OK, jeg laver en auth middleware.
+
+havde glemt at passe min middlewware req, res, next.
+
+det er altså lidt forvirrende!
+
+måske hvis jeg rykker static nederst?
+jep, that did it. det er virkelig en stack!
+
+think im getting it now.
+
+hvis man nexter noget next("hell0"); så får man bare dét "hello".
+
+backend permission, roles ... name.
+
+ok nu er det bare frontend der tjekker om man er logget in. log in status.
+
+ok .. det er et rod nu. men det er i det mindste MIT rod.
+
+det ser OK ud, agtig. Altså... lidt.
+
+jeg skal lige finde ud af det med den fetch og dens json. hvorfor bliver newusersignup ikke ramt?
+'
+jeg havde glemt app use router
+og jeg havde router GET og ikke router post
+
+now it woiirks
+
+ok nu har jeg forbindelse. min svelte kan ramme min backend med en ny brugerdata- så skal den cryptes og postes til user api.

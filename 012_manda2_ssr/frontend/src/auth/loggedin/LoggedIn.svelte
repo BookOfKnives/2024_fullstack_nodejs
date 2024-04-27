@@ -1,11 +1,10 @@
 <script>
     import { Router, Link, Route } from "svelte-navigator";
-    import Home from "../home/Home.svelte";
-    import Ducks from "../Ducks/Ducks.svelte";
-    import Auth from "../auth/Auth.svelte";
-    import Tanks from "../tanks/Tanks.svelte";
-
+    import Home from "../../pages/home/Home.svelte";
+    import Ducks from "../../pages/Ducks/Ducks.svelte";
+    import Tanks from "../../pages/tanks/Tanks.svelte";
 </script>
+
 
 <div id="front-container-div">
     <div class="nav-bar-div">
@@ -30,7 +29,7 @@
         <h1>1618 Design</h1>
     </div>
     <div class="auth-div">
-          <Auth />
+        
     </div>
     <div class="left-sidebar-div">
 

@@ -5,9 +5,6 @@ const app = express();
 app.use(express.json());
 
 import path from "path";
-app.use(express.static(path.resolve("./public/loginpage")));
-app.use(express.static(path.resolve("../frontend/dist")));
-
 import mongoStore from "connect-mongo";
 
 import session from "express-session";
@@ -18,39 +15,45 @@ app.use(session({
         dbName: process.env.MONGO_AUTH_DB,
     }),
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: { secure: false },
 }));
 
-
 // import test from "./database/connection.js";
 
-app.get("/frontpage", (req, res) => {
-    console.log("app 012 get *: req.session", req.session);
-    if (req.session.isUsedLoggedIn) { 
-        console.log("inside if")
-        return res.sendFile(path.resolve('../frontend/dist/index.html')); 
-    }
-    console.log("outside if")
-    return res.status(403).send({ data: "some shit" });
+import authTestRouter from "./test/authTestRouter.js";
+app.use(authTestRouter);
+
+/*
+function isLoggedIn(req, res, next) {
+    const auth = req.session.auth;
+    if (auth) next();
+    else res.status(403).send("Illegal entry in IsLoggedIn, sorry.");
+}
+
+app.all("*", isLoggedIn, (req, res, next) => {
+     next();
+})
+*/
+app.get("/session", (req, res) => {
+    res.send(req.session);
+})
+
+app.get("/", (req, res) => {
+    res.sendFile(path.resolve('../frontend/dist/index.html')); 
 });
 
-app.get("/authSessionTest", (req, res) => {
-    req.session.auth = true;
-    res.send({ data: "Auth set OK!" });
-})
+app.use(express.static(path.resolve("../frontend/dist")));
 
-app.get("/authLoginTest", (req, res) =>{
-    if (req.session.auth === true) { return res.sendFile(path.resolve("../frontend/dist/index.html")); }
-    return res.status(403).send("illegal");
-})
+import authRouter from "./routers/authRouter.js";
+app.use(authRouter);
 
 const dateOptions = { 
     hour: "numeric",
     minute: "numeric",
     second: "numeric",
 };
-const serverStartTime = Intl.DateTimeFormat(undefined, dateOptions).format(new Date());
+const serverStartTime = Intl.DateTimeFormat("da-DK", dateOptions).format(new Date());
 
 const PORT = process.env.PORT ?? 8080;
 app.listen(PORT, () => {

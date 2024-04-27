@@ -36,16 +36,29 @@
     </div>
 </main>
 </body>
-<script>
+<script>  
+  function fetchPostOptions(body) {
+    let options = {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type":"application/json",
+      },
+      body: JSON.stringify(body),
+    };
+    return options
+  }
+
     async function loginButton() {
         let username_input = document.getElementById("username").value;
         let userpassword_input = document.getElementById("password").value;
-        console.log("hiutting loginbutton")
-        const result = await fetch("http://localhost:8080/frontpage");
-        console.log("this is 012 index html with result of test:", result);
-        console.log("this is 012 index html with result of window:", window);
-        
+        const result = await fetch("http://localhost:8080/frontpage"); //skal være en post
     }
+    async function onStartCheckSessionCookies() { //skal være en get
+      // const result = await fetch("http://localhost:8080/api/session")
+      
+    }
+    console.log("this is index html 012 server, saying cookies:", document.cookie);
 </script>
 <style>
 * {
