@@ -3,6 +3,11 @@
     import Home from "../../pages/home/Home.svelte";
     import Ducks from "../../pages/Ducks/Ducks.svelte";
     import Tanks from "../../pages/tanks/Tanks.svelte";
+    import { userLoginStatus } from "../../stores/userLoginStatus";
+
+    function logOut(){
+        $userLoginStatus = !$userLoginStatus;
+    }
 </script>
 
 
@@ -23,6 +28,7 @@
                 </ul>
             </nav>
         </Router>
+        <button on:click={logOut}>Log Out</button>
 
     </div>
     <div class="page-header-div">            

@@ -1,16 +1,16 @@
 <script>
-    import { LoginStatus } from "../../stores/login.js";
+    import { userLoginStatus } from "../../stores/userLoginStatus.js";
 	
-	let userNameInput = "re";
-	let userPasswordInput = "re";
+	let userNameInput = "";
+	let userPasswordInput = "";
 
-	let userWantsToSignup = true;
-	let newUserSignupName = "re";
-	let newUserSignupPassword = "re";
+	let userWantsToSignup = false;
+	let newUserSignupName = "";
+	let newUserSignupPassword = "";
 
 	import { fetchPost } from "../../stores/fetchStore.js";
 
-	async function login(){ //cant test this, have no signup yet.
+	async function login(){ 
 		if (!checkInputValidity(1)) return -1;
 		let user = {
 			name: userNameInput,
@@ -19,7 +19,11 @@
 		let urlEnd = "/login";
 		const result = await fetchPost(user, urlEnd);
 		let response = await result.json();
-		console.log("login function in notloggedin svelte hitting fetch, response:", response);
+		if (response.username) {
+			$userLoginStatus = true;
+		} else {
+			console.log("NOT OK in loginsvelte!"); 
+		}
 	}
 
 	async function newUserSignup() {
@@ -30,8 +34,11 @@
 		};
 		let urlEnd = "/newusersignup";
 		const result = await fetchPost(user, urlEnd);
-		let response = await result.json();
+		let response = await result.json(); 
 		console.log("newusersignup in notloggedin.svelte, response from newusersignup-endpoint:", response);
+		//kald sess update her
+		$userLoginStatus = true;
+		
 	}
 
 	function checkInputValidity(controlArg) {
@@ -60,7 +67,7 @@
     <div class="left-sidebar-div">
 		<h3>Do you wish to sign up as a new user?</h3>
 		<label for="signupButtonToggle">
-			<input type="checkbox" bind:value={userWantsToSignup}>
+			<input type="checkbox" checked={userWantsToSignup} on:change={() => userWantsToSignup = !userWantsToSignup}>
 		</label>
     </div>
 
@@ -69,17 +76,19 @@
 			<label for="usersignin">
 				<input type="text" bind:value={userNameInput} name="usernameInput" id="usernameInput" placeholder="Username" />
 				<input type="text" bind:value={userPasswordInput} name="userpasswordInput" id="userpasswordInput" placeholder="Password" />
-				<p>Login</p>
 			</label>
+			<br>
 			<button on:click={login}>Log in?</button>
+			<p>Login</p>
 		{:else}
 			<label for="newUserSignup">
-				<p>Sign up as new user</p>
 				<input type="text" bind:value={newUserSignupName} name="newUserSignupName" id="newUserSignupName" placeholder="Your username">
 				<input type="text" bind:value={newUserSignupPassword} name="newUserSignupPassword" id="newUserSignupPassword" placeholder="Your password">
-				<button on:click={newUserSignup}>Sign up!</button>
-				<p>Isn't it exciting?</p>
 			</label>	
+			<br>
+			<button on:click={newUserSignup}>Sign up!</button>
+			<p>Sign up as new user</p>
+			<p>Isn't it exciting?</p>
 		{/if}
     </div>
 </div>

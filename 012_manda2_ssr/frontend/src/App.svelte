@@ -1,25 +1,25 @@
 <script>
     import LoggedIn from "./auth/loggedin/LoggedIn.svelte";
     import NotLoggedIn from "./auth/notloggedin/NotLoggedIn.svelte";
-    import { LoginStatus } from "./stores/login.js";
+    import { userLoginStatus } from "./stores/userLoginStatus.js";
     import { onMount } from "svelte";
 
     onMount( async () => {
-        const result = await fetch("http://localhost:8080/session");
+        const result = await fetch("http://localhost:8080/api/sessions/getname");
         let response = await result.json();
         verifyAuth(response);
     });
 
 function verifyAuth(data) {
-    if (data.auth === true) {
-        $LoginStatus = true;
-    } else $LoginStatus = false;
+    if (data.userAuthenticated === true) {
+        $userLoginStatus = true;
+    } else $userLoginStatus = false;
 }
 
 </script>
 
 <main>
-    {#if $LoginStatus}
+    {#if $userLoginStatus}
     <LoggedIn />
     {:else}
     <NotLoggedIn />
