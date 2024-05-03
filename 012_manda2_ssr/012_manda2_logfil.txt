@@ -228,3 +228,17 @@ når man har import default, kan man sige import xxx fra yyy -- og ikke import {
 så export default tager hele elementet, i guess? for at undgå besværlige indpakninger.
 
 nåede lige at få hul igennem fra frontend til database. nice!
+
+0305 2024
+undrede mig over en login fejl
+jeg så at  det var fordi jeg bare havde skrevet "return 1". Thatll teach me!
+
+Jeg hader når jeg leder efter de forkerte datatyper. "Whats the bug" -- ledte efter name når jeg bruger USERNAME. Fuuuuuuuuuu
+og også at det er nested. user har username etc.... ssssss
+
+nested notation
+det ligner NESTEN (lol) javascript.
+
+jeg har lige lært at req.session ... den bliver åbenbart KUN sat, hvis man res.sender -- dvs., et endpoint uden en res.send, ændrer ikke session!
+
+welp, now it works. Kinda.

@@ -2,8 +2,8 @@ import bcrypt from "bcrypt";
 import "dotenv/config";
 
 const SALT = Number(process.env.SALT);
-async function verifyPassword() {
-    
+async function verifyPassword(signInPassword, dbHashedPassword) {
+    return await bcrypt.compare(signInPassword, dbHashedPassword)
 }
 
 async function makeNewPassword(pw) {

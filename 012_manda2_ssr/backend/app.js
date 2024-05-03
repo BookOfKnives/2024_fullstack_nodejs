@@ -19,25 +19,12 @@ app.use(session({
     cookie: { secure: false },
 }));
 
-import { userColl } from "./database/connection.js";
-
 import authTestRouter from "./test/authTestRouter.js";
 app.use(authTestRouter);
 
-/*
-function isLoggedIn(req, res, next) {
-    const auth = req.session.auth;
-    if (auth) next();
-    else res.status(403).send("Illegal entry in IsLoggedIn, sorry.");
-}
+import sessionRouter from "./api/sessionApi/sessionApi.js";
+app.use(sessionRouter);
 
-app.all("*", isLoggedIn, (req, res, next) => {
-     next();
-})
-*/
-app.get("/session", (req, res) => {
-    res.send(req.session);
-})
 
 app.get("/", (req, res) => {
     res.sendFile(path.resolve('../frontend/dist/index.html')); 
