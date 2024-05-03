@@ -242,3 +242,16 @@ det ligner NESTEN (lol) javascript.
 jeg har lige lært at req.session ... den bliver åbenbart KUN sat, hvis man res.sender -- dvs., et endpoint uden en res.send, ændrer ikke session!
 
 welp, now it works. Kinda.
+
+Det virker nok -- man har log in, log out ( tror jeg).
+
+jeg har lavet auithentication
+nu mangler toast og email
+
+svelte toast .-.. jeg husker det værende ret let.
+
+Mails, hm.
+
+Toaster fungerer nu. dejligt.
+
+Jeg brugte Haraka og en eller anden node mailer pakke til at sende mails. Haraka er en SMTP server. Det tog mig noget tid at sætte det op, men jeg kan self ikke huske hvordan jeg gjorde. 
