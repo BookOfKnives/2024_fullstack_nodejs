@@ -6,6 +6,8 @@ import mailer from "../util/mailer.js";
 
 const router = Router();
 
+const startUpMessage = "Auth Router online.";
+
 router.post("/newusersignup", async (req, res) => {
     const data = req.body;
     const pw = await passwordUtil.makeNewPassword(data.password)
@@ -15,8 +17,9 @@ router.post("/newusersignup", async (req, res) => {
     };
     createUser(newUser);
     req.session.user = newUser;
-    mailer(newUserEmail)
-    res.redirect("/");
+    let newUserEmail = "someguys@thestuff.dk";
+    //mailer(newUserEmail) // kan ikke køre denne uden en Haraka Server -- npm i Haraka, node ./haraka.js
+    res.status(200).send({ data: newUser });
 });
 
 router.post("/login", async (req, res) => {
@@ -32,6 +35,6 @@ router.post("/login", async (req, res) => {
     }
 })
 
-
+console.log(startUpMessage);
 
 export default router;

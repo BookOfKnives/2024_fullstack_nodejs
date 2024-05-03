@@ -13,16 +13,11 @@ router.get("/api/sessions/getname", (req, res) => {
     res.send({ data: { userAuthenticated, userName }});
 });
 
-//test path for setting cookies
-router.get("/api/sessions/set", (req, res) => {
-    req.session.testSet = "I am a set test session cookie! from api session set";
-    res.send({ data: "api sessions set has set req.session.testSet"});
-});
-
 router.get("/api/sessions/destroy", (req, res) => {
     req.session.destroy();
-    res.send({data: "sess destroyed"});
+    res.send({data: "session destroyed"});
 })
 
 console.log(startUpMessage);
+
 export default router;

@@ -7,6 +7,7 @@
 
     function logOut(){
         $userLoginStatus = !$userLoginStatus;
+        fetch("http://localhost:8080/api/sessions/destroy");
     }
 </script>
 

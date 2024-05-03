@@ -19,12 +19,8 @@ app.use(session({
     cookie: { secure: false },
 }));
 
-import authTestRouter from "./test/authTestRouter.js";
-app.use(authTestRouter);
-
 import sessionRouter from "./api/sessionApi/sessionApi.js";
 app.use(sessionRouter);
-
 
 app.get("/", (req, res) => {
     res.sendFile(path.resolve('../frontend/dist/index.html')); 

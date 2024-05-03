@@ -8,8 +8,8 @@ html {
 #app {
   height: 100%;
   display: flex;
- justify-content: center;
- align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 #front-container-div {
@@ -19,10 +19,6 @@ html {
   display: grid;
   grid-template-rows: 177px 228px 177px;
   grid-template-columns: 185px 600px 185px;
-}
-
-div {
-  border: 2px dotted #441
 }
 
 ul, li {

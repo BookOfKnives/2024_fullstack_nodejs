@@ -1,9 +1,7 @@
 import { userColl } from "../connection.js";
 
 async function getUser(user) {
-    const data = await userColl.findOne({"user.username":user.name});
-    console.log("getuser has fdound?", data);
-    return data;
+    return await userColl.findOne({"user.username":user.name});
 }
 
 export default getUser;

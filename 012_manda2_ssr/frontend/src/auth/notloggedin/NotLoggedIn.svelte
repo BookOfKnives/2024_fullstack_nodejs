@@ -37,9 +37,14 @@
 		let urlEnd = "/newusersignup";
 		const result = await fetchPost(user, urlEnd);
 		let response = await result.json(); 
-		console.log("newusersignup in notloggedin.svelte, response from newusersignup-endpoint:", response);
-		//kald sess update her
-		$userLoginStatus = true;
+		console.log("reponse in notlogged in svelte,", response)
+		if (response.data.username) {
+			toast.success("You have created a user!");
+			$userLoginStatus = true;
+		} else {
+			toast.error("User not created, try again!")
+		}
+
 		
 	}
 
@@ -49,13 +54,11 @@
 			case 2: return newUserSignupName.length >= 1 && newUserSignupPassword.length >= 1;
 			default: return false; //this feels dangerous ... like where does this come from?
 		}
-		// let name = userNameInput.length >= 1;
-		// let password = userPasswordInput.length >= 1;
-		// return (name && password);
+
 	}
 
 </script>
-<!-- <Toaster /> -->
+
 <div id="front-container-div">
     <div class="nav-bar-div">
 
