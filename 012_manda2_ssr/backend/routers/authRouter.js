@@ -2,6 +2,8 @@ import passwordUtil from "../util/password.js";
 import { Router } from "express";
 import createUser from "../database/userdb/createUser.js";
 import getUser from "../database/userdb/getUser.js";
+import mailer from "../util/mailer.js";
+
 const router = Router();
 
 router.post("/newusersignup", async (req, res) => {
@@ -11,13 +13,9 @@ router.post("/newusersignup", async (req, res) => {
         username: data.name,
         password: pw,
     };
-    // console.log("02 new user signup in authrRouter, new user? should have hashedPW", newUser);
-    // console.log("this is new users sign up authRouter, new user data:", data);
-    //fetch post to user db api
     createUser(newUser);
     req.session.user = newUser;
-    // console.log("this is authrouter 012, newuser on newuserisgnup:", req.session.user);
-    // res.send("heya from newuserseignsup");
+    mailer(newUserEmail)
     res.redirect("/");
 });
 
@@ -25,7 +23,6 @@ router.post("/login", async (req, res) => {
     const signInattempt = req.body;
     const dbLookup = await getUser(req.body);
     const pwCheck = await passwordUtil.verifyPassword(signInattempt.password, dbLookup.user.password);
-    console.log("login authrouter soays, pw check:", pwCheck);
     if (pwCheck) { 
         req.session.userAuthenticated = true;
         req.session.userName = signInattempt.name;
