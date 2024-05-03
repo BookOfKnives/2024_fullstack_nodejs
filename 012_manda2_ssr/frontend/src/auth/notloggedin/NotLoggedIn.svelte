@@ -1,5 +1,6 @@
 <script>
     import { userLoginStatus } from "../../stores/userLoginStatus.js";
+	import toast, {Toaster} from "svelte-french-toast";
 	
 	let userNameInput = "";
 	let userPasswordInput = "";
@@ -20,6 +21,7 @@
 		const result = await fetchPost(user, urlEnd);
 		let response = await result.json();
 		if (response.username) {
+			toast.success("You are logged in!");
 			$userLoginStatus = true;
 		} else {
 			console.log("NOT OK in loginsvelte!"); 
@@ -53,7 +55,7 @@
 	}
 
 </script>
-
+<!-- <Toaster /> -->
 <div id="front-container-div">
     <div class="nav-bar-div">
 

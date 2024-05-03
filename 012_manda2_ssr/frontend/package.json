@@ -16,6 +16,7 @@
     "vite": "^4.3.0"
   },
   "dependencies": {
+    "svelte-french-toast": "^1.2.0",
     "svelte-navigator": "^3.2.2"
   }
 }

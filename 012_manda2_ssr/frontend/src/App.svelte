@@ -3,11 +3,13 @@
     import NotLoggedIn from "./auth/notloggedin/NotLoggedIn.svelte";
     import { userLoginStatus } from "./stores/userLoginStatus.js";
     import { onMount } from "svelte";
+    import toast, { Toaster } from 'svelte-french-toast';
 
     onMount( async () => {
         const result = await fetch("http://localhost:8080/api/sessions/getname");
         let response = await result.json();
         verifyAuth(response);
+        // toast.success("It works!");
     });
 
 function verifyAuth(data) {
@@ -19,6 +21,7 @@ function verifyAuth(data) {
 </script>
 
 <main>
+    <Toaster />
     {#if $userLoginStatus}
     <LoggedIn />
     {:else}
