@@ -229,7 +229,6 @@ så export default tager hele elementet, i guess? for at undgå besværlige indp
 
 nåede lige at få hul igennem fra frontend til database. nice!
 
-0305 2024
 undrede mig over en login fejl
 jeg så at  det var fordi jeg bare havde skrevet "return 1". Thatll teach me!
 
@@ -252,6 +251,10 @@ svelte toast .-.. jeg husker det værende ret let.
 
 Mails, hm.
 
-Toaster fungerer nu. dejligt.
+Toaster fungerer nu. dejligt. det ligner lort fordi mine css regler rider rundt på den. Dejligt.
 
 Jeg brugte Haraka og en eller anden node mailer pakke til at sende mails. Haraka er en SMTP server. Det tog mig noget tid at sætte det op, men jeg kan self ikke huske hvordan jeg gjorde. 
+
+Jeg har fundet backend-koden som jeg brugte, men hvordan giver jeg Haraka til Anders? 
+
+Det her mailer setup er 100% "it works on my machine guys trust me". Jeg SVÆRGER jeg har fået den til at sende mails. Jeg kan bare huske hat af hvad der skal til for at sætte Haraka serveren op. 
