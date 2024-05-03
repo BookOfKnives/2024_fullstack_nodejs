@@ -1,5 +1,7 @@
 <script>
-    let newUsername = "re";
+
+////Dont use this, should delete 3004 2024
+let newUsername = "re";
     let newPassword = "re";
 
     let username = "re";
@@ -25,14 +27,17 @@
             newUsername,
             newPassword,
         }
-        const response = await fetch("http://localhost:8080/signup/", {
+        const response = await fetch("http://localhost:8080/newusersignup/", {
             method: "POST",
             credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(signupData),
-        });}
+        });
+        const result = await response.json();
+        console.log("hitsignup in auth.svelte says result fro newusersignup", result);
+    }
 
 </script>
 

@@ -19,7 +19,7 @@ app.use(session({
     cookie: { secure: false },
 }));
 
-// import test from "./database/connection.js";
+import { userColl } from "./database/connection.js";
 
 import authTestRouter from "./test/authTestRouter.js";
 app.use(authTestRouter);

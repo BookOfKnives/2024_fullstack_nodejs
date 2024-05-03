@@ -18,9 +18,15 @@ console.log(7)
 const db = connection.db(process.env.MONGO_AUTH_DB);
 console.log(8)
 
-const test = db.collection("test_db_mongo_012");
+const userColl = db.collection("users");
 console.log(9)
-// await test.insertMany([{ a: 1 }, { a: 2 }, { a: 3 }]);
+
+//test db insert below this
+const date = new Date();
+// userColl.deleteMany({});
+// userColl.insertMany([{ "name": "hans", "password": "some shit" }, { "name": "re", "password":"re" }, { "name": "ho", "password": "alter" }, {"time of insert": date, "message":"have anice a day" }]);
 console.log(10)
 
-export default test;
+export {
+    userColl
+};

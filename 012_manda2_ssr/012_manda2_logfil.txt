@@ -172,3 +172,59 @@ og jeg havde router GET og ikke router post
 now it woiirks
 
 ok nu har jeg forbindelse. min svelte kan ramme min backend med en ny brugerdata- så skal den cryptes og postes til user api.
+
+2804 2024
+drømte jeg havde projektteammøde i nat.
+
+skal lave det login færdigt, altså.
+
+har lavet lidt videre, det føles mærkeligt .-.. men det er bare flow. Det er rart.
+
+For some reason på loginsiden, bare jeg skriver noget i login feltet for navn, så logger den mig ind med det samme. Det er selvf rart med snappy service men det kan også være for meget af det gode!
+
+3004 2024
+fikser den der autologin bug. et var fordi den bandt sit input til en store der blev tjekket for true false. så snart der var inhdol, blev det til noget andet.
+
+det viser sig at hvis et endpoint res.sender("text"), og det andet forventer json -... så siger den "unexpected char at json" bla blbal bla
+
+har sat en masse consol logs alle mulige stederrs
+
+i just realised jeg BÅDE har en Auth.svelte OG en NotLoggedIn.svelte -- det var lig eved at gå galt.
+
+had to decide on user data structure. When making new users, i dont want to call them data -- i want to call them users, like so:
+
+let user = {
+name: newname,
+password: newPw,
+}
+
+i think i should do more design work! like, decide on mappings before i start. what  can i know already?
+
+where am i
+where do i want to be?
+
+i want the vite build script to output the time of build in the thing -- so i want to add a pre-script
+
+it runs powershell obv? maybe? 
+DATE /T 
+yeah its cmd.exe
+
+i added a prebuild:watch: "Date /t"
+
+time /t && date /t 
+outputs both at once
+
+åbenbart når man lægger ting i dotenv, så er det strings og nårman giver det til hashen såskal salten være et nummer.
+
+agh -- selvom den skriver date time når escriptet starter, så gør den det ikke når build:rewwatcher -- måske kan det gøre det.
+
+i came up with another imporvement for my Rest api -- theres a console log in the bottom of it, but now, it calls a string composed i the top. that way, its obvious that the api does these things. the console isnt "hidden" in the bottom.
+
+i gotta get the userdb api posting done 
+
+0305 2024
+whoa nearly lost track of time there!
+når man har import default, kan man sige import xxx fra yyy -- og ikke import { someshit } -- fordi destructuring givre den et andet navn, so ka?
+så export default tager hele elementet, i guess? for at undgå besværlige indpakninger.
+
+nåede lige at få hul igennem fra frontend til database. nice!
