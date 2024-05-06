@@ -29,17 +29,17 @@
                 </ul>
             </nav>
         </Router>
-        <button on:click={logOut}>Log Out</button>
+        
 
     </div>
     <div class="page-header-div">            
         <h1>1618 Design</h1>
     </div>
-    <div class="auth-div">
-        
+    <div class="top-right-div">
+       
     </div>
     <div class="left-sidebar-div">
-
+        <button on:click={logOut}>Log Out</button>
     </div>
 
     <div class="main-content-div">

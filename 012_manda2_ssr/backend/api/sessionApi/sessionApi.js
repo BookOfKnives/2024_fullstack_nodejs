@@ -9,8 +9,9 @@ router.get("/api/sessions", (req, res) => {
 });
 
 router.get("/api/sessions/getname", (req, res) => {
-    const { userAuthenticated, userName } = req.session;
-    res.send({ data: { userAuthenticated, userName }});
+    const { username } = req.session.user ?? "undefined";
+    // const name = username;
+    res.send({ data: username });
 });
 
 router.get("/api/sessions/destroy", (req, res) => {

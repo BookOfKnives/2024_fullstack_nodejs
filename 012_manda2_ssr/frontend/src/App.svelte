@@ -9,11 +9,10 @@
         const result = await fetch("http://localhost:8080/api/sessions/getname");
         let response = await result.json();
         verifyAuth(response);
-        // toast.success("It works!");
     });
 
 function verifyAuth(data) {
-    if (data.userAuthenticated === true) {
+    if (data && data !== "undefined") {
         $userLoginStatus = true;
     } else $userLoginStatus = false;
 }

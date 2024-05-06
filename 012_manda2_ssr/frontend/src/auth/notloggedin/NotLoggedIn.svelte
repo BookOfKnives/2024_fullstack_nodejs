@@ -37,7 +37,6 @@
 		let urlEnd = "/newusersignup";
 		const result = await fetchPost(user, urlEnd);
 		let response = await result.json(); 
-		console.log("reponse in notlogged in svelte,", response)
 		if (response.data.username) {
 			toast.success("You have created a user!");
 			$userLoginStatus = true;
