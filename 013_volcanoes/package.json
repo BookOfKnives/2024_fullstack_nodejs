@@ -1,0 +1,19 @@
+{
+  "name": "013_volcanoes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "database-create": "node ./database/setupDatabase.js delete",
+    "database-update": "node ./database/setupDatabase.js"
+  },
+  "author": "HVMW",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  },
+  "type": "module"
+}
