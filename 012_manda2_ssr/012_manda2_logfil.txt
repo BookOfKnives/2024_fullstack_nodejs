@@ -261,3 +261,5 @@ Det her mailer setup er 100% "it works on my machine guys trust me". Jeg SVÆRGE
 
 0605 2024
 sidder og debugger min autologin. jeg vil gerne have at frontenden kan tjekke om en session cookie eksisterer (jeg har givet den en backend api til session, på trods af at det nok er et KÆMPE sikkerheds hul!), men jeg har ikke defineret mine data OK og jeg er aldrig helt sikker poå hvad der rent faktisk er i mine cookies. jeg har ikke memoreret den præccise formel for strukturen for json data fra js. det bider mig igen og igen.
+
+fik det til at virke. Hurrah!

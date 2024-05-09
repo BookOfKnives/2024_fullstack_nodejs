@@ -60,9 +60,5 @@
 </div>
 
 <style>
-.page-header-div {
-    text-indent: -39%;
-    padding-top: 33px; 
-    text-align: center;
-  }
+
 </style>
