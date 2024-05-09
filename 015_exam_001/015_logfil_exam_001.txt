@@ -1,0 +1,106 @@
+0605 2024
+Logfil for Fullstack Exam 015
+
+Jeg tror jeg har de fleste reqs udført faktisk, et eller andet sted.
+
+Jeg vil gerne lave Battleships og Sandwich Sharer.
+
+Måske noget API kald også.
+
+lets get to work.
+
+Jeg sad og tænkte på om det er en god ide at klone mit git eller lave det manuelt. Jeg tænker manuelt -- der er stadig meget at lave.
+
+npm create vite frontend
+
+det virker til at npm kald IKKE virker nårman er offline...! hmmmmmmmmmmm
+
+bug eller ... hm.
+
+Jeg er på bibliotek lige nu. Det BURDE ikke være et issue! Men det er det.
+
+Egentlig har jeg mest lyst til at knalde exam igennem og så fokusere på lydprogrammet.
+
+npm init
+npm pkg set type="module"
+
+0706 2025
+carving out blocks of time
+skal tage al mit shit og sætte det ind.
+
+npm i mongodb express-session bcrypt
+
+i dag har jeg lært fra fredags at jeg kan bruge node connection.js til at teste mine filer. det er rart.
+
+kan ikke have mongodb database før jeg har mongodb connect -- selvfølige.
+
+jeg havde knas med at sætte mongodb -- jeg havde jo min mndogdb url i .env -- men jeg kørte jo filen bare lkoale,t node connec etc ... ...så den har jo self ikke adgang til dotenv fra app.js! fuuuuuucckckkkk
+
+jeg har siddet og kigget på det i en time og det var fordi min js kode havde stort B i AuthDB og min mongodb havde lille b i AuthDb. Fuuuuuuuuuuuck.
+
+...nej det var faktisk ikke derfor. jeg ved faktisk ikke hvad fejlen er.
+
+fejlen virker til at være at Connection skal være i en let og ikke i en const. det giver måske meget god mening? JS gav mig ingen synlig fejhl for det. kunne ikke overskrive.
+
+user api onlne. great. kan poste til det.
+
+nu skal have passwords, tror jeg. når laver bruger,skal have passwords.
+
+og en input form.
+
+for some reason er jeg gået igang med at lave en trilliard forskellige ting nu. user api, sess api .... ... uni login. shiiiit. jeg skal jo bare have den fucking signup form!!
+
+require("crypto").randomBytes(32).toString("hex")
+
+and now mongo-connect sessions work. beautiful.
+
+pages ... notloggedin func. It <took me four hours to fall asleep last night. Soooo much coffee.
+
+made a total hack. im almost afraid to run it. chopped NotLoggedIn and the frontpage from 012_manda2 into 015 -- might work= maybe? havent tested in about an hour now. been hacking hacking hacking. damnnnn....
+
+backend doesnt crash. thats nice.
+
+it actually works. Sort of. doesnt crash. cant do much, but hey! its all porogress, baby.'
+
+turns out i forgot a LOT of $ on the store values. again. ive done this before. I keep thinking its not necessary.
+
+fuck min fetchPost fucker med mig., den vil ikke tage imod $ ... wtf???
+
+ok, så ... svelte storen jeg har min BASEURL i, vil ikke tage imod $ for at se på værdien.W
+
+ ----> og dét er jo self fordi jeg har en STORE som er en JS fil og ikke en SVLTE Fil.... fuuuuuu
+ 
+ rightm, that did it. jegplacerede url-logikken i svelte-komp'en, så fethcPost bare tager imod. So Ka?
+ 
+ step by step.
+ 
+det er sjovt -- hver gang jeg laver min kode forfra, kommer jeg på nye ideer til forbedringer. Man skulle tro det vlle stoppe på et tidspunkt, men næ.
+
+0805 2024
+
+i really like try ccatch now
+
+found a bug: CAN access routes without login in svelte. bad!
+
+fixed it. moved the router into the auth if-else.
+
+i really should move the signup logic into a separate component and put it on its own page.
+
+Done!
+
+Another bug -- if you sign up, the signup screen is still there.
+
+Fixed it using svelte-navigator useNavigate(). Nice!
+
+used window.location.href = "/" til at gå tilbage til / fra signout.
+
+Forsøgte lige at køre Haraka ... den giver auth fejl, selvfeøllige. Mangler jeg STMP?
+
+Hm, jeg tror jeg manglede at sætte hans=verysecret (user=pass) i auth_flat_file.ini i haraka-dir
+.. det var ikke dét-
+
+var det i config/auth_flat_file.ini?
+-- yep -- det var det.
+ikke at det fuckin hjælper -- fordi ingen tager imod mails fra ukendte servere!
+
+det er vist noget med spamhaus ??

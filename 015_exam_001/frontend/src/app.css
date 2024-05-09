@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+}
+
+html {
+  background-color: #113311;
+}
+#app {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#front-container-div {
+  margin: 5px;
+  background-color: #676;
+  border: 2px solid #9a9;
+  display: grid;
+  grid-template-rows: 177px 228px 177px;
+  grid-template-columns: 185px 600px 185px;
+}
+
+ul, li {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}
+
+.page-header-div {
+  text-indent: -39%;
+  padding-top: 33px; 
+  text-align: center;
+}
