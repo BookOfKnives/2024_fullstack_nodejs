@@ -7,6 +7,7 @@
 
 	let newUserSignupName = "re";
 	let newUserSignupPassword = "re";
+	let newUserEmail = "re@re.re";
 
 	const navigate = useNavigate();
 
@@ -16,6 +17,7 @@
 		let user = {
 			name: newUserSignupName,
 			password: newUserSignupPassword,
+			email: newUserEmail,
 		};
 		let urlEnd = $BASE_URL + "/newusersignup";
 		const result = await fetchPost(user, urlEnd);
@@ -42,6 +44,7 @@
 	<label for="newUserSignup">
 		<input type="text" bind:value={newUserSignupName} name="newUserSignupName" id="newUserSignupName" placeholder="Your username">
 		<input type="text" bind:value={newUserSignupPassword} name="newUserSignupPassword" id="newUserSignupPassword" placeholder="Your password">
+		<input type="text" bind:value={newUserEmail} name="newUserEmail" id="newUserEmail" placeholder="Email">
 	</label>	
     <br>
     <button on:click={newUserSignup}>Sign up!</button>
