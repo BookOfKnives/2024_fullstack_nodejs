@@ -104,3 +104,19 @@ var det i config/auth_flat_file.ini?
 ikke at det fuckin hjælper -- fordi ingen tager imod mails fra ukendte servere!
 
 det er vist noget med spamhaus ??
+
+0905 2024
+kode kode kode ... kaffe kaffe kaffe
+
+try catc h er virkelig dejlig!
+
+1005 2024
+det virker som om jeg har ladet AuthRouter lave al det hårde arbejde med at skabe users, og dét er jo ikke meningen.  Eller hvad?
+
+Jeg laver Id number incremeneter -- den kjlagede over ikkeat kunne finde et modul via imports -- det var fordi jeg manglede .js på slutningen.
+
+Jeg laver UUID numre ... det er lidt besværligt pga mine tidligere database struktur beslutninger... men jeg havde lige e nsjov fejl hvor jeg havde reseettet DBen og frontenden, men ikke backenden, så userID blev stadig talt som 5 og ikke 0. heh.
+
+jeg lagde lige mærke til at jeg har lavet id: ++highestUserIdnumber.newidnumber ... koden er rittig nok og den virker, men jeg ville have regnet med at det burde være highestuseridnuber.++newudnubmber -- men dét ville nok ikke have fungeret.
+
+whatda you know.
