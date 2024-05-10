@@ -26,12 +26,17 @@ const transportOptions = {
 const transporter = nodemailer.createTransport(transportOptions); 
 
 async function mailer(address) {
-  const info = await transporter.sendMail({
-    from: "1618 Admin <hvmw@127.0.0.1>",
-    to: address,
-    subject: "Congratulations on your sign-up to 1618 Design Services!",
-    text: "You sure are one lucky fella! Your password is 123, write it down somewhere safe!",
-  });
+  try {
+    
+    const info = await transporter.sendMail({
+      from: "1618 Admin <hvmw@127.0.0.1>",
+      to: address,
+      subject: "Congratulations on your sign-up to 1618 Design Services!",
+      text: "You sure are one lucky fella! Your password is 123, write it down somewhere safe!",
+    });
+  } catch (err) {
+    console.error("mailer.js ERROR:", err);
+  }
 };
 
 export default mailer;

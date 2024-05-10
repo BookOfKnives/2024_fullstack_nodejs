@@ -8,4 +8,3 @@ export const time = {
     minutes: dateObj.getMinutes(),
     seconds: dateObj.getSeconds()
 }
-

@@ -7,12 +7,19 @@ import mailer from "../../util/mailer.js";
 const router = Router();
 const startUpMessage = "Auth Router online.";
 
+import newDataEntryIdNumber from "../../util/usersDatabaseUUID.js";
+let highestUserIDNumber = newDataEntryIdNumber; //I cannot see how this would have any side-effects. *nervously*
+
 router.post("/newusersignup", async (req, res) => {
     const data = req.body;
     const pw = await passwordUtil.hash(data.password)
     const newUser = {
+        id: ++highestUserIDNumber.newIdNumber,
         username: data.name,
         password: pw,
+        email: data.email,
+        signUpDate: new Date().toLocaleString("da-DK", {timeZone: "Europe/Copenhagen"}),
+        lastLogon: null,
     };
     createUser(newUser);
     req.session.user = newUser;
