@@ -4,7 +4,8 @@
     import { debug } from "../../stores/generalStore.js";
     let symbols = [
         "O",
-        "X"
+        "X",
+        ""
     ]
     let playerChosenSideSymbol = "";
     const socket = io("http://localhost:8080/");
@@ -64,9 +65,9 @@
 <div id="controlPanel">
     <p>Choose your side:</p>
     {#each symbols as symbol}
-    <label for="controlPanel">
+    <label for="controlPanel"><p>
     <input type="radio" value={symbol} bind:group={playerChosenSideSymbol} name="playerSide" id="playerSide">
-        <p>I play for the {symbol} side!</p>
+        I play for the {symbol} side!</p>
     </label>
     {/each}
 </div>
@@ -74,25 +75,28 @@
 <style>
     #grid-container-div {
         display: grid;
-        grid-template-rows: 20px 20px 20px;
-        grid-template-columns: 20px 20px 20px;
+        grid-template-rows: 90px 90px 90px;
+        grid-template-columns: 90px 90px 90px;
         color: red;
+        
 
     }
     #grid-container-div > div {
         background-color: green;
-        border: 1px darkgreen solid;
+        border: 4px darkgreen solid;
         cursor:default;
         text-align: center;
+        padding-top: 20%;
+        font-size: 40px;
     }
 
     #grid-container-div > div:hover {
         background-color: blue;
-        border: 1px darkgreen dotted;
+        border: 4px darkgreen dotted;
     }
     #grid-container-div > div:active {
         background-color: darkblue;
-        border: 1px rgb(6, 40, 6) dotted;
+        border: 4px rgb(6, 40, 6) dotted;
     }
     #controlPanel {
         background-color: orange;
