@@ -1,4 +1,6 @@
 <script>
+
+    import { debug } from "./stores/generalStore.js";
     import { Router, Link, Route } from "svelte-navigator";
     import { userLoginStatus } from "./stores/userLoginStatus.js";
     import { userApiUrl } from "./stores/generalStore.js";
@@ -8,8 +10,8 @@
     import toast, { Toaster } from "svelte-french-toast";   
     import Signup from "./pages/Signup.svelte";
     import Login from "./pages/Login.svelte";
-
-
+    import KrydsOgBolle from "./pages/games/KrydsOgBolle.svelte";
+   
     function logOut(){
         toast("Logging out...");
         $userLoginStatus = !$userLoginStatus;
@@ -24,6 +26,7 @@
     });
 
     function checkIfSessionExists(data) {
+        if (debug) data = true;
         if (data === true) {
             $userLoginStatus = true;
         } else $userLoginStatus = false; 
@@ -46,6 +49,9 @@
                         </li>
                         <li>
                             <Link to="/tanks">Tanks</Link>
+                        </li>
+                        <li>
+                            <Link to="/krydsogbolle">Kryds Og Bolle</Link>
                         </li>
                     </ul>
                 </nav>
@@ -95,6 +101,7 @@
                     <Route path="/signup">
                         <Signup />
                     </Route>
+                    <Route path="/krydsogbolle" component={KrydsOgBolle} />
                 </div>
             </Router>
         </div>
