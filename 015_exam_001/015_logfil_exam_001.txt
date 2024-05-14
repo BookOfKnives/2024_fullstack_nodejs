@@ -120,3 +120,106 @@ Jeg laver UUID numre ... det er lidt besværligt pga mine tidligere database str
 jeg lagde lige mærke til at jeg har lavet id: ++highestUserIdnumber.newidnumber ... koden er rittig nok og den virker, men jeg ville have regnet med at det burde være highestuseridnuber.++newudnubmber -- men dét ville nok ikke have fungeret.
 
 whatda you know.
+
+havde glemt .toArray() i getAllusers.
+
+jeg skal til at lave sockets i svelte.
+
+skal lave et test projekt til dét.
+
+har lavet 000_009 (test dir, dont bother checking i dont upload 000).
+
+ifl socket skal jeg lave 
+
+import {Server} from "socket.io";
+
+welp, i got connecction now. nice!
+
+wait, i only got local ... it doesn treach server yet.
+right, jeg har forbindelse. cool.
+
+nu skal jeg differenteiere så jeg har forskellige forbindelser
+
+jeg vil starte med at lave et cryds og bulle spil
+
+jeg laver et name felt først for at se om jeg har adgang til foprskellige session på forskellige browsere.
+
+det virker det til at jeg har! Ret nice. OK. Jeg har åbnet almindeligt vindue og et inkognito, og de har hver deres datasæt som de sender. Hmm ...
+
+NU skal jeg se om jeg kan lade dem se hinanden. et rum.
+
+EXPRESS FINALLY HAR EN DARK TEMA
+
+fuckin på tide!
+
+1105 2024
+læser læse læse om sockets
+
+jeg tror jeg bare laver det to player kryudsbole
+
+med grid kan jeg jo bare lave et 3x3 div grid.
+
+jeg skal finde ud af hvordan jeg får serveren til at sockete data til frontend poå conneciton.
+
+i think i got it... med
+
+
+io.on('connection', client => {
+    io.emit("io_emit_thing", () => {console.log("io_emit_thing being hit")} )
+	
+});
+
+kan jeg sende ting til client on connection. ... men hvordan SENDER jeg data til klient?
+
+jeg har svært ved at få min socket server til at tage data fra min server og sende det til klienten.
+
+It works. Nu har jeg adgang.
+
+getElementById SKAL åbenbart være inden i onMount.
+
+jeg vil tage hvert cell ellement og lægge en eventlistener på den.
+
+got it. nu har hver celle en funk der sender sit indhold
+
+nu skal jeg sætte det så den har symboler (x og o), og at det vises.
+
+har lige lært at jeg kan sætte hvad som helst attribut på html, bare det starter med data-.
+
+welp, nu har jeg et gameboard der sender data til frontend og backend, og over flere forskellige brugere. det synes jeg er ret cool.
+
+1205 2024
+broke it somehow
+
+hmm, jeg havde glemt jeg havde sat en textcontent visibility hidden i min css. OK.
+
+Jeg er nødt til at bruge en for loop fordi jeg har to arrays og jeg skal passe det ene ind i det andet.
+
+Nu kan jeg sende data frem og tilbage, og det opdaters, men der er et mærkeligt bug hvor der initialiseres et ekstra felt. et 10. felt (eller 9. hvis man tæller 0-indekseret!)
+
+jeg fandt det -- det var fordi jeg havde skrevet 0 nederst i html-elemntet for griddet. simpelthen en typo.
+
+Nu virker det (sådan nogenlunde). Man kunne faktissk ... well, man mangler to indput typer, alle spillere laver 1-taller lige nu. Men de kan godt!
+
+1305 2024
+har lavet input check radio boxers til at lave havd for en side man spiller for.
+haaah, det fuckin virker! Kryds og bolle, mand.!
+
+Jeg vil gerne have min io logik i en separat fil. Med chatgpts hjælp forstod jeg at jeg skal eksportere en setup funktion. Det er ret rart.
+
+1405 2024
+på tide at integrere kryds og bolle sockets med eksamens projekt.
+
+halkvejs importert, lets gooo
+
+skal self huske at have mongodb startet, uhhgh.... 
+
+havde autofinished comment istedet for component i min Route. Fruss!!
+
+having trouble importing my socketioclient into the component.
+
+nu gider den lige pludselig godt. jeg rodede med export imports i appsvelte og nu gider krydsogbolle lige pludselig GODT finde socket.io-client.
+
+trying to make a debug section. cannot import ahead of initialistioan
+lavede det samme trick med export af setup function
+
+hmm .,.. den er tricky. åbenbart så køres ting inde i selve modulæet med det samme (consolelog true? er false) men hvis det er indeni  en funktion så  fungerer det fint. tricky!
