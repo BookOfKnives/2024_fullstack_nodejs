@@ -4,6 +4,9 @@ const app = express();
 const PORT = process.env.PORT ?? 8080;
 app.use(express.json());
 
+let debug = (process.argv[2] === "debug")
+if (debug) console.log("Debugging is", debug);
+
 import session from "express-session";
 import sessConf from "./util/sessionConfigObject.js";
 app.use(session(sessConf));
@@ -23,5 +26,15 @@ app.use(authRouter);
 
 app.get("*", (req, res) => { res.redirect("/"); });
 
+import http from "http";
+import { Server as ioServer } from "socket.io";
+const httpServer = http.createServer(app);
+
+const io = new ioServer(httpServer);
+
+import { setupSocket, debugSocket } from "./socket/socket.js";
+debugSocket(debug);
+setupSocket(io);
+
 import { startUpMessager } from "./util/startUpMessage.js";
-app.listen(PORT, () => { startUpMessager(); });
+httpServer.listen(PORT, () => { startUpMessager(); }); 
