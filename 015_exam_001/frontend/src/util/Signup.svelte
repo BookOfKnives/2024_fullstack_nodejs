@@ -4,6 +4,7 @@
     import { BASE_URL } from "../stores/generalStore.js";
 	import { useNavigate } from "svelte-navigator";
 	import { fetchPost } from "../stores/fetchStore.js";
+	import { onMount } from "svelte";
 
 	let newUserSignupName = "re";
 	let newUserSignupPassword = "re";
@@ -36,8 +37,19 @@
 			case 2: return newUserSignupName.length >= 1 && newUserSignupPassword.length >= 1;
 			default: return false; //this feels dangerous ... like where does this come from?
 		}
-
 	}
+
+	onMount(() => {
+		document.getElementById("newUserSignupName").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") { newUserSignup() }
+        })
+		document.getElementById("newUserSignupPassword").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") { newUserSignup() }
+        })
+		document.getElementById("newUserEmail").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") { newUserSignup() }
+        })
+	})
 
 </script>
 

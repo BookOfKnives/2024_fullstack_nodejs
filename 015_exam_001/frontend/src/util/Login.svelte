@@ -19,7 +19,7 @@
 		const result = await fetchPost(user, urlEnd);
 		let response = await result.json();
 		if (response.username) {
-			toast.success("You are logged in!");
+			toast.success("Welcome back, user!");
 			$userLoginStatus = true;
 		} else {
 			console.log("NOT OK in loginsvelte!"); 

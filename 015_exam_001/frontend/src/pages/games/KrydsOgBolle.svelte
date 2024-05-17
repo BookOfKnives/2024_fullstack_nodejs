@@ -75,10 +75,9 @@
 <style>
     #grid-container-div {
         display: grid;
-        grid-template-rows: 90px 90px 90px;
-        grid-template-columns: 90px 90px 90px;
-        color: red;
-        
+        grid-template-rows: 30px 30px 30px;
+        grid-template-columns: 30px 30px 30px;
+        color: rgb(178, 189, 243);
 
     }
     #grid-container-div > div {
@@ -86,8 +85,7 @@
         border: 4px darkgreen solid;
         cursor:default;
         text-align: center;
-        padding-top: 20%;
-        font-size: 40px;
+        padding-top: 10%;
     }
 
     #grid-container-div > div:hover {
@@ -99,6 +97,6 @@
         border: 4px rgb(6, 40, 6) dotted;
     }
     #controlPanel {
-        background-color: orange;
+        background-color: rgb(0, 191, 254);
     }
 </style>
