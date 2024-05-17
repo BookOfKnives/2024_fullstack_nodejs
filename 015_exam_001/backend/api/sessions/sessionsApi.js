@@ -9,7 +9,7 @@ router.get("/api/sessions", (req, res) => {
 });
 
 router.get("/api/sessions/getname", (req, res) => {
-    let  username  = req.session.user ?? false;
+    let  username  = req.session.userName ?? false;
     res.send({ data: username });
 });
 
