@@ -223,3 +223,53 @@ trying to make a debug section. cannot import ahead of initialistioan
 lavede det samme trick med export af setup function
 
 hmm .,.. den er tricky. åbenbart så køres ting inde i selve modulæet med det samme (consolelog true? er false) men hvis det er indeni  en funktion så  fungerer det fint. tricky!
+
+OK, min debuygging viser mig at den slet ikke rammer. jeg tænkte først det er fordi jeg kører SSR, men ... det gjorde min test ting jo også.
+
+det er mækrliegt at den blive rved med at polle for connection fra frontend til backend. Det gør den ikke i den anden, 000 009-.
+
+IO socket clienten kan ikke  finde min server FORDI jeg har glemt at sætte httpServer.listen, jeg har satdig app.listen.
+
+jeg er træt!
+
+that did it. nu kan den se hinanden.
+
+nodemon app.js --node debug kan bruges til at køre scriptet debug indefra nodemon
+
+exploit.xcs
+
+jeg skal lave en chatbar. så jeg skal have den næste grid box.
+
+1605 2024
+chat i én component, tekst fra chat i en anden.
+
+jeg skal jo egentlig have en sessionbundet ID som socketen kan bruge.
+
+det virker til at jeg bare kan bruge en fetch til min sessionbackend.
+
+skal have user chatnavn i chatteren så den ka nsendes.
+
+blev bidt i røven af en doevn derbug jeg havde lavet -- if debug) data = true.... så er det svært at læse data fra den!
+
+jeg havbde også et bug med logout men det var fordi jeg kaldte window.location href / uden at vnte på at fetch session destroy var færdig.
+
+1705 2024
+det er lige gået op for mig at jeg kan lave en funktion der hedder cl og bare have console log i dén -- det er meget kortere end at skrive console log hele tiden!
+
+Fandt lige chalk, det er ret nice.
+
+lærte lige at man faktsik ikke engang behøver at definere metoden man kan bare sige cl = console.log!
+
+jeg kan bare virkelig godt lide at have verbøse console logs!
+
+nu har jeg selvfølgelig lavet den ting 
+
+har lavet en masse struktur ændringer i min socket -- nu tager den imod en masse.
+
+jeg tror osse jeg har fået session til at virke med socket -- men det skal lige testes af.
+
+jeg fik prpobælemer med socket session fordi jeg gav den det forkrte objekt.
+
+... det virker til at jeg får TO socket connections selvom jeg kun har een. hmm .... den fordobles somehow.
+
+det er måske fordi jeg har både kryds og bolle OG Chatter.
