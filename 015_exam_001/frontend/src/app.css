@@ -21,6 +21,11 @@ html {
   grid-template-columns: 185px 600px 185px;
 }
 
+#front-container-div > div {
+  
+  border: 1px #353 solid;
+}
+
 ul, li {
   margin: 0px;
   padding: 0px;
@@ -31,4 +36,32 @@ ul, li {
   text-indent: -39%;
   padding-top: 33px; 
   text-align: center;
+}
+
+button {
+  border: 2px #232 solid;
+  background-color: #131;
+  color: #898
+}
+button:hover {
+  border: 2px rgb(59, 89, 59) solid;
+  background-color: rgb(26, 77, 26);
+  color: rgb(189, 219, 189);
+}
+
+button:active {
+  border: 2px rgb(97, 148, 97) solid;
+  background-color: rgb(47, 128, 47);
+  color: rgb(189, 219, 189);
+}
+button:focus {
+  border: 2px rgb(134, 179, 109) dotted;
+}
+input {
+  border: none;
+}
+input:focus {
+  border: none;
+  padding: none;
+  box-shadow: none;
 }

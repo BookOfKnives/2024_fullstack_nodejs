@@ -1,21 +1,22 @@
 <script>
-
     import { debug } from "./stores/generalStore.js";
     import { Router, Link, Route } from "svelte-navigator";
-    import { userLoginStatus } from "./stores/userLoginStatus.js";
-    import { userApiUrl } from "./stores/generalStore.js";
-    import { BASE_URL } from "./stores/generalStore.js";
+    import { userLoginStatus, userName } from "./stores/userLoginStatus.js";
     import { sessionApiUrl } from "./stores/generalStore.js";
     import { onMount } from "svelte";
     import toast, { Toaster } from "svelte-french-toast";   
-    import Signup from "./pages/Signup.svelte";
-    import Login from "./pages/Login.svelte";
+    import Signup from "./util/Signup.svelte";
+    import Login from "./util/Login.svelte";
     import KrydsOgBolle from "./pages/games/KrydsOgBolle.svelte";
-   
-    function logOut(){
+    import Chatter from "./util/Chatter.svelte";
+    import Ducks from "./pages/Ducks.svelte";
+    import Tanks from "./pages/Tanks.svelte";
+
+    async function logOut(){
         toast("Logging out...");
         $userLoginStatus = !$userLoginStatus;
-        fetch($sessionApiUrl + "/destroy");
+        const response = await fetch($sessionApiUrl + "/destroy");
+        const result = await response.json();
         window.location.href = "/";
     }
 
@@ -26,9 +27,11 @@
     });
 
     function checkIfSessionExists(data) {
-        if (debug) data = true;
-        if (data === true) {
+        if (debug) console.log("App.svelte checkifsessionexists: ", $userName)
+        if (!data) {
             $userLoginStatus = true;
+            $userName = data.data;
+            if (debug) console.log("app.svelte checkifsession exists, data data:", data)
         } else $userLoginStatus = false; 
     }
 </script>
@@ -93,10 +96,9 @@
                         <p>Home, sweet home.</p>
                     </Route>
                     <Route path="/ducks">
-                        <p>Something about ducks Ithink?</p>
+                        <Ducks />
                     </Route>
-                    <Route path="/tanks">
-                       <p>Tanks here!</p>
+                    <Route path="/tanks" component={Tanks}>
                     </Route>
                     <Route path="/signup">
                         <Signup />
@@ -104,6 +106,23 @@
                     <Route path="/krydsogbolle" component={KrydsOgBolle} />
                 </div>
             </Router>
+        </div>
+
+        <div id="right-sidebar-div">
+        </div>
+        
+        <div id="bottom-left-div">
+            {#if $userLoginStatus}
+        <Chatter />
+        {:else}
+        <p>Please log in for seeing chat function</p>
+        {/if}
+        </div>
+        <div id="bottom-middle-div">
+            bottom mid
+        </div>
+        <div id="bottom-right-div">
+            
         </div>
     </div>
 </main>
