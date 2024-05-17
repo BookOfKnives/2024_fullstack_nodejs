@@ -16,5 +16,5 @@ export function cl(...text) {
 export function cle(error, ...text) {
     let a, b, rest;
     [a, b, rest] = text
-    console.error(chalk.blue(new Date().toLocaleString("da-DK", timeOptions)), a ?? chalk.hidden(null), chalk.yellow(b) ?? chalk.hidden(null), rest ?? chalk.hidden(null), chalk.red("Error!"), error);
+    console.error(chalk.red(new Date().toLocaleString("da-DK", timeOptions)), a ?? chalk.hidden(null), chalk.red("Error!"), error, chalk.yellow(b) ?? chalk.hidden(null), rest ?? chalk.hidden(null), );
 }
