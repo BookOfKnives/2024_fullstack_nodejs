@@ -6,7 +6,7 @@
 // const nodemailer = require("nodemailer");
 
 import nodemailer from "nodemailer";
-
+import { cle, cl } from "./logger.js";
 const startUpMessage = "Mailer online."
 
 const transportOptions = {
@@ -35,7 +35,7 @@ async function mailer(address) {
       text: "You sure are one lucky fella! Your password is 123, write it down somewhere safe!",
     });
   } catch (err) {
-    console.error("mailer.js ERROR:", err);
+    cle(err, "Mailer");
   }
 };
 
