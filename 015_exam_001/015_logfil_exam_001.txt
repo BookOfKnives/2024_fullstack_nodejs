@@ -273,3 +273,50 @@ jeg fik prpobælemer med socket session fordi jeg gav den det forkrte objekt.
 ... det virker til at jeg får TO socket connections selvom jeg kun har een. hmm .... den fordobles somehow.
 
 det er måske fordi jeg har både kryds og bolle OG Chatter.
+
+giver det overhovedet mening at have både en chatsocket og en almen socket? Måske kombine dem?
+
+det er ved side aktivering og login at der kommer TO sockets -- det skal der jo ikke være.
+
+beet.io for at sportere id3
+
+howler
+anders musikafspiller
+
+jeg havde et irriterende problem med checkifsessionexists. Den kiggede på de forkerte data, men, jeg havde også glemt at jeg KUN sendte data: name og intet andet via min diagnose endpoint.
+
+det viser sig også at min signup-proces givre en helt anden datastruktur end min logon proces! Dejligt.
+
+the way im doing debug is seriusly annoying
+
+der er også et irriterende ting hvor min cl funktion bare viser "objekt objekt" hvor jeg eegnetlig gerne vil have dens indre data.
+
+1805 2024
+havde problem med chat store -- indhold blev ikke vist. havde glemt at bruge sveltes reaktivitetspis til at opdatere den.
+$chatstore.push(msg);
+$chatstore = $chatstore;
+
+sikke noget gejl.
+
+2005 2024
+TODO
+jeg mangler at færdggiøre CRUD for session og for users api.
+det kunne være nice med password recovery og med user change data.
+TODO 
+lav battleships
+
+2105 2024
+det generer mig at min fremgangmåde for at lave ting i kodning er så .... tilfældig.
+
+jeg synes jeg hele tiden mangler overblik.
+
+anyway, jeg skal igang med at lave battleships.
+
+jeg har lavet 000 010 testdir til socket battleships. skal bare have logikken nogenlunde færdig.
+
+2205 2024
+jeg har fundet en måde at sætte css regler via js på -- ret smart!
+
+har lavet to grids nu, så man kan se hvor man skyder og også plaere sine egne både. har delt logikken op... det er grimt, men altså. Først skal det virke. Bagefter kan man lave det pænt.
+
+First you hack it.
