@@ -1,3 +1,5 @@
+let debug = process.argv.includes("debug");
+
 import passwordUtil from "../../util/password.js";
 import { Router } from "express";
 import { createUser } from "../../database/users/createUser.js"
@@ -23,7 +25,7 @@ router.post("/newusersignup", async (req, res) => {
         lastLogon: null,
     };
     createUser(newUser); //egegntlig bør authRouter IKKE lave ting -- den bør sende det til userApi
-    req.session.user = newUser;
+    req.session.user = newUser; //det her bør også sendes til sessionRouter
     try {
         let newUserEmail = newUser.email;
         mailer(newUserEmail) 
@@ -43,7 +45,7 @@ router.post("/login", async (req, res) => {
     } catch (err) {
         cle(err, "login in authRouter gives error on dbLookUp, error:");
     }
-
+    if (debug) { console.log(dbLookup) }
     let pwCheck = false;
     try {
         pwCheck = await passwordUtil.compare(signInattempt.password, dbLookup.user.password);
@@ -51,9 +53,8 @@ router.post("/login", async (req, res) => {
         cle(err, "pwcheck in authRouter gives error on pwCheck, error:");
     }
     if (pwCheck) { 
-        req.session.userAuthenticated = true;
-        req.session.userName = signInattempt.name;
-        res.status(200).send({ username: signInattempt.name })
+        req.session.user = dbLookup;
+        res.status(200).send({ username: dbLookup.user.username })
     } else {
         res.status(403).send({ data: "unlawful password or username"});
     }
