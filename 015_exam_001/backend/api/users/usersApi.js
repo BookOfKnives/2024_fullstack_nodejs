@@ -7,8 +7,9 @@ const startUpMessage = "Users API Router online.";
 
 const routerUrl = "/api/users";
 
-import {createUser} from "../../database/users/createUser.js";
-import {getAllUsers} from "../../database/users/getAllUsers.js";
+import { createUser } from "../../database/users/createUser.js";
+import { getAllUsers } from "../../database/users/getAllUsers.js";
+import { updateUserLastLogonTime } from "../../database/users/updateUser.js";
 /*
  const user = {
     name: ...
@@ -31,6 +32,15 @@ router.post(routerUrl, (req, res) => {
     createUser(user);
     res.send("user api router post somsome user")
 });
+
+router.post(routerUrl + "/updateuserlastlogon", (req, res) => {
+    const user = req.body;
+    let newDate = new Date().toLocaleString("da-DK", {timeZone: "Europe/Copenhagen"});
+    let result = updateUserLastLogonTime(user, newDate);
+    res.send("update OK?, result:", result);
+})
+
+router.post(routerUrl, )
 
 export default router;
 
