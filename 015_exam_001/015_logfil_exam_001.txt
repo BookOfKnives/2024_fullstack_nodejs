@@ -358,3 +358,4 @@ nu sidder jeg og kigger på req.admin ... fra auth fra anders og jeg fatter at n
 
 det er måske ligesom et lokalt fetch kald.
 
+how do i write tests in java?
