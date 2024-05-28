@@ -351,7 +351,7 @@ Jeg hader når jeg laver consolelogs der KUN logger et objekt, de er næsten umu
 OK, er kommmet videre med kode, men jeg har fundet ud af at min chat bugger når jeg er logget ind via min create new user thing.
 
 OK -- min user.user.username strukturvirker kun hvis jeg er logget ind, og user.username virker hvis jeg bruger ny bruger.
-
+
 OK, SOMEHOW i got it. very nice!
 
 nu sidder jeg og kigger på req.admin ... fra auth fra anders og jeg fatter at next() gør at funktionen kaldes som en slags tjekker. 
@@ -359,3 +359,21 @@ nu sidder jeg og kigger på req.admin ... fra auth fra anders og jeg fatter at n
 det er måske ligesom et lokalt fetch kald.
 
 how do i write tests in java?
+
+is it worth my time to see if mongodb is quicker on one sort of update than SQL? like, if i overwrite the whole user, does it go slower if i just replace one attribute.
+
+but now  the userlastlogontime doesnt work on login!
+
+konsol logs skal altid skrive hvor de er, og have et unikt id i deres kald. Tid er også dejligt
+
+improper shutdown is a hell of a drug
+
+something happens whne you code every day
+
+it gets progressively eaisier
+
+is this mania? i think it is.
+
+a permanent condition of mania.
+
+im working on making the login function actually update the last login time.
