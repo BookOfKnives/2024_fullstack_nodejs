@@ -320,3 +320,30 @@ jeg har fundet en måde at sætte css regler via js på -- ret smart!
 har lavet to grids nu, så man kan se hvor man skyder og også plaere sine egne både. har delt logikken op... det er grimt, men altså. Først skal det virke. Bagefter kan man lave det pænt.
 
 First you hack it.
+
+Grid spacing ... hacky hacky.
+
+2705 2024
+jeg laver mine APIer færdige.
+
+2805 2024
+jeg HAVDE en ting im in socket hvor jeg sagde ...
+(og lad nu være med at hade mig)
+
+ client.request.session.user.user.username
+ 
+ men en forandring jeg har lavet et sted, gør at det nu ikke længere virker. det er egentlig OK, min consollegs viser at infoen stadig er der, den er bar eikk ebegravet så dybt længere.
+
+uden at jeg rigtig ved hvordan så har jeg fjernet et lag nesting sådan at det nu er user.username .-... og det er da rart!
+
+... bortset fra at det crasher under ANDRE omstændigheder. Det er nok en konflikt mellem login funk og signup funk Dehjligtr!
+
+Jeg elsker når familien slås: blod bør holdes i familien!!
+
+nu duer chatten ikke for some reason
+
+agghh
+
+det viste sig at jeg rent faktisk IKKE havde løst noget som helst.
+
+Jeg hader når jeg laver consolelogs der KUN logger et objekt, de er næsten umulige at finde igen i koden!
