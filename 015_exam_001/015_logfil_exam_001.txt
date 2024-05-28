@@ -347,3 +347,14 @@ agghh
 det viste sig at jeg rent faktisk IKKE havde løst noget som helst.
 
 Jeg hader når jeg laver consolelogs der KUN logger et objekt, de er næsten umulige at finde igen i koden!
+
+OK, er kommmet videre med kode, men jeg har fundet ud af at min chat bugger når jeg er logget ind via min create new user thing.
+
+OK -- min user.user.username strukturvirker kun hvis jeg er logget ind, og user.username virker hvis jeg bruger ny bruger.
+
+OK, SOMEHOW i got it. very nice!
+
+nu sidder jeg og kigger på req.admin ... fra auth fra anders og jeg fatter at next() gør at funktionen kaldes som en slags tjekker. 
+
+det er måske ligesom et lokalt fetch kald.
+
