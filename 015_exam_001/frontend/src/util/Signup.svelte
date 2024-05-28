@@ -21,11 +21,14 @@
 			email: newUserEmail,
 		};
 		let urlEnd = $BASE_URL + "/newusersignup";
-		const result = await fetchPost(user, urlEnd);
+		const result = await fetchPost(urlEnd, user);
 		let response = await result.json(); 
 		if (response.data.username) {
+			//fetchlogin her //skal det ikke være den anden ting? i authRouter?
+			// fetchPost($BASE_URL + "/")
 			toast.success("You have created a user!");
 			$userLoginStatus = true;
+			
 			navigate("/");
 		} else {
 			toast.error("User not created, try again!")
