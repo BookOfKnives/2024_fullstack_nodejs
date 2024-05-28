@@ -1,4 +1,6 @@
 let debug = process.argv.includes("debug");
+import "dotenv/config";
+const BASE_URL = process.env.BASE_URL;
 
 import passwordUtil from "../../util/password.js";
 import { Router } from "express";
@@ -6,15 +8,17 @@ import { createUser } from "../../database/users/createUser.js"
 import { getUser } from "../../database/users/getUser.js";
 import mailer from "../../util/mailer.js";
 import { cl, cle } from "../../util/logger.js";
+import { fetchPatch, fetchPatchNoData, fetchPost, fetchGet } from "../../util/fetchUtil.js";
 
 const router = Router();
 const startUpMessage = "Auth Router online.";
 
 import newDataEntryIdNumber from "../../util/usersDatabaseUUID.js";
-let highestUserIDNumber = newDataEntryIdNumber; //I cannot see how this would have any side-effects. *nervously*
+let highestUserIDNumber = newDataEntryIdNumber; //I cannot see how this would have any side-effects. *nervous laughing*
 
 router.post("/newusersignup", async (req, res) => {
     const data = req.body;
+
     const pw = await passwordUtil.hash(data.password)
     const newUser = {
         id: ++highestUserIDNumber.newIdNumber,
@@ -24,8 +28,11 @@ router.post("/newusersignup", async (req, res) => {
         signUpDate: new Date().toLocaleString("da-DK", {timeZone: "Europe/Copenhagen"}),
         lastLogon: null,
     };
-    createUser(newUser); //egegntlig bør authRouter IKKE lave ting -- den bør sende det til userApi
-    req.session.user = newUser; //det her bør også sendes til sessionRouter
+    
+    // await fetchPost(newUser, BASE_URL + "/api/users/");
+    await fetchPost("http://localhost:8080/api/users/", newUser);
+
+    req.session.user = newUser;
     try {
         let newUserEmail = newUser.email;
         mailer(newUserEmail) 
@@ -38,14 +45,12 @@ router.post("/newusersignup", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     const signInattempt = req.body;
-
     let dbLookup;
     try {
-        dbLookup = await getUser(req.body);
+        dbLookup = await getUser(req.body); //TODO replace this direct call to db with a fetch to userapi
     } catch (err) {
         cle(err, "login in authRouter gives error on dbLookUp, error:");
     }
-    if (debug) { console.log(dbLookup) }
     let pwCheck = false;
     try {
         pwCheck = await passwordUtil.compare(signInattempt.password, dbLookup.user.password);
@@ -53,8 +58,10 @@ router.post("/login", async (req, res) => {
         cle(err, "pwcheck in authRouter gives error on pwCheck, error:");
     }
     if (pwCheck) { 
-        req.session.user = dbLookup;
-        res.status(200).send({ username: dbLookup.user.username })
+        req.session.user = dbLookup.user;
+        let idNumber = dbLookup.user.id; 
+        fetchPatchNoData(BASE_URL + "/api/users/" + idNumber + "/updateuserlastlogon");
+        res.status(200).send({ username: dbLookup.user.username }); //this MUST send response.username back to login.svelte
     } else {
         res.status(403).send({ data: "unlawful password or username"});
     }
