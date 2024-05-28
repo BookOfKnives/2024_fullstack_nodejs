@@ -44,7 +44,7 @@ router.get(routerUrl + "/:idnumber", async (req, res) => {
     let result = await getOneUser(idNumber);
     if (result) res.send({data: result})
     else res.status(404).send({data: "User not found!"});
-})
+});
 
 router.post(routerUrl, (req, res) => {
     const user = req.body;
