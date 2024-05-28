@@ -8,7 +8,8 @@
     import Signup from "./util/Signup.svelte";
     import Login from "./util/Login.svelte";
     import KrydsOgBolle from "./pages/games/KrydsOgBolle.svelte";
-    import Chatter from "./util/Chatter.svelte";
+    import ChatInput from "./util/ChatInput.svelte";
+    import ChatOutput from "./util/ChatOutput.svelte";
     import Ducks from "./pages/Ducks.svelte";
     import Tanks from "./pages/Tanks.svelte";
 
@@ -23,14 +24,31 @@
     onMount( async () => {
         const response = await fetch($sessionApiUrl + "/getname");
         let result = await response.json();
+        if (debug) console.log("app svelte onMount, result:", result)
         checkIfSessionExists(result);
     });
 
+    let dummyUser = {
+    id: 1,
+    username: 're',
+    password: '$2b$14$zlsui0yvPRtaP/I3QytLz.suMBfnwsx50jnXiTx4qpCSJFVSuJ3z6',
+    email: 're@re.re',
+    signUpDate: '10.5.2024 14.00.29',
+    lastLogon: null
+  }
+
     function checkIfSessionExists(data) {
-        if (debug) console.log("App.svelte checkifsessionexists: ", $userName)
-        if (!data) {
-            $userLoginStatus = true;
-            $userName = data.data;
+        if (debug) { 
+            console.log("data in  checkifsess app svelte", data)
+            console.log("App.svelte checkifsessionexists: ", $userName);
+        }
+        if (data.data) { //prod line
+        //  if (true) { //debug line
+            console.log("checkifsess, insidte data data");
+            userLoginStatus.set(true);
+            // $userName =dummyUser.username; //debug line
+            $userName =data.data; //prod line
+            //burde have noget her der sætter noget user info til store, så jeg kan vise det under logout button.
             if (debug) console.log("app.svelte checkifsession exists, data data:", data)
         } else $userLoginStatus = false; 
     }
@@ -113,13 +131,13 @@
         
         <div id="bottom-left-div">
             {#if $userLoginStatus}
-        <Chatter />
-        {:else}
-        <p>Please log in for seeing chat function</p>
-        {/if}
+            <ChatInput />
+            {:else}
+            <p>Please log in for seeing chat function</p>
+            {/if}
         </div>
         <div id="bottom-middle-div">
-            bottom mid
+            <ChatOutput />
         </div>
         <div id="bottom-right-div">
             
@@ -128,5 +146,8 @@
 </main>
 
 <style>
-
+#bottom-middle-div {
+    overflow:scroll;
+    overflow-x: hidden;
+}
 </style>
