@@ -12,7 +12,7 @@ import { createUser } from "../../database/users/createUser.js";
 import { getAllUsers } from "../../database/users/getAllUsers.js";
 import { updateUserLastLogonTimeId, patchUser } from "../../database/users/updateUser.js";
 import { getOneUser } from "../../database/users/getOneUser.js";
-import { getUser } from "../../database/users/getUser.js";
+import { deleteUser } from "../../database/users/deleteUser.js";
 
 /*
  const user = {
@@ -39,26 +39,27 @@ router.get(routerUrl + "/:idnumber", async (req, res) => {
     else res.status(404).send({data: "User not found!"});
 });
 
-router.get(routerUrl + "/:idnumber", async (req, res) => {
-    let idNumber = Number(req.params.idnumber);
-    let result = await getOneUser(idNumber);
-    if (result) res.send({data: result})
-    else res.status(404).send({data: "User not found!"});
-});
-
 router.post(routerUrl, (req, res) => {
     const user = req.body;
-    if (debug) { cl("usersApi RouterPost says, USER from req.body:", user); }
+    if (debug) { console.log("usersApi RouterPost says, USER from req.body:", user); }
+    /*
+    usersApi RouterPost says, USER from req.body: {
+  id: 7,
+  username: 'ghghjghj',
+  password: '$2b$14$G6N.6HsggpLMAUYrlZcmFusHigrn7dqfIXWDpMuiRMMmRAIoiSOIi',
+  email: 're@re.re',
+  signUpDate: '30.5.2024 15.48.36',
+  lastLogon: null
+}
+    */
     createUser(user);
     res.send({data: user});
 });
 
-router.patch(routerUrl + "/:idnumber/updateuserlastlogon", (req, res) => {
-    const idNumber = Number(req.params.idnumber); //bad way to do it. Should check the session for user id.
-    console.log("user api patch idnumber last logon update, has session?", req.session)
-    const newDate = new Date().toLocaleString("da-DK", {timeZone: "Europe/Copenhagen"}); //TODO dont have the changin code here, only the routing -- chainging code should be in updateUser.js
-    let result = updateUserLastLogonTimeId(idNumber, newDate);
-    console.log("result of update last logon time in userapi:", result)
+router.patch(routerUrl + "/:idnumber/updateuserlastlogon", async (req, res) => {
+    const idNumber = Number(req.params.idnumber); 
+    const newDate = new Date().toLocaleString("da-DK", {timeZone: "Europe/Copenhagen"});
+    let result = await updateUserLastLogonTimeId(idNumber, newDate);
     res.status(200).send({data: result});
 });
 
@@ -73,10 +74,11 @@ router.patch(routerUrl + "/:idnumber", async (req, res) => {
     res.status(200).send({data: result});
 });
 
-// router.patch(routerUrl, + "/:idnumber", (req, res) => { //TODO delete etc
-//     res.send({data: "OK"})
-// } )
+router.delete(routerUrl + "/:idnumber", async (req, res) => {
+    const idNumber = Number(req.params.idnumber);
+    const result = await deleteUser(idNumber);
+    res.send({result});
+});
 
 export default router;
-
 console.log(startUpMessage);

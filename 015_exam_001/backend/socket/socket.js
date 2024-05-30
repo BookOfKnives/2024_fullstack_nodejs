@@ -22,9 +22,9 @@ function setupSocket(io) {
   io.on('connection', (client) => {
     
     if (debug) { 
-      cl("connection in socketjs, client id:", client.id)
-      console.log("socket  connetion sess:", client.request.session);
-      console.log("socket  connetion sess:", client.request.session.user)
+      cl("connection in socketjs, client id:", client.id);
+      console.log("socket  connetion sess:", client.request.session); //husk at differentiere dine konsol logs -- tid, sted, id
+      // console.log("socket  connetion USER:", client.request.session.user);
     };
 
     io.emit("onConnectionSendBoardState", krydsOgBolle); 

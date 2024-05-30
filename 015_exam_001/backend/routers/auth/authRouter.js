@@ -4,7 +4,6 @@ const BASE_URL = process.env.BASE_URL;
 
 import passwordUtil from "../../util/password.js";
 import { Router } from "express";
-import { createUser } from "../../database/users/createUser.js"
 import { getUser } from "../../database/users/getUser.js";
 import mailer from "../../util/mailer.js";
 import { cl, cle } from "../../util/logger.js";
@@ -39,6 +38,7 @@ router.post("/newusersignup", async (req, res) => {
     } catch (err) {
         cle(err, "authRouter error in mailing, error:");
     }
+    req.session.user = newUser; //try this 3005 
     res.status(200).send({ data: newUser });
     
 });
@@ -60,8 +60,8 @@ router.post("/login", async (req, res) => {
     if (pwCheck) { 
         req.session.user = dbLookup.user;
         let idNumber = dbLookup.user.id; 
-        fetchPatchNoData(BASE_URL + "/api/users/" + idNumber + "/updateuserlastlogon");
-        res.status(200).send({ username: dbLookup.user.username }); //this MUST send response.username back to login.svelte
+        let resultOfFetch = await fetchPatchNoData(BASE_URL + "api/users/" + idNumber + "/updateuserlastlogon");
+        res.status(200).send({ username: dbLookup.user.username }); //NB: this MUST send response.username back to login.svelte
     } else {
         res.status(403).send({ data: "unlawful password or username"});
     }
