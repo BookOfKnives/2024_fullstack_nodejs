@@ -3,6 +3,8 @@
     import io from "socket.io-client";
     import { chatStore } from "../stores/chatStore.js";
 
+    export let onNewChatMessage;
+
     let socket = io("http://localhost:8080");
 
     if ($debug) {
@@ -24,6 +26,9 @@
         if ($debug) console.log("chatmsg in ChatOutput.svelte:", chatMsg);
         $chatStore.push(chatMsg);
         $chatStore = $chatStore;
+        setTimeout(() => {
+            onNewChatMessage();
+        }, 5);
         if ($debug) console.log("chatstore", $chatStore)
     });
 </script>

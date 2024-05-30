@@ -3,7 +3,7 @@
     import { debug } from "../stores/generalStore.js";
     import io from "socket.io-client";
     import { userName } from "../stores/userLoginStatus.js";
-    
+
     let socket;
     function setupChatIo(){
         if ($debug) {
@@ -30,6 +30,7 @@ function sendChatText() {
     }
     socket.emit("chatMessageSentFromUser", chatTextForSending);
     chatTextForSending = "";
+    
 }
 
 </script>

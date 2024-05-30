@@ -377,3 +377,12 @@ is this mania? i think it is.
 a permanent condition of mania.
 
 im working on making the login function actually update the last login time.
+
+3105 2024
+har lavet noget cleanup og fikset at man kan se hvornår man sidst har logget ind.
+
+jeg vil lave at chatområdet autoscrolle rned til den nyeste besked. det virker, men den skroller ikke helt. jeg tror det er fordi jeg har sat koden til dét, i chatinput -- og jeg burde nok sætte den i chatoutput. fordi ellers sket det for sent
+
+fuck det sker STADIG selvom  det er i output. faktisk virker der ikke tyil at være nogen forskel.
+
+jeg fiksede det ved at sætte scrollfuinktionen inde i en setTimeout med 10 ms. hacky? men det virker!

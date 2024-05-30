@@ -20,13 +20,22 @@
         const result = await response.json();
         window.location.href = "/";
     }
-
+    let el;
     onMount( async () => {
         const response = await fetch($sessionApiUrl + "/getname");
         let result = await response.json();
         if (debug) console.log("app svelte onMount, result:", result)
         checkIfSessionExists(result);
+
+        //3005 get the div scroll element
+        //this works, BUT it works when you click the chattext area. So it needs to work 
+        //when you submit text (or when text comes in or whatever)
+        el = document.getElementById("bottom-middle-div"); //the element is right
     });
+
+    function handleNewChatMessage() {
+        el.scrollTop += 100;
+    }
 
     let dummyUser = {
     id: 1,
@@ -59,46 +68,47 @@
     <div id="front-container-div">
         <div class="nav-bar-div">
             {#if $userLoginStatus}
-            <Router>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/ducks">Ducks</Link>
-                        </li>
-                        <li>
-                            <Link to="/tanks">Tanks</Link>
-                        </li>
-                        <li>
-                            <Link to="/krydsogbolle">Kryds Og Bolle</Link>
-                        </li>
-                    </ul>
-                </nav>
-            </Router>
-            
+                <Router>
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li>
+                                <Link to="/ducks">Ducks</Link>
+                            </li>
+                            <li>
+                                <Link to="/tanks">Tanks</Link>
+                            </li>
+                            <li>
+                                <Link to="/krydsogbolle">Kryds Og Bolle</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                </Router>
             {:else}
-            <Router>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/signup">New user? Sign up here!</Link>
-                        </li>
-                    </ul>
-                </nav>
-            </Router>
+                <Router>
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li>
+                                <Link to="/signup">New user? Sign up here!</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                </Router>
             {/if}
         </div>
+
         <div class="page-header-div">            
             <h1>1618 Design</h1>
         </div>
+
         <div class="top-right-div">
-           
         </div>
+
         <div class="left-sidebar-div">
             {#if $userLoginStatus}
                 <button on:click={logOut}>Log Out</button>
@@ -136,11 +146,12 @@
             <p>Please log in for seeing chat function</p>
             {/if}
         </div>
+
         <div id="bottom-middle-div">
-            <ChatOutput />
+            <ChatOutput onNewChatMessage={handleNewChatMessage}/>
         </div>
+
         <div id="bottom-right-div">
-            
         </div>
     </div>
 </main>
