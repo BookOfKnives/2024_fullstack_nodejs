@@ -20,13 +20,14 @@ export async function fetchPatch(url, data) {
     });    
 }    
 export async function fetchPatchNoData(url) {
+    let data = {};
     return await fetch(url, {
         method: "PATCH",
         credentials: "include",
         headers: {
             "Content-Type":"application/json",
         },    
-        //no data no body
+        body: JSON.stringify(data),
     });    
 }    
 
