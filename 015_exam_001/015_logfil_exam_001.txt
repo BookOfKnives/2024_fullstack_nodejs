@@ -386,3 +386,53 @@ jeg vil lave at chatområdet autoscrolle rned til den nyeste besked. det virker,
 fuck det sker STADIG selvom  det er i output. faktisk virker der ikke tyil at være nogen forskel.
 
 jeg fiksede det ved at sætte scrollfuinktionen inde i en setTimeout med 10 ms. hacky? men det virker!
+
+0106 2024
+jeg bruger nu sockets io callbacks til at sætte gamestate.
+
+det er svært fordi min hjerne bliver ved med at forsøge at flyve længere end mit syn kan nå den. Jeg må holde mig tilbage fra at kaste mig i afgrunden af spekulation og desperation. Lave ting simpelt!
+
+lærer meget om sockets (igen) læse læse læse
+
+det tog en masse tid men jeg tror jeg har fundet en måde at lave mine ting på.
+
+jeg ... vidste faktisk ikke meget om objekter i javascript. jeg antog man bare kunne lave dem ad hoc når man skulle -- det kan man ikke! man får "cannot create on undefined" eller noget lignende. 
+
+løsningen jeg fandt var at definere min datastruktur fra starten -- så kan jeg lægge indholdet ind senere, i kontrolstrukturen.
+
+OK, nu har jeg faktisk en struktur hvor player 1 og player 2 kan joine, men ikke flere.
+
+Det er svært at holde styr på hvad gamestate er --- og hvor spillet befinder sig
+
+0206 2024
+had a funny problem where ALL my elements were given an eventlistener. I found out its because I forgot to specify the elemtn to which the eventlistner should be added
+
+ahh... jeg fandt en sjov ting -- fordi jeg har lagt den ene eventlistener ind under den anden, så skal jeg først klikke på et element og derefter mouseover det for at få min reaktion.
+
+click ogmouseover er to forskellige parrdigmer
+
+jeg har nu en nogenlunde model for at lave interaktioner med spillet. men det er SVLÆR logik!
+
+Jeg har lige brugt en halv time på at få fat i en masse elemneter ... men jeg har egentlig slet ikke brug for dem, jeg har brug for deres tal. Hm!
+
+havde et irriterende problem hvor en array ikke havde en værdi -- det var self fordi at værdien var en string og ikke et tal! Number() to the resuce.
+
+jeg burde bare have lavet en ting der gentegende dhele griddet hver gang. simpler ,n o?
+
+måske ikke simplere... lidt en panik løsning, non?
+
+jeg er en idiot, jeg glemte at lave e om til et nummber ... IGEN
+
+0306 2024
+formattet for hvordan man laver sockets. Små ting ... msåke. jeg glermmer det nogle gange.
+
+og andre gange husker jeg.
+
+0306 2024
+1737
+ENDELIG
+er den første verseion FÆRDIG. Nu kan man rent faktisk spille sænke slagskibe. man kan sætte sine skibe og skyde på fjendens skibe.
+
+Dejligt.
+
+Det føles utroligt rart!
