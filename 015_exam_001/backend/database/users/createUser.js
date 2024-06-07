@@ -1,6 +1,6 @@
 import { userColl } from "../connection.js";
 
 export async function createUser(user) {
-    userColl.insertOne({user});
-    return 1;
+    return await userColl.insertOne({user});
+    
 }
