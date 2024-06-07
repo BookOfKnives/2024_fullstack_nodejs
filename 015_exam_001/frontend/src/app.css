@@ -13,17 +13,16 @@ html {
 }
 
 #front-container-div {
+  display: grid;
   margin: 5px;
   background-color: #676;
   border: 2px solid #9a9;
-  display: grid;
   grid-template-rows: 177px 228px 177px;
   grid-template-columns: 185px 600px 185px;
 }
 
 #front-container-div > div {
-  
-  border: 1px #353 solid;
+  border: 3px #353 solid;
 }
 
 ul, li {
@@ -39,29 +38,48 @@ ul, li {
 }
 
 button {
-  border: 2px #232 solid;
+  
+  border: 2px #232 inset;
   background-color: #131;
   color: #898
 }
 button:hover {
-  border: 2px rgb(59, 89, 59) solid;
+  border: 2px rgb(59, 89, 59) inset;
   background-color: rgb(26, 77, 26);
-  color: rgb(189, 219, 189);
+  color: rgb(215, 220, 178);
 }
 
 button:active {
-  border: 2px rgb(97, 148, 97) solid;
+  border: 2px rgb(97, 148, 97) outset;
   background-color: rgb(47, 128, 47);
-  color: rgb(189, 219, 189);
+  color: rgb(231, 225, 147);
 }
 button:focus {
   border: 2px rgb(134, 179, 109) dotted;
 }
-input {
-  border: none;
+a:link {
+  color: rgb(242, 245, 221)
 }
-input:focus {
-  border: none;
-  padding: none;
-  box-shadow: none;
+a:visited {
+  color: rgb(192, 193, 187);
 }
+
+a:hover {
+  color: rgb(245, 226, 84);
+}
+
+a:active {
+  color: rgb(208, 214, 210);
+}
+
+
+input[type=text] {
+  border: 2px inset #a1a5b0;
+  background-color: #d3dfdb
+}
+
+input[type=text]:focus {
+  outline: none;
+  background-color: #cedee9;
+}
+
