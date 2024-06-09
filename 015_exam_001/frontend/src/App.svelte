@@ -142,9 +142,7 @@
                 </div>
             </Router>
         </div>
- 
-        <!-- <div id="right-sidebar-div">
-        </div>  -->
+
         
         <div id="bottom-left-div">
             {#if $userLoginStatus}
@@ -157,10 +155,10 @@
         <div id="bottom-middle-div">
             <ChatOutput onNewChatMessage={handleNewChatMessage}/>
         </div>
-<!-- 
+ 
         <div id="bottom-right-div">
-            unusued because of  
-        </div>  -->
+             
+        </div>  
     </div>
 </main>
 

@@ -1,6 +1,6 @@
 <script>
     import { onMount, onDestroy } from "svelte";
-    import { debug } from "../stores/generalStore.js";
+    import { debug, BASE_URL } from "../stores/generalStore.js";
     import io from "socket.io-client";
     import { userName } from "../stores/userLoginStatus.js";
 
@@ -9,7 +9,7 @@
         if ($debug) {
             console.log("setupchatIo running in Chatter.svelte, username:", $userName);
         }
-        socket = io("http://localhost:8080");
+        socket = io($BASE_URL);
         document.getElementById("chatText").addEventListener("keypress", (e) => {
             if (e.key === "Enter") { sendChatText() }
         })

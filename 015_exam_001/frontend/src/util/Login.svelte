@@ -1,7 +1,8 @@
 <script>
+	//TODO fjern login fra svelte
 	import { onMount } from "svelte";
     import { userLoginStatus } from "../stores/userLoginStatus.js";
-	import toast, {Toaster} from "svelte-french-toast";
+	import toast from "svelte-french-toast";
     import { BASE_URL, debug } from "../stores/generalStore.js";
 	
 	let userNameInput = "re";
@@ -10,9 +11,9 @@
 	import { fetchPost } from "../stores/fetchStore.js";
 
 	async function login(){ 
-		if (!checkInputValidity(1)) {
+		if (!checkInputValidity()) {
 			toast.error("Name and password required.");
-			return -1;
+			return;
 		}
 		toast("Attempting to log in...");
 		let user = {
@@ -31,11 +32,8 @@
 		}
 	};
 
-	function checkInputValidity(controlArg) {
-		switch(controlArg) {
-			case 1: return userNameInput.length >= 1 && userPasswordInput.length >= 1;
-			default: return false; 
-		}
+	function checkInputValidity() {
+		return userNameInput.length >= 1 && userPasswordInput.length >= 1;
 	};
 
 	onMount(() => {
