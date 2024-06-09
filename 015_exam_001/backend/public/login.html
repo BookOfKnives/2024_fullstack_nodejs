@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login for battleships</title>
+</head>
+<body>
+  
+  <main>
+      <div id="nav-bar-div">
+          <div id="front-container-div">
+
+         
+          <div id="page-header-div">            
+              
+          </div>
+    
+          <div id="top-right-div">
+          </div>
+    
+          <div id="left-sidebar-div">
+          </div>
+      
+          <div id="main-content-div">
+            <div id="loginVisibility-div">
+              <h1>1618 bship  login</h1>
+              <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" value="username"><br>
+          <label for="password">Password:</label><br>
+        <input type="text" id="password" name="password" value="password"><br>
+      <button id="loginSubmitButton">Login</button>   
+      <br>
+      <button id="signupVisibilityButton">New user? Sign up here!</button>  
+      </div>
+
+      <div id="signupVisibility-div">
+        <h1>1618 bship  signup</h1>
+        <label for="newusername">New Username:</label><br>
+        <input type="text" id="newusername" name="newusername" value="Your username"> <br>
+        <label for="newuserpassword">Password:</label><br>
+        <input type="text" id="newpassword" name="newuserpassword" value="Password"><br>
+        <button id="signupButton">Sign up!</button><br>
+        <button id="loginVisibilityButton">Already a user? Go to Login here!</button>  
+      </div>
+          </div>
+
+          
+          <div id="right-sidebar-div">
+             
+          </div>
+          <div id="bottom-left-div">
+          </div>
+    
+          <div id="bottom-middle-div">
+          </div>
+    
+          <div id="bottom-right-div">
+          </div>
+      </div>
+      </div>
+  </main>
+  
+    <script>
+
+        async function login() {
+            console.log("first in login")
+            console.log("")
+            let loginData = {
+                  name: "re",
+                  password: "re",
+            }
+            const url = "http://localhost:8080/login"
+             
+            const response = await fetch(url, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(loginData)
+            });
+            const result = await response.json();
+            console.log("result from login post fetch in login:", result)
+        }
+
+        function changeToSignup() {
+          signupVisibilityDivElement.style.visibility = "visible";
+          loginVisibilityDivElement.style.visibility = "hidden";
+          console.log("signup being hit!");
+        }
+        function changeToLogin() {
+          signupVisibilityDivElement.style.visibility = "hidden";
+          loginVisibilityDivElement.style.visibility = "visible";
+        }
+
+        let buttonHandler;
+        let textFieldUsername;
+        let textFieldPassword;
+
+        let textfieldNewUsername;
+        let textfieldNewPassword;
+
+        let signupVisibilityButtonHandler;
+        let loginVisibilityButtonHandler;
+
+        let signupVisibilityDivElement;
+        let loginVisibilityDivElement;
+        
+        function setup() {
+      
+          buttonHandler = document.getElementById("loginSubmitButton");
+      
+          textFieldUsername = document.getElementById("username");
+          textFieldPassword = document.getElementById("password");
+          
+          signupButtonHandler = document.getElementById("signupButton");
+          textfieldNewUsername = document.getElementById("newusername");
+          textfieldNewPassword = document.getElementById("newpassword");
+      
+          signupVisibilityButtonHandler = document.getElementById("signupVisibilityButton");
+          loginVisibilityButtonHandler = document.getElementById("loginVisibilityButton");
+          
+          signupVisibilityDivElement = document.getElementById("signupVisibility-div");
+          loginVisibilityDivElement = document.getElementById("loginVisibility-div");
+          
+          textFieldUsername.addEventListener("keypress", (e) => { if (e.key === "Enter") { login(); }})
+
+          textFieldPassword.addEventListener("keypress", (e) => { if (e.key === "Enter") { login() }})
+          buttonHandler.addEventListener("keypress", (e) => { if (e.key === "Enter") { login() }})
+          buttonHandler.addEventListener("click", () => { { login() }})
+          
+          textfieldNewUsername.addEventListener("keypress", (e) => { if (e.key === "Enter") { signup() }})
+          textfieldNewPassword.addEventListener("keypress", (e) => { if (e.key === "Enter") { signup() }})
+          signupButtonHandler.addEventListener("keypress", (e) => { if (e.key === "Enter") { signup() }})
+          signupButtonHandler.addEventListener("click", () => { { signup() }})
+          
+          signupVisibilityButtonHandler.addEventListener("click", () => { changeToSignup() })
+          loginVisibilityButtonHandler.addEventListener("click", () => {{ changeToLogin() }})
+        }
+        setup();
+    </script>
+
+    <style>
+      #front-container-div {
+        height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+      }
+        #main-content-div {
+          
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 800px;
+          height: 400px;
+          border: 2px rgb(26, 62, 45) solid;
+          background-color: #337733;
+        }
+      
+        * {
+    margin: 0;
+  }
+  
+  html {
+    background-color: #113311;
+  }
+
+  #loginVisibility-div {
+    visibility: visible;
+  }
+  #signupVisibility-div  {
+  visibility: hidden;
+ }
+  
+
+  
+  ul, li {
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+  }
+  
+  .page-header-div {
+    text-indent: -39%;
+    padding-top: 33px; 
+    text-align: center;
+  }
+  
+  button {
+    border: 2px #232 solid;
+    background-color: #131;
+    color: #898
+  }
+  button:hover {
+    border: 2px rgb(59, 89, 59) solid;
+    background-color: rgb(26, 77, 26);
+    color: rgb(189, 219, 189);
+  }
+  
+  button:active {
+    border: 2px rgb(97, 148, 97) solid;
+    background-color: rgb(47, 128, 47);
+    color: rgb(189, 219, 189);
+  }
+  button:focus {
+    border: 2px rgb(134, 179, 109) dotted;
+  }
+  input {
+    border: none;
+  }
+  input:focus {
+    border: none;
+    padding: none;
+    box-shadow: none;
+  }
+      </style>
+      
+</body>
+</html>
