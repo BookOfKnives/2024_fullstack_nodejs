@@ -12,54 +12,57 @@
     import ChatOutput from "./util/ChatOutput.svelte";
     import Ducks from "./pages/Ducks.svelte";
     import Tanks from "./pages/Tanks.svelte";
+    import Battleships from "./pages/games/Battleships.svelte";
 
     async function logOut(){
         toast("Logging out...");
         $userLoginStatus = !$userLoginStatus;
         const response = await fetch($sessionApiUrl + "/destroy");
         const result = await response.json();
+        //TODO: should destroy session here as well
         window.location.href = "/";
     }
-    let el;
+    let chatScrollable;
     onMount( async () => {
         const response = await fetch($sessionApiUrl + "/getname");
         let result = await response.json();
         if (debug) console.log("app svelte onMount, result:", result)
         checkIfSessionExists(result);
-
-        //3005 get the div scroll element
-        //this works, BUT it works when you click the chattext area. So it needs to work 
-        //when you submit text (or when text comes in or whatever)
-        el = document.getElementById("bottom-middle-div"); //the element is right
+        chatScrollable = document.getElementById("bottom-middle-div"); 
     });
 
     function handleNewChatMessage() {
-        el.scrollTop += 100;
+        chatScrollable.scrollTop += 100;
     }
 
     let dummyUser = {
-    id: 1,
-    username: 're',
-    password: '$2b$14$zlsui0yvPRtaP/I3QytLz.suMBfnwsx50jnXiTx4qpCSJFVSuJ3z6',
-    email: 're@re.re',
-    signUpDate: '10.5.2024 14.00.29',
-    lastLogon: null
-  }
+      id: 1,
+      username: 're',
+      password: '$2b$14$zlsui0yvPRtaP/I3QytLz.suMBfnwsx50jnXiTx4qpCSJFVSuJ3z6',
+      email: 're@re.re',
+      signUpDate: '10.5.2024 14.00.29',
+      lastLogon: null
+    }
 
     function checkIfSessionExists(data) {
         if (debug) { 
             console.log("data in  checkifsess app svelte", data)
             console.log("App.svelte checkifsessionexists: ", $userName);
         }
-        if (data.data) { //prod line
-        //  if (true) { //debug line
+         if (data.data) { //prod line
+        //   if (true) { //debug line
             console.log("checkifsess, insidte data data");
             userLoginStatus.set(true);
             // $userName =dummyUser.username; //debug line
-            $userName =data.data; //prod line
-            //burde have noget her der sætter noget user info til store, så jeg kan vise det under logout button.
+            $userName = data.data; //prod line
+            //TODO: have noget her der sætter noget user info til store, så jeg kan vise det under logout button.
             if (debug) console.log("app.svelte checkifsession exists, data data:", data)
         } else $userLoginStatus = false; 
+    }
+
+    //__battleships game handling
+    function handleClientGameConditionChange() {
+        
     }
 </script>
 
@@ -82,6 +85,9 @@
                             </li>
                             <li>
                                 <Link to="/krydsogbolle">Kryds Og Bolle</Link>
+                            </li>
+                            <li>
+                                <Link to="/battleships">Battleships</Link>
                             </li>
                         </ul>
                     </nav>
@@ -117,7 +123,7 @@
             {/if}
         </div>
     
-        <div class="main-content-div">
+        <div id="main-content-div">
             <Router>
                 <div>
                     <Route path="/">
@@ -132,12 +138,13 @@
                         <Signup />
                     </Route>
                     <Route path="/krydsogbolle" component={KrydsOgBolle} />
+                    <Route path="/battleships" component={Battleships} />
                 </div>
             </Router>
         </div>
-
-        <div id="right-sidebar-div">
-        </div>
+ 
+        <!-- <div id="right-sidebar-div">
+        </div>  -->
         
         <div id="bottom-left-div">
             {#if $userLoginStatus}
@@ -150,9 +157,10 @@
         <div id="bottom-middle-div">
             <ChatOutput onNewChatMessage={handleNewChatMessage}/>
         </div>
-
+<!-- 
         <div id="bottom-right-div">
-        </div>
+            unusued because of  
+        </div>  -->
     </div>
 </main>
 
@@ -161,4 +169,10 @@
     overflow:scroll;
     overflow-x: hidden;
 }
+
+#main-content-div {
+    grid-area: 2 / 2 / 3 / 4;
+}
+
 </style>
+

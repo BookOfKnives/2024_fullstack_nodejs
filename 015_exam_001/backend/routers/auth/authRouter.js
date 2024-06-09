@@ -1,11 +1,17 @@
 import "dotenv/config";
 
+const PUBLIC_KEY = process.env.PUBLIC_KEY;
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
+
 import passwordUtil from "../../util/password.js";
 import { Router } from "express";
 import { getUser } from "../../database/users/getUser.js";
 import { createUser } from "../../database/users/createUser.js";
-import { updateUserLastLogonTimeId } from "../../database/users/updateUser.js";
+import { updateUserLastLoginTimeId } from "../../database/users/updateUser.js";
 import mailer from "../../util/mailer.js";
+import { myLogger as l } from "../../util/logger.js";
+import jwt from "jsonwebtoken";
+import path from "path";
 
 const router = Router();
 const startUpMessage = "Auth Router online.";
@@ -13,10 +19,61 @@ const startUpMessage = "Auth Router online.";
 import newDataEntryIdNumber from "../../util/usersDatabaseUUID.js"; //TODO btyug UUIDs ist for
 let highestUserIDNumber = newDataEntryIdNumber; //I cannot see how this would have any side-effects. *nervous laughing*
 
-router.use(isAdmin);
+// router.use(isAdmin); //TODO is this the right place for admin?? 0706
 
-router.post("/newusersignup", async (req, res) => {
+router.get("/", async (req, res, next) => {
+    l.dl();
+    l.cll("authrouter 015 hit");
+    // let jwToken = await jwt.sign( { balls: "mine" }, PRIVATE_KEY, { algorithm: "RS256", expiresIn: '5m' } );
+    // req.session.jwToken = jwToken;
+    // let verify = await jwt.verify(jwToken, PUBLIC_KEY, { algorithm: "RS256" } );
+    // l.cll("verify?", verify || null);
+    l.cll("auth / sessiopn?", req.session);
+    if (req.session.jwToken) {
+        l.dl();
+        l.cll("inside jwtotnw in authourter /, nexting"); 
+        next(); }
+    else {
+        l.dl();
+        l.cll("inside ELSE in authourter after jwt /, serving login"); 
+        res.sendFile(path.resolve("./public/login.html"));
+    }
+    // else { res.send("authrouter 015 gopod luck!"); }
+    // res.send("authrouter 015 gopod luck!"); 
+});
+
+router.get("/publickey", (req, res) => {
+    l.dl();
+    l.cll("publickey in authrouter HIT")
+    res.send(JSON.stringify(PUBLIC_KEY));
+})
+
+export function isAdmin(req, res, next) {
+    l.dl();
+    l.cll("isAdmin funciont in authrouiter HIT")
+    let roles = req.session?.user?.roles; //gives undefined if not
+/*     if (roles) {
+        if (roles.includes("admin")) next();
+    }
+    else res.send("Sorry pal, you're not on The List(c) in AuthRouter."); //TODO maybe remove this line. */
+    res.send("sorry pal");
+    console.log("roles in isAdmin", roles)
+    // if (isAdmin.includes("admin")) next();
+    //tjek om bruger har admin rolle i sin session
+    //hvis ja, next ham -- ellers deny
+
+}
+
+router.post("/newusersignup", async (req, res) => { 
+    l.dl();
+    l.cll("newuserisgnup in Authrouert HIT")
     const data = req.body;
+
+    let badInput = false;
+    if (!data.name) badInput = true;
+    if (!data.password) badInput = true;
+    if (!data.email) badInput = true;
+    if (badInput) res.status(403).send("bad input");
 
     const pw = await passwordUtil.hash(data.password)
     const newUser = {
@@ -25,7 +82,7 @@ router.post("/newusersignup", async (req, res) => {
         password: pw,
         email: data.email,
         signUpDate: new Date().toLocaleString("da-DK", {timeZone: "Europe/Copenhagen"}),
-        lastLogon: null, //TODO: brug login -- konssistent terminologi
+        lastLogin: null, 
     };
     try {
         await createUser(newUser);
@@ -38,15 +95,20 @@ router.post("/newusersignup", async (req, res) => {
     } catch (err) {
         console.error("authRouter error in mailing, error:", err);
     }
-    req.session.user = newUser;  
-    res.status(200).send({ data: newUser }); //TODO bare send user
+    req.session.user = newUser;// TODO skal bare være token  
+    // res.status(200).send({ data: newUser });
+    res.status(200).send({username: newUser.username }); 
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", async (req, res) => { //this expects { name: "somename", password: "somepassword" };
+    l.dl();
+    l.cll("in login in authrouter being hit, req.body:", req.body)
     const signInattempt = req.body;
     let dbLookup;
     try {
         dbLookup = await getUser(req.body); 
+        l.dl();
+        l.cll("dblookup in login, found?", dbLookup);
     } catch (err) {
         console.error("login in authRouter gives error on dbLookUp, error:", err);
     }
@@ -60,23 +122,12 @@ router.post("/login", async (req, res) => {
         req.session.user = dbLookup.user;
         let idNumber = dbLookup.user.id; 
         const newDate = new Date().toLocaleString("da-DK", {timeZone: "Europe/Copenhagen"});
-        updateUserLastLogonTimeId(idNumber, newDate)
+        updateUserLastLoginTimeId(idNumber, newDate) 
         res.status(200).send({ username: dbLookup.user.username }); //NB: this MUST send response.username back to login.svelte
     } else {
-        res.status(403).send({ data: "unlawful password or username"});
+        res.status(403).send("unlawful password or username");
     }
 })
-
-export function isAdmin(req, res, next) {
-    let isAdmin = req.session?.role?.admin; //gives undefined if not
-    let session = req.session;
-    console.log("authRouter isAdmin being hit");
-    console.log("isAdmin:", isAdmin);
-    console.log("session:", session);
-    //tjek om bruger har admin rolle i sin session
-    //hvis ja, next ham -- ellers deny
-    next();
-}
 
 console.log(startUpMessage);
 export default router;

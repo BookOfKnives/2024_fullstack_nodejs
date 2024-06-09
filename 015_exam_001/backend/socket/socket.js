@@ -1,4 +1,7 @@
 let debug = process.argv.includes("debug");
+import { myLogger as l } from "../util/logger.js";
+import chalk from "chalk";
+
 
 //SÆNKE SLAGSKIBE configuration
 let gameState = {
@@ -66,9 +69,11 @@ function ioSetup(io, sessionMiddleware) {
 };
 function setupSocket(io) {
   io.on('connection', (socket) => {
-    console.log("socket connect,", dl(), socket.id);
+    l.dl();
+    l.cll("socket connect, id:", chalk.cyan(socket.id))
     socket.on("disconnect", () => {
-      console.log("socket disconnect", dl(), socket.id);
+      l.dl();
+      l.cll("socket DISCONNECT, id:", chalk.blue(socket.id))
     });
     if (debug) { 
       console.log("socket  connetion sess:", socket.request.session); //husk at differentiere dine konsol logs -- tid, sted, id
@@ -80,7 +85,7 @@ function setupSocket(io) {
     socket.on("transmitGameBoardUserChoice", (...args) => {
       krydsOgBolle[args[0]] = args[1];
       io.emit("serverTransmitGameBoardUpdate", krydsOgBolle); 
-      if (debug) { console.log("serverTransmitGameBoardUpdate in socketjs, socket id:", socket.id) };
+      if (debug) { console.log("serverTransmitGameBoardUpdate in socketjs, socket id:", chalk.cyan(socket.id)) };
     });
 
     //___CHAT Stufff //TODO: the username thing crashes on chat usage. 

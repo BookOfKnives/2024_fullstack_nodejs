@@ -9,7 +9,10 @@ const sessConf = {
     }),
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false },
-};
+    cookie: { 
+        secure: false,
+        maxAge: 5 * 60 * 1000,
+    }
+}
 
 export default sessConf;
