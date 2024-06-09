@@ -81,8 +81,10 @@
             });
             const result = await response.json();
             console.log("login html says, result is token?", result)
-            if (result.token)  console.log("login success");
-            window.location("/");
+            if (result.token)  {
+              console.log("login success");
+              window.location.replace("/");
+            }
                         // console.log("result from login post fetch in login:", result)
             //this works. now to
         }

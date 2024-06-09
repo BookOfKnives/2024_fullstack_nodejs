@@ -1,5 +1,5 @@
-import { userColl } from "../connection.js";
+import { userColl } from '../connection.js'
 
-export async function getOneUser(id) {
-    return await userColl.findOne({"user.id":id});
+export async function getOneUser (id) {
+  return await userColl.findOne({ 'user.id': id })
 }

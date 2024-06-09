@@ -1,18 +1,18 @@
-import mongoStore from "connect-mongo";
+import mongoStore from 'connect-mongo'
 
 const sessConf = {
-    secret: process.env.SESSION_SECRET,
-    store: mongoStore.create({
-        mongoUrl: process.env.DB_URL,
-        dbName: "SessionDb",
-        ttl: 5 * 60 * 1000
-    }),
-    resave: false,
-    saveUninitialized: true,
-    cookie: { 
-        secure: false,
-        maxAge: 5 * 60 * 1000,
-    }
+  secret: process.env.SESSION_SECRET,
+  store: mongoStore.create({
+    mongoUrl: process.env.DB_URL,
+    dbName: 'SessionDb',
+    ttl: 5 * 60 * 1000
+  }),
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false,
+    maxAge: 5 * 60 * 1000
+  }
 }
 
-export default sessConf;
+export default sessConf

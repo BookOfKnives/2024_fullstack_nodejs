@@ -1,6 +1,5 @@
-import { userColl } from "../connection.js";
+import { userColl } from '../connection.js'
 
-export async function createUser(user) {
-    return await userColl.insertOne({user});
-    
+export async function createUser (user) {
+  return await userColl.insertOne({ user })
 }

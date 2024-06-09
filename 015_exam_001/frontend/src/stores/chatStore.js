@@ -1,4 +1,3 @@
-import { writable } from "svelte/store";
+import { writable } from 'svelte/store'
 
-
-export const chatStore = writable([]);
+export const chatStore = writable([])

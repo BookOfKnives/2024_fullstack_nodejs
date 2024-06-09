@@ -16,7 +16,7 @@ const PUBLIC_KEY = process.env.PUBLIC_KEY
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 
 const router = Router()
-const startUpMessage = 'Auth Router online.' // TODO btyug UUIDs ist for
+const startUpMessage = 'NEW Auth Router online.' // TODO btyug UUIDs ist for
 const highestUserIDNumber = newDataEntryIdNumber // I cannot see how this would have any side-effects. *nervous laughing*
 
 // router.use(isAdmin); //TODO is this the right place for admin?? 0706
@@ -66,72 +66,6 @@ export function isAdmin (req, res, next) {
     next()
   } else { res.status(403).send('forbidden, unlawful role for access.') }
 }
-
-router.post('/newusersignup', async (req, res) => {
-  l.dl()
-  l.cll('newuserisgnup in Authrouert HIT')
-  const data = req.body
-
-  let badInput = false
-  if (!data.name) badInput = true
-  if (!data.password) badInput = true
-  if (!data.email) badInput = true
-  if (badInput) res.status(403).send('bad input')
-
-  const pw = await passwordUtil.hash(data.password)
-  const newUser = {
-    id: ++highestUserIDNumber.newIdNumber,
-    username: data.name,
-    password: pw,
-    email: data.email,
-    signUpDate: new Date().toLocaleString('da-DK', { timeZone: 'Europe/Copenhagen' }),
-    lastLogin: null
-  }
-  try {
-    await createUser(newUser)
-  } catch (err) {
-    console.error('authRouter newuserSignup error in createUser:', err)
-  }
-  try {
-    const newUserEmail = newUser.email
-    mailer(newUserEmail)
-  } catch (err) {
-    console.error('authRouter error in mailing, error:', err)
-  }
-  req.session.user = newUser// TODO skal bare være token
-  // res.status(200).send({ data: newUser });
-  res.status(200).send({ username: newUser.username })
-})
-
-router.post('/login', async (req, res) => { // this expects { name: "somename", password: "somepassword" };
-  l.dl()
-  l.cll('in login in authrouter being hit, req.body:', req.body)
-  const signInattempt = req.body
-  let dbLookup
-  try {
-    dbLookup = await getUser(req.body)
-    l.dl()
-    l.cll('dblookup in login, found?', dbLookup)
-  } catch (err) {
-    console.error('login in authRouter gives error on dbLookUp, error:', err)
-  }
-  let pwCheck = false
-  try {
-    pwCheck = await passwordUtil.compare(signInattempt.password, dbLookup.user.password)
-  } catch (err) {
-    console.error('pwcheck in authRouter gives error on pwCheck, error:', err)
-  }
-  if (pwCheck) {
-    const idNumber = dbLookup.user.id
-    const newDate = new Date().toLocaleString('da-DK', { timeZone: 'Europe/Copenhagen' })
-    updateUserLastLoginTimeId(idNumber, newDate)
-    const token = await jwt.sign({ balls: 'mine' }, PRIVATE_KEY, { algorithm: 'RS256', expiresIn: '5m' })
-    req.session.token = token
-    res.status(200).send({ token })
-  } else {
-    res.status(403).send('unlawful password or username')
-  }
-})
 
 console.log(startUpMessage)
 export default router

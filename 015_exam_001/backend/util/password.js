@@ -1,18 +1,18 @@
-import bcrypt from "bcrypt";
-import "dotenv/config";
+import bcrypt from 'bcrypt'
+import 'dotenv/config'
 
-const SALT = Number(process.env.SALT);
+const SALT = Number(process.env.SALT)
 
-async function compare(signInPassword, dbHashedPassword) {
-    return await bcrypt.compare(signInPassword, dbHashedPassword)
+async function compare (signInPassword, dbHashedPassword) {
+  return await bcrypt.compare(signInPassword, dbHashedPassword)
 }
 
-async function hash(pw) {
-    const hashedPw = await bcrypt.hash(pw, SALT);
-    return hashedPw;
+async function hash (pw) {
+  const hashedPw = await bcrypt.hash(pw, SALT)
+  return hashedPw
 }
 
 export default {
-    compare,
-    hash
+  compare,
+  hash
 }
