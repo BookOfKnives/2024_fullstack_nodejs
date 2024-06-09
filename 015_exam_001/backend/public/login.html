@@ -64,11 +64,10 @@
     <script>
 
         async function login() {
-            console.log("first in login")
-            console.log("")
+
             let loginData = {
-                  name: "re",
-                  password: "re",
+                  name: textFieldUsername.value,
+                  password: textFieldPassword.value,
             }
             const url = "http://localhost:8080/login"
              
@@ -81,13 +80,20 @@
                 body: JSON.stringify(loginData)
             });
             const result = await response.json();
-            console.log("result from login post fetch in login:", result)
+            console.log("login html says, result is token?", result)
+            if (result.token)  console.log("login success");
+            window.location("/");
+                        // console.log("result from login post fetch in login:", result)
+            //this works. now to
+        }
+
+        async function signup() {
+          
         }
 
         function changeToSignup() {
           signupVisibilityDivElement.style.visibility = "visible";
           loginVisibilityDivElement.style.visibility = "hidden";
-          console.log("signup being hit!");
         }
         function changeToLogin() {
           signupVisibilityDivElement.style.visibility = "hidden";
@@ -108,9 +114,7 @@
         let loginVisibilityDivElement;
         
         function setup() {
-      
           buttonHandler = document.getElementById("loginSubmitButton");
-      
           textFieldUsername = document.getElementById("username");
           textFieldPassword = document.getElementById("password");
           
@@ -124,19 +128,18 @@
           signupVisibilityDivElement = document.getElementById("signupVisibility-div");
           loginVisibilityDivElement = document.getElementById("loginVisibility-div");
           
-          textFieldUsername.addEventListener("keypress", (e) => { if (e.key === "Enter") { login(); }})
+          textFieldUsername.addEventListener("keypress", (e) => { if (e.key === "Enter") { login() }});
+          textFieldPassword.addEventListener("keypress", (e) => { if (e.key === "Enter") { login() }});
+          buttonHandler.addEventListener("keypress", (e) => { if (e.key === "Enter") { login() }});
+          buttonHandler.addEventListener("click", () => { { login() }});
 
-          textFieldPassword.addEventListener("keypress", (e) => { if (e.key === "Enter") { login() }})
-          buttonHandler.addEventListener("keypress", (e) => { if (e.key === "Enter") { login() }})
-          buttonHandler.addEventListener("click", () => { { login() }})
-          
-          textfieldNewUsername.addEventListener("keypress", (e) => { if (e.key === "Enter") { signup() }})
-          textfieldNewPassword.addEventListener("keypress", (e) => { if (e.key === "Enter") { signup() }})
-          signupButtonHandler.addEventListener("keypress", (e) => { if (e.key === "Enter") { signup() }})
-          signupButtonHandler.addEventListener("click", () => { { signup() }})
-          
-          signupVisibilityButtonHandler.addEventListener("click", () => { changeToSignup() })
-          loginVisibilityButtonHandler.addEventListener("click", () => {{ changeToLogin() }})
+          textfieldNewUsername.addEventListener("keypress", (e) => { if (e.key === "Enter") { signup() }});
+          textfieldNewPassword.addEventListener("keypress", (e) => { if (e.key === "Enter") { signup() }});
+          signupButtonHandler.addEventListener("keypress", (e) => { if (e.key === "Enter") { signup() }});
+          signupButtonHandler.addEventListener("click", () => { { signup() }});
+
+          signupVisibilityButtonHandler.addEventListener("click", () => { changeToSignup() });
+          loginVisibilityButtonHandler.addEventListener("click", () => {{ changeToLogin() }});
         }
         setup();
     </script>

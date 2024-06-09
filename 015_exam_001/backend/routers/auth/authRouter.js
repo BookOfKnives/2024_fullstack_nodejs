@@ -51,16 +51,21 @@ router.get("/publickey", (req, res) => {
 export function isAdmin(req, res, next) {
     l.dl();
     l.cll("isAdmin funciont in authrouiter HIT")
-    let roles = req.session?.user?.roles; //gives undefined if not
-/*     if (roles) {
-        if (roles.includes("admin")) next();
+    const token = req.session?.token;
+    let tokenVerified;
+    if (token) {
+        l.dl();
+        l.cll("isAdmin lookup, tokenVerified? 01");
+        tokenVerified = jwt.verify(token, PUBLIC_KEY, { algorithm: "RS256" });
+        l.cll("token:", tokenVerified);
     }
-    else res.send("Sorry pal, you're not on The List(c) in AuthRouter."); //TODO maybe remove this line. */
-    res.send("sorry pal");
-    console.log("roles in isAdmin", roles)
-    // if (isAdmin.includes("admin")) next();
-    //tjek om bruger har admin rolle i sin session
-    //hvis ja, next ham -- ellers deny
+    if (tokenVerified.roles.includes("admin")) { 
+        l.dl();
+        l.cll("isAdmin lookup, tokenVerified? 02");
+        next(); 
+    }
+    else { res.status(403).send("forbidden, unlawful role for access.") }
+
 
 }
 
@@ -119,11 +124,12 @@ router.post("/login", async (req, res) => { //this expects { name: "somename", p
         console.error("pwcheck in authRouter gives error on pwCheck, error:", err);
     }
     if (pwCheck) { 
-        req.session.user = dbLookup.user;
-        let idNumber = dbLookup.user.id; 
+        const idNumber = dbLookup.user.id; 
         const newDate = new Date().toLocaleString("da-DK", {timeZone: "Europe/Copenhagen"});
-        updateUserLastLoginTimeId(idNumber, newDate) 
-        res.status(200).send({ username: dbLookup.user.username }); //NB: this MUST send response.username back to login.svelte
+        updateUserLastLoginTimeId(idNumber, newDate);
+        const token = await jwt.sign( { balls: "mine" }, PRIVATE_KEY, { algorithm: "RS256", expiresIn: '5m' } );
+        req.session.token = token;
+        res.status(200).send({ token }); 
     } else {
         res.status(403).send("unlawful password or username");
     }
