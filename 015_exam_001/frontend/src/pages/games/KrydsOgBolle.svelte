@@ -1,16 +1,15 @@
 <script>
     import io from "socket.io-client";
     import { onDestroy, onMount } from "svelte";
-    import { debug } from "../../stores/generalStore.js";
+    import { debug, BASE_URL } from "../../stores/generalStore.js";
     let symbols = [
         "O",
         "X",
         ""
     ]
     let playerChosenSideSymbol = "";
-    const socket = io("http://localhost:8080/");
+    const socket = io($BASE_URL); 
     
-
     socket.on("onConnectionSendBoardState", (...args) => {
         if ($debug) console.log("onConnectionSendBoardState being hit in krydsogbolle.svelte");
        updateGameBoardState(args[0]);
