@@ -2,17 +2,19 @@
     import { onMount, onDestroy } from "svelte";
     import { debug, BASE_URL } from "../stores/generalStore.js";
     import io from "socket.io-client";
-    import { userName } from "../stores/userLoginStatus.js";
+    import { name } from "../stores/userStore.js";
+
 
     let socket;
     function setupChatIo(){
-        if ($debug) {
-            console.log("setupchatIo running in Chatter.svelte, username:", $userName);
-        }
         socket = io($BASE_URL);
         document.getElementById("chatText").addEventListener("keypress", (e) => {
             if (e.key === "Enter") { sendChatText() }
         })
+        // socket.emit("getUser", (callback) => {
+        //     console.log("getUser in chatinput, info:", callback)
+        // })
+        
     }
 
     let chatTextForSending = "";
@@ -25,12 +27,8 @@
     })
 
 function sendChatText() {
-    if ($debug) {
-        console.log("chatter.svelte sendChatText() hit!, socket name:", socket.id);
-    }
     socket.emit("chatMessageSentFromUser", chatTextForSending);
     chatTextForSending = "";
-    
 }
 
 </script>

@@ -26,9 +26,9 @@
             <div id="loginVisibility-div">
               <h1>1618 bship  login</h1>
               <label for="username">Username:</label><br>
-            <input type="text" id="username" name="username" value="username"><br>
+            <input type="text" id="username" name="username" value=""><br>
           <label for="password">Password:</label><br>
-        <input type="text" id="password" name="password" value="password"><br>
+        <input type="text" id="password" name="password" value=""><br>
       <button id="loginSubmitButton">Login</button>   
       <br>
       <button id="signupVisibilityButton">New user? Sign up here!</button>  
@@ -36,10 +36,10 @@
 
       <div id="signupVisibility-div">
         <h1>1618 bship  signup</h1>
-        <label for="newusername">New Username:</label><br>
-        <input type="text" id="newusername" name="newusername" value="Your username"> <br>
-        <label for="newuserpassword">Password:</label><br>
-        <input type="text" id="newpassword" name="newuserpassword" value="Password"><br>
+        <label for="newusername">Whats your username?</label><br>
+        <input type="text" id="newusername" name="newusername" value=""> <br>
+        <label for="newuserpassword">Choose a password:</label><br>
+        <input type="text" id="newpassword" name="newuserpassword" value=""><br>
         <button id="signupButton">Sign up!</button><br>
         <button id="loginVisibilityButton">Already a user? Go to Login here!</button>  
       </div>
@@ -62,35 +62,46 @@
   </main>
   
     <script>
-
+      let cl = console.log;
         async function login() {
-
-            let loginData = {
-                  name: textFieldUsername.value,
-                  password: textFieldPassword.value,
+            const loginData = {
+              name: textFieldUsername.value,
+              password: textFieldPassword.value,
             }
             const url = "http://localhost:8080/login"
              
             const response = await fetch(url, {
-                method: "POST",
-                credentials: "include",
+              method: "POST",
+              credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(loginData)
             });
             const result = await response.json();
-            console.log("login html says, result is token?", result)
             if (result.token)  {
-              console.log("login success");
               window.location.replace("/");
             }
-                        // console.log("result from login post fetch in login:", result)
-            //this works. now to
         }
 
         async function signup() {
-          
+          const signupData = {
+            name: textfieldNewUsername.value,
+            password: textfieldNewPassword.value,
+          } 
+          const url = "http://localhost:8080/newusersignup"
+          const response = await fetch(url, {
+              method: "POST",
+              credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(signupData)
+            });
+            const result = await response.json();
+            if (result.token)  {
+              window.location.replace("/");
+            }
         }
 
         function changeToSignup() {
@@ -123,6 +134,7 @@
           signupButtonHandler = document.getElementById("signupButton");
           textfieldNewUsername = document.getElementById("newusername");
           textfieldNewPassword = document.getElementById("newpassword");
+
       
           signupVisibilityButtonHandler = document.getElementById("signupVisibilityButton");
           loginVisibilityButtonHandler = document.getElementById("loginVisibilityButton");

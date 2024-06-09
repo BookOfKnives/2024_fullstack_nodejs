@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import { userLoginStatus } from "../stores/userLoginStatus.js";
 	import toast from "svelte-french-toast";
     import { BASE_URL } from "../stores/generalStore.js";
@@ -63,4 +63,4 @@
 	<p>Sign up as new user</p>
 	<p>Isn't it exciting?</p>
 
-    
+     -->

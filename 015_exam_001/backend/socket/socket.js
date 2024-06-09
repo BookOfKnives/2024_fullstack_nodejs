@@ -1,3 +1,4 @@
+import "dotenv/config"
 import { myLogger as l } from '../util/logger.js'
 import chalk from 'chalk'
 const debug = process.argv.includes('debug')
@@ -69,15 +70,11 @@ function ioSetup (io, sessionMiddleware) {
 function setupSocket (io) {
   io.on('connection', (socket) => {
     l.dl()
-    l.cll('socket connect, id:', chalk.cyan(socket.id))
+    l.cl('socket connect, id:', chalk.cyan(socket.id))
     socket.on('disconnect', () => {
       l.dl()
-      l.cll('socket DISCONNECT, id:', chalk.blue(socket.id))
+      l.cl('socket DISCONNECT, id:', chalk.blue(socket.id))
     })
-    if (debug) {
-      console.log('socket  connetion sess:', socket.request.session) // husk at differentiere dine konsol logs -- tid, sted, id
-      // console.log("socket  connetion USER:", socket.request.session.user);
-    };
 
     // ___Kryds og bolle STUFF
     io.emit('onConnectionSendBoardState', krydsOgBolle)
@@ -87,29 +84,34 @@ function setupSocket (io) {
       if (debug) { console.log('serverTransmitGameBoardUpdate in socketjs, socket id:', chalk.cyan(socket.id)) };
     })
 
-    // ___CHAT Stufff //TODO: the username thing crashes on chat usage.
+    // ___CHAT Stufff 
     socket.on('chatMessageSentFromUser', (...args) => {
-      console.log('socketjs chatmessagesentfrom server, socket req session:', socket.request.session)
-      io.emit('chatMessageSentFromServer', args[0], socket.request.session.user.username)
+      io.emit('chatMessageSentFromServer', args[0], socket.request.session.username)
+    })
+
+    //___ SERVER stuff
+    socket.on("getUser", (callback) => {
+      const user = {
+        user: socket.request.session.username,
+        roles: socket.request.session.roles ?? []
+      }
+      callback({user});
     })
 
     // ___Sænke Slagskibe stuff
     socket.on('joinGame', (callback) => {
-      // console.log("joinGame Sockets says, we're in JoinGame")
       if (!gameState.players.playerOne.playerColor) {
         gameState.players.playerOne.playerColor = 'blue'
         callback({
           status: 'ok',
           playerColor: 'blue'
         })
-        // console.log("gamestate tin joingame 001", gameState);
       } else if (gameState.players.playerOne.playerColor && !gameState.players.playerTwo.playerColor) {
         gameState.players.playerTwo.playerColor = 'red'
         callback({
           status: 'ok',
           playerColor: 'red'
         })
-        // console.log("gamestate tin joingame 002", gameState)
       } else {
         callback({
           status: 'full'

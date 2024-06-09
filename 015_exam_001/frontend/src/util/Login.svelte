@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 	//TODO fjern login fra svelte
 	import { onMount } from "svelte";
     import { userLoginStatus } from "../stores/userLoginStatus.js";
@@ -57,4 +57,4 @@
     <p>Welcome back, user.</p>
 
 
-    
+     -->

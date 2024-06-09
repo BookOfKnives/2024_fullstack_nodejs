@@ -29,6 +29,13 @@ const debug = process.argv.includes('debug')
 if (debug) console.log('Debugging is', debug)
 const sessionMiddleware = session(sessConf)
 app.use(sessionMiddleware)
+
+app.get('/publickey', (req, res) => {
+    const jsonKey = JSON.stringify(process.env.PUBLIC_KEY);
+    console.log("public key jsonkey:", jsonKey)
+    res.send({ jsonKey })
+})
+
 app.use(authRouter)
 
 function isAllowedInSvelte (req, res, next) {
