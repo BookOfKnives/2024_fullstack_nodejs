@@ -33,12 +33,12 @@
     });
 </script>
 
-    {#each $chatStore as { text, from }}
-    <div>{from}: {text}</div>
-    {/each}
+{#each $chatStore as { text, from }}
+<div>{from}: {text}</div>
+{/each}
 
 <style>
-div:nth-child(odd) {
-     background-color: #9a9;
-}
+    div:nth-child(odd) {
+         background-color: #9a9;
+    }
 </style>

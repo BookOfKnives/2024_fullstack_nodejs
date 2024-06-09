@@ -31,9 +31,9 @@ const sessionMiddleware = session(sessConf)
 app.use(sessionMiddleware)
 
 app.get('/publickey', (req, res) => {
-    const jsonKey = JSON.stringify(process.env.PUBLIC_KEY);
-    console.log("public key jsonkey:", jsonKey)
-    res.send({ jsonKey })
+  const jsonKey = JSON.stringify(process.env.PUBLIC_KEY)
+  console.log('public key jsonkey:', jsonKey)
+  res.send({ jsonKey })
 })
 
 app.use(authRouter)
@@ -47,12 +47,6 @@ app.get('/', isAllowedInSvelte, (req, res) => { res.sendFile(path.resolve('../fr
 app.use(express.static('../frontend/dist/'))
 app.use(usersApi)
 app.use(sessionsApi)
-
-// TODO: message of the day api  can only be set by admins
-
-// TODO forum posts
-
-// TODO sandwich maker
 
 app.get('*', (req, res) => { res.redirect('/') })
 const httpServer = httpCreateServer(app)

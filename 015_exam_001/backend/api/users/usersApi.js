@@ -8,9 +8,7 @@ import { getOneUser } from '../../database/users/getOneUser.js'
 import { deleteUser } from '../../database/users/deleteUser.js'
 
 import jwt from 'jsonwebtoken'
-import { myLogger as l } from '../../util/logger.js'
 
-const debug = process.argv.includes('debug')
 const router = Router()
 const startUpMessage = 'Users API Router online.'
 const routerUrl = '/api/users'
@@ -38,7 +36,6 @@ router.get(routerUrl + '/:idnumber', async (req, res) => {
 
 router.post(routerUrl, (req, res) => {
   const user = req.body
-  if (debug) { console.log('usersApi RouterPost says, USER from req.body:', user) }
   try {
     createUser(user)
   } catch (err) {

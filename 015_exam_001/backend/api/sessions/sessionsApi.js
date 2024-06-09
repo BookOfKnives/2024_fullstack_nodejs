@@ -8,11 +8,6 @@ router.get('/api/sessions', (req, res) => {
   res.send({ data: sess })
 })
 
-router.get('/api/sessions/getname', (req, res) => {
-  const username = req.session.userName ?? false
-  res.send(JSON.stringify(username))
-})
-
 router.get('/api/sessions/destroy', (req, res) => {
   req.session.destroy()
   res.send({ data: 'session destroyed' })

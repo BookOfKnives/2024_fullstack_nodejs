@@ -6,7 +6,6 @@ import { getUser } from '../../database/users/getUser.js'
 import { createUser } from '../../database/users/createUser.js'
 import { updateUserLastLoginTimeId } from '../../database/users/updateUser.js'
 import mailer from '../../util/mailer.js'
-import { myLogger as l } from '../../util/logger.js'
 import jwt from 'jsonwebtoken'
 import path from 'path'
 
@@ -17,7 +16,7 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY
 
 const router = Router()
 const startUpMessage = 'Auth Router online.' // TODO brug UUIDs ist for
-const highestUserIDNumber = newDataEntryIdNumber 
+const highestUserIDNumber = newDataEntryIdNumber
 
 router.get('/', async (req, res, next) => {
   if (!req.session.token) {
@@ -28,8 +27,6 @@ router.get('/', async (req, res, next) => {
 })
 
 export function isAdmin (req, res, next) {
-  l.dl()
-  l.cl('isAdmin funciont in authrouiter HIT')
   if (!jwt.verify(req.session.token, process.env.PUBLIC_KEY, { algorithm: 'RS256' }).roles.includes('admin')) { res.status(403).send('Sorry amigo, you dont have the right token!') } else next()
 }
 
@@ -73,8 +70,6 @@ router.post('/newusersignup', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-  l.dl()
-  l.cl('in login in authrouter being hit, req.body:', req.body)
   const signInattempt = req.body // this expects { name: "somename", password: "somepassword" };
   let dbLookup
   try {
@@ -106,8 +101,8 @@ router.post('/login', async (req, res) => {
   }
 })
 
-router.get("/jwtToken", (req, res) => {
-  res.send(req.session);
+router.get('/jwtToken', (req, res) => {
+  res.send(req.session)
 })
 
 console.log(startUpMessage)

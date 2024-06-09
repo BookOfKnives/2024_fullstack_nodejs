@@ -1,8 +1,7 @@
 <script>
-    import { debug } from "./stores/generalStore.js";
     import { Router, Link, Route } from "svelte-navigator";
-    import { name, roles } from "./stores/userStore.js";
-    import { SESSION_API_URL, BASE_URL } from "./stores/generalStore.js";
+    import { username, roles } from "./stores/userStore.js";
+    import {  BASE_URL } from "./stores/generalStore.js";
     import { onMount } from "svelte";
     import toast, { Toaster } from "svelte-french-toast";   
     import KrydsOgBolle from "./pages/games/KrydsOgBolle.svelte";
@@ -20,25 +19,23 @@
         window.location.href = "/";
     }
     async function getUserData() {
-        socket.emit("getUser", (callback) => {
-            console.log("getUser in chatinput, info:", callback)
-            $name = callback.username 
-            $roles = callback.roles
+        await socket.emit("getUser", (callback) => {
+            $username = callback.user.username
+            $roles = callback.user.roles
+            toast(`Welcome, ${$username}!`)
         })
-        toast(`Welcome, ${name}!`)
     } 
 
     let chatScrollable; 
     onMount( async () => {
         socket = io($BASE_URL);
         chatScrollable = document.getElementById("bottom-middle-div"); 
-        getUserData();
+        await getUserData();
     });
 
     function handleNewChatMessage() {
         chatScrollable.scrollTop += 100;
     }
-
 </script>
 
 <main>
@@ -90,9 +87,6 @@
                     </Route>
                     <Route path="/tanks" component={Tanks}>
                     </Route>
-                    <!-- <Route path="/signup">
-                        <Signup />
-                    </Route> -->
                     <Route path="/krydsogbolle" component={KrydsOgBolle} />
                     <Route path="/battleships" component={Battleships} />
                 </div>
@@ -115,14 +109,13 @@
 </main>
 
 <style>
-#bottom-middle-div {
-    overflow:scroll;
-    overflow-x: hidden;
-}
+    #bottom-middle-div {
+        overflow:scroll;
+        overflow-x: hidden;
+    }
 
-#main-content-div {
-    grid-area: 2 / 2 / 3 / 4;
-}
-
+    #main-content-div {
+        grid-area: 2 / 2 / 3 / 4;
+    }
 </style>
 

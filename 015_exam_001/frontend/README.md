@@ -1,1 +1,1 @@
-This is Hans' 2024 fullstack nodejs exam project. Its a full-stack demo with authentication, authorization, chat via sockets and a few games. It has protected routes.
+This is Hans' 2024 fullstack nodejs exam project. Its a full-stack demo with authentication, authorization, chat via sockets and a few games. 

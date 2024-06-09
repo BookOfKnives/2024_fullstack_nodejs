@@ -1,10 +1,3 @@
-// NB: this setup uses a Haraka SMTP server.
-// https://haraka.github.io/getting_started
-
-// import { createRequire } from "module";
-// const require = createRequire(import.meta.url);
-// const nodemailer = require("nodemailer");
-
 import nodemailer from 'nodemailer'
 import { myLogger as l } from './logger.js'
 const startUpMessage = 'Mailer online.'

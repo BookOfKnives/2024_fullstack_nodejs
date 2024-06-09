@@ -1,4 +1,4 @@
-import "dotenv/config"
+import 'dotenv/config'
 import { myLogger as l } from '../util/logger.js'
 import chalk from 'chalk'
 const debug = process.argv.includes('debug')
@@ -70,10 +70,10 @@ function ioSetup (io, sessionMiddleware) {
 function setupSocket (io) {
   io.on('connection', (socket) => {
     l.dl()
-    l.cl('socket connect, id:', chalk.cyan(socket.id))
+    l.cl('socket connected, id:', chalk.cyan(socket.id))
     socket.on('disconnect', () => {
       l.dl()
-      l.cl('socket DISCONNECT, id:', chalk.blue(socket.id))
+      l.cl('socket disconnected, id:', chalk.blue(socket.id))
     })
 
     // ___Kryds og bolle STUFF
@@ -81,21 +81,20 @@ function setupSocket (io) {
     socket.on('transmitGameBoardUserChoice', (...args) => {
       krydsOgBolle[args[0]] = args[1]
       io.emit('serverTransmitGameBoardUpdate', krydsOgBolle)
-      if (debug) { console.log('serverTransmitGameBoardUpdate in socketjs, socket id:', chalk.cyan(socket.id)) };
     })
 
-    // ___CHAT Stufff 
+    // ___CHAT Stufff
     socket.on('chatMessageSentFromUser', (...args) => {
       io.emit('chatMessageSentFromServer', args[0], socket.request.session.username)
     })
 
-    //___ SERVER stuff
-    socket.on("getUser", (callback) => {
+    // ___ SERVER stuff
+    socket.on('getUser', (callback) => {
       const user = {
-        user: socket.request.session.username,
+        username: socket.request.session.username,
         roles: socket.request.session.roles ?? []
       }
-      callback({user});
+      callback({ user })
     })
 
     // ___Sænke Slagskibe stuff
@@ -168,15 +167,5 @@ function setupSocket (io) {
     })
   })
 };
-
-const timeOptions = {
-  timeZone: 'Europe/Copenhagen',
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit'
-}
-const dl = () => { return new Date().toLocaleTimeString('da-DK', timeOptions) }
-
-// alt shift A for at udkommentere
 
 export { ioSetup }
