@@ -11,6 +11,7 @@
     import Tanks from "./pages/Tanks.svelte";
     import Battleships from "./pages/games/Battleships.svelte";
     import io from "socket.io-client";
+    import Admin from "./pages/Admin.svelte";
     
     let socket;
 
@@ -70,6 +71,9 @@
         </div>
 
         <div class="top-right-div">
+            {#if $roles.includes("admin")} 
+                <Admin />
+            {/if}
         </div>
 
         <div class="left-sidebar-div">
@@ -103,7 +107,7 @@
         </div>
  
         <div id="bottom-right-div">
-             
+
         </div>  
     </div>
 </main>
